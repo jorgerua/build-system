@@ -43,3 +43,8 @@ logs/
 # Docker volumes
 /var/cache/oci-build/
 /var/log/oci-build/
+
+
+
+.nx/cache
+.nx/workspace-data
