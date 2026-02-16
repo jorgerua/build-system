@@ -303,15 +303,15 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
   - Verificar logs estruturados
   - Perguntar ao usuário se há dúvidas ou ajustes necessários
 
-- [ ] 12. Criar Dockerfiles para serviços
-  - [ ] 12.1 Criar Dockerfile para api-service
+- [x] 12. Criar Dockerfiles para serviços
+  - [x] 12.1 Criar Dockerfile para api-service
     - Multi-stage build (build + runtime)
     - Copiar binário compilado
     - Expor porta 8080
     - Definir entrypoint
     - _Requisitos: 10.1_
   
-  - [ ] 12.2 Criar Dockerfile para worker-service
+  - [x] 12.2 Criar Dockerfile para worker-service
     - Multi-stage build (build + runtime)
     - Instalar buildah no container
     - Copiar binário compilado
