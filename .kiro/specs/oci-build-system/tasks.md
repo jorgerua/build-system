@@ -125,7 +125,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 11: Detecção automática de linguagem**
     - **Valida: Requisitos 6.4**
   
-  - [-] 6.5 Escrever teste de propriedade para configuração de cache
+  - [x] 6.5 Escrever teste de propriedade para configuração de cache
     - **Propriedade 9: Configuração de cache por linguagem**
     - **Valida: Requisitos 4.2, 6.1, 6.2, 6.3**
 
