@@ -494,3 +494,371 @@ exit %d
 
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
+
+// Feature: oci-build-system, Property 11: Detecção automática de linguagem
+// **Valida: Requisitos 6.4**
+//
+// Para qualquer repositório contendo arquivos de configuração de linguagem
+// (pom.xml, build.gradle, *.csproj, go.mod), o sistema deve detectar
+// corretamente a linguagem correspondente.
+func TestProperty_LanguageDetection(t *testing.T) {
+	properties := gopter.NewProperties(nil)
+
+	properties.Property("detects Java from pom.xml", prop.ForAll(
+		func(seed uint64) bool {
+			tempDir := t.TempDir()
+
+			// Criar pom.xml no diretório raiz
+			pomPath := filepath.Join(tempDir, "pom.xml")
+			pomContent := `<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>test-project</artifactId>
+    <version>1.0.0</version>
+</project>`
+			if err := os.WriteFile(pomPath, []byte(pomContent), 0644); err != nil {
+				t.Logf("Failed to create pom.xml: %v", err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar Java sem erro
+			if err != nil {
+				t.Logf("Unexpected error detecting Java: %v", err)
+				return false
+			}
+
+			// Propriedade: linguagem detectada deve ser Java
+			if lang != shared.LanguageJava {
+				t.Logf("Expected Java, got %s", lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt64(),
+	))
+
+	properties.Property("detects Java from build.gradle", prop.ForAll(
+		func(hasKotlinExt bool) bool {
+			tempDir := t.TempDir()
+
+			// Criar build.gradle ou build.gradle.kts
+			var gradleFile string
+			if hasKotlinExt {
+				gradleFile = "build.gradle.kts"
+			} else {
+				gradleFile = "build.gradle"
+			}
+
+			gradlePath := filepath.Join(tempDir, gradleFile)
+			gradleContent := `plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0.0'
+`
+			if err := os.WriteFile(gradlePath, []byte(gradleContent), 0644); err != nil {
+				t.Logf("Failed to create %s: %v", gradleFile, err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar Java sem erro
+			if err != nil {
+				t.Logf("Unexpected error detecting Java from %s: %v", gradleFile, err)
+				return false
+			}
+
+			// Propriedade: linguagem detectada deve ser Java
+			if lang != shared.LanguageJava {
+				t.Logf("Expected Java from %s, got %s", gradleFile, lang)
+				return false
+			}
+
+			return true
+		},
+		gen.Bool(),
+	))
+
+	properties.Property("detects .NET from .csproj files", prop.ForAll(
+		func(seed uint64) bool {
+			tempDir := t.TempDir()
+
+			// Gerar nome de projeto baseado no seed
+			projectName := fmt.Sprintf("Project%d", seed%1000)
+
+			// Criar arquivo .csproj
+			csprojPath := filepath.Join(tempDir, projectName+".csproj")
+			csprojContent := `<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+</Project>`
+			if err := os.WriteFile(csprojPath, []byte(csprojContent), 0644); err != nil {
+				t.Logf("Failed to create .csproj: %v", err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar .NET sem erro
+			if err != nil {
+				t.Logf("Unexpected error detecting .NET: %v", err)
+				return false
+			}
+
+			// Propriedade: linguagem detectada deve ser .NET
+			if lang != shared.LanguageDotNet {
+				t.Logf("Expected .NET, got %s", lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt64(),
+	))
+
+	properties.Property("detects Go from go.mod", prop.ForAll(
+		func(seed uint64) bool {
+			tempDir := t.TempDir()
+
+			// Gerar nome de módulo baseado no seed
+			moduleName := fmt.Sprintf("github.com/example/module%d", seed%1000)
+
+			// Criar go.mod
+			goModPath := filepath.Join(tempDir, "go.mod")
+			goModContent := fmt.Sprintf("module %s\n\ngo 1.21\n", moduleName)
+			if err := os.WriteFile(goModPath, []byte(goModContent), 0644); err != nil {
+				t.Logf("Failed to create go.mod: %v", err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar Go sem erro
+			if err != nil {
+				t.Logf("Unexpected error detecting Go: %v", err)
+				return false
+			}
+
+			// Propriedade: linguagem detectada deve ser Go
+			if lang != shared.LanguageGo {
+				t.Logf("Expected Go, got %s", lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt64(),
+	))
+
+	properties.Property("detects language in subdirectories", prop.ForAll(
+		func(langChoice uint8) bool {
+			// Usar apenas subdiretórios comuns
+			commonDirs := []string{"apps", "libs", "packages", "src"}
+			subdirName := commonDirs[int(langChoice)%len(commonDirs)]
+
+			tempDir := t.TempDir()
+
+			// Criar subdiretório com nome baseado no langChoice
+			projectName := fmt.Sprintf("project%d", langChoice)
+			subdirPath := filepath.Join(tempDir, subdirName, projectName)
+			if err := os.MkdirAll(subdirPath, 0755); err != nil {
+				t.Logf("Failed to create subdirectory: %v", err)
+				return false
+			}
+
+			// Escolher linguagem baseado em langChoice
+			var expectedLang shared.Language
+			var configFile string
+			var content string
+
+			switch langChoice % 3 {
+			case 0: // Java
+				expectedLang = shared.LanguageJava
+				configFile = "pom.xml"
+				content = `<?xml version="1.0"?><project></project>`
+			case 1: // .NET
+				expectedLang = shared.LanguageDotNet
+				configFile = "test.csproj"
+				content = `<Project Sdk="Microsoft.NET.Sdk"></Project>`
+			case 2: // Go
+				expectedLang = shared.LanguageGo
+				configFile = "go.mod"
+				content = "module test\n"
+			}
+
+			configPath := filepath.Join(subdirPath, configFile)
+			if err := os.WriteFile(configPath, []byte(content), 0644); err != nil {
+				t.Logf("Failed to create config file: %v", err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar linguagem em subdiretório
+			if err != nil {
+				t.Logf("Failed to detect language in subdirectory: %v", err)
+				return false
+			}
+
+			// Propriedade: linguagem detectada deve corresponder ao arquivo criado
+			if lang != expectedLang {
+				t.Logf("Expected %s in subdirectory, got %s", expectedLang, lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt8(),
+	))
+
+	properties.Property("returns unknown for directories without config files", prop.ForAll(
+		func(numFiles uint8) bool {
+			// Limitar número de arquivos
+			if numFiles > 10 {
+				numFiles = 10
+			}
+
+			tempDir := t.TempDir()
+
+			// Criar arquivos aleatórios que não são arquivos de configuração
+			for i := uint8(0); i < numFiles; i++ {
+				filename := fmt.Sprintf("file%d.txt", i)
+				filepath := filepath.Join(tempDir, filename)
+				if err := os.WriteFile(filepath, []byte("random content"), 0644); err != nil {
+					t.Logf("Failed to create file: %v", err)
+					return false
+				}
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve retornar erro quando nenhuma linguagem é detectada
+			if err == nil {
+				t.Log("Expected error when no language config found")
+				return false
+			}
+
+			// Propriedade: linguagem deve ser Unknown
+			if lang != shared.LanguageUnknown {
+				t.Logf("Expected Unknown language, got %s", lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt8Range(0, 10),
+	))
+
+	properties.Property("prioritizes root directory over subdirectories", prop.ForAll(
+		func(rootLang uint8, subdirLang uint8) bool {
+			// Garantir que são linguagens diferentes
+			if rootLang%3 == subdirLang%3 {
+				return true // Skip se forem iguais
+			}
+
+			tempDir := t.TempDir()
+
+			// Criar arquivo de configuração no diretório raiz
+			var rootExpectedLang shared.Language
+			var rootConfigFile string
+			var rootContent string
+
+			switch rootLang % 3 {
+			case 0: // Java
+				rootExpectedLang = shared.LanguageJava
+				rootConfigFile = "pom.xml"
+				rootContent = `<?xml version="1.0"?><project></project>`
+			case 1: // .NET
+				rootExpectedLang = shared.LanguageDotNet
+				rootConfigFile = "root.csproj"
+				rootContent = `<Project Sdk="Microsoft.NET.Sdk"></Project>`
+			case 2: // Go
+				rootExpectedLang = shared.LanguageGo
+				rootConfigFile = "go.mod"
+				rootContent = "module root\n"
+			}
+
+			rootConfigPath := filepath.Join(tempDir, rootConfigFile)
+			if err := os.WriteFile(rootConfigPath, []byte(rootContent), 0644); err != nil {
+				t.Logf("Failed to create root config: %v", err)
+				return false
+			}
+
+			// Criar arquivo de configuração diferente em subdiretório
+			subdirPath := filepath.Join(tempDir, "apps")
+			if err := os.MkdirAll(subdirPath, 0755); err != nil {
+				t.Logf("Failed to create subdirectory: %v", err)
+				return false
+			}
+
+			var subdirConfigFile string
+			var subdirContent string
+
+			switch subdirLang % 3 {
+			case 0: // Java
+				subdirConfigFile = "pom.xml"
+				subdirContent = `<?xml version="1.0"?><project></project>`
+			case 1: // .NET
+				subdirConfigFile = "subdir.csproj"
+				subdirContent = `<Project Sdk="Microsoft.NET.Sdk"></Project>`
+			case 2: // Go
+				subdirConfigFile = "go.mod"
+				subdirContent = "module subdir\n"
+			}
+
+			subdirConfigPath := filepath.Join(subdirPath, subdirConfigFile)
+			if err := os.WriteFile(subdirConfigPath, []byte(subdirContent), 0644); err != nil {
+				t.Logf("Failed to create subdir config: %v", err)
+				return false
+			}
+
+			logger := zap.NewNop()
+			builder := &nxBuilder{logger: logger}
+
+			lang, err := builder.detectLanguage(tempDir)
+
+			// Propriedade: deve detectar linguagem do diretório raiz
+			if err != nil {
+				t.Logf("Unexpected error: %v", err)
+				return false
+			}
+
+			// Propriedade: deve priorizar arquivo do diretório raiz
+			if lang != rootExpectedLang {
+				t.Logf("Expected root language %s, got %s", rootExpectedLang, lang)
+				return false
+			}
+
+			return true
+		},
+		gen.UInt8(),
+		gen.UInt8(),
+	))
+
+	properties.TestingRun(t, gopter.ConsoleReporter(false))
+}
