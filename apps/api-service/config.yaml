@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  read_timeout: 30
+  write_timeout: 30
+  shutdown_timeout: 10
+
+nats:
+  url: "nats://localhost:4222"
+  
+github:
+  webhook_secret: "${GITHUB_WEBHOOK_SECRET}"
+
+auth:
+  token: "${API_AUTH_TOKEN}"
+  
+logging:
+  level: "info"
+  format: "json"

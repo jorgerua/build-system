@@ -162,8 +162,8 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
   - Garantir que todas as interfaces estão bem definidas
   - Perguntar ao usuário se há dúvidas ou ajustes necessários
 
-- [ ] 9. Implementar API Service (apps/api-service)
-  - [ ] 9.1 Configurar aplicação com FX e Gin
+- [x] 9. Implementar API Service (apps/api-service)
+  - [x] 9.1 Configurar aplicação com FX e Gin
     - Criar main.go com FX app
     - Configurar providers FX (logger, config, nats client, gin router)
     - Implementar lifecycle hooks (OnStart, OnStop)
@@ -171,7 +171,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Criar config.yaml com valores padrão
     - _Requisitos: 10.1, 10.2_
   
-  - [ ] 9.2 Implementar webhook handler
+  - [x] 9.2 Implementar webhook handler
     - Criar WebhookHandler struct
     - Implementar validação de assinatura HMAC-SHA256
     - Implementar parsing de payload GitHub
@@ -180,7 +180,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Retornar HTTP 202 Accepted com job ID
     - _Requisitos: 1.1, 1.2, 1.4, 10.4_
   
-  - [ ] 9.3 Implementar status handler
+  - [x] 9.3 Implementar status handler
     - Criar StatusHandler struct
     - Implementar endpoint GET /builds/:id
     - Implementar endpoint GET /builds
@@ -188,25 +188,25 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Retornar JSON com informações do build
     - _Requisitos: 8.1, 8.2, 8.3_
   
-  - [ ] 9.4 Implementar middleware de autenticação
+  - [x] 9.4 Implementar middleware de autenticação
     - Criar middleware para validar token de autenticação
     - Retornar HTTP 401 para requisições não autenticadas
     - Aplicar middleware em endpoints de consulta
     - _Requisitos: 8.4_
   
-  - [ ] 9.5 Implementar middleware de logging
+  - [x] 9.5 Implementar middleware de logging
     - Criar middleware para logging de requisições
     - Registrar método, path, status code, duração
     - Usar Zap para logging estruturado
     - _Requisitos: 7.1_
   
-  - [ ] 9.6 Implementar health check endpoint
+  - [x] 9.6 Implementar health check endpoint
     - Criar endpoint GET /health
     - Verificar conectividade com NATS
     - Retornar status do serviço
     - _Requisitos: 8.1_
   
-  - [ ] 9.7 Escrever testes unitários para API service
+  - [x] 9.7 Escrever testes unitários para API service
     - Testar webhook handler com payload válido
     - Testar webhook handler com assinatura inválida
     - Testar status handler
@@ -215,15 +215,15 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar NATS client
     - _Requisitos: 1.1, 1.2, 1.3, 8.4_
   
-  - [ ] 9.8 Escrever teste de propriedade para validação de webhook
+  - [x] 9.8 Escrever teste de propriedade para validação de webhook
     - **Propriedade 1: Validação de assinatura de webhook**
     - **Valida: Requisitos 1.1, 10.4**
   
-  - [ ] 9.9 Escrever teste de propriedade para extração de informações
+  - [x] 9.9 Escrever teste de propriedade para extração de informações
     - **Propriedade 2: Extração completa de informações de webhook**
     - **Valida: Requisitos 1.2**
   
-  - [ ] 9.10 Escrever teste de propriedade para autenticação
+  - [x] 9.10 Escrever teste de propriedade para autenticação
     - **Propriedade 23: Autenticação em endpoints de consulta**
     - **Valida: Requisitos 8.4**
 
@@ -268,7 +268,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Usar Zap para logging estruturado em JSON
     - _Requisitos: 7.1, 7.2, 7.3, 7.4, 7.5_
   
-  - [ ]* 10.6 Escrever testes unitários para worker service
+  - [ ] 10.6 Escrever testes unitários para worker service
     - Testar processamento de job bem-sucedido
     - Testar processamento de job com falha
     - Testar coordenação de fases
@@ -277,23 +277,23 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar todos os services
     - _Requisitos: 3.3, 3.4, 9.1, 9.4_
   
-  - [ ]* 10.7 Escrever teste de propriedade para enfileiramento
+  - [ ] 10.7 Escrever teste de propriedade para enfileiramento
     - **Propriedade 3: Enfileiramento de webhooks simultâneos**
     - **Valida: Requisitos 1.5**
   
-  - [ ]* 10.8 Escrever teste de propriedade para interrupção em falha
+  - [ ] 10.8 Escrever teste de propriedade para interrupção em falha
     - **Propriedade 7: Interrupção em falha de build**
     - **Valida: Requisitos 3.3**
   
-  - [ ]* 10.9 Escrever teste de propriedade para progressão após sucesso
+  - [ ] 10.9 Escrever teste de propriedade para progressão após sucesso
     - **Propriedade 8: Progressão após build bem-sucedido**
     - **Valida: Requisitos 3.4**
   
-  - [ ]* 10.10 Escrever teste de propriedade para logging
+  - [ ] 10.10 Escrever teste de propriedade para logging
     - **Propriedade 17: Logging de início e fim de job**
     - **Valida: Requisitos 7.1**
   
-  - [ ]* 10.11 Escrever teste de propriedade para métricas
+  - [ ] 10.11 Escrever teste de propriedade para métricas
     - **Propriedade 19: Métricas de duração por fase**
     - **Valida: Requisitos 7.3**
 

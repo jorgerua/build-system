@@ -9,11 +9,12 @@ import (
 
 // Config representa a configuração completa do sistema
 type Config struct {
-	Server ServerConfig `mapstructure:"server"`
-	NATS   NATSConfig   `mapstructure:"nats"`
-	GitHub GitHubConfig `mapstructure:"github"`
-	Worker WorkerConfig `mapstructure:"worker"`
-	Build  BuildConfig  `mapstructure:"build"`
+	Server  ServerConfig  `mapstructure:"server"`
+	NATS    NATSConfig    `mapstructure:"nats"`
+	GitHub  GitHubConfig  `mapstructure:"github"`
+	Auth    AuthConfig    `mapstructure:"auth"`
+	Worker  WorkerConfig  `mapstructure:"worker"`
+	Build   BuildConfig   `mapstructure:"build"`
 	Logging LoggingConfig `mapstructure:"logging"`
 }
 
@@ -33,6 +34,11 @@ type NATSConfig struct {
 // GitHubConfig contém configurações do GitHub
 type GitHubConfig struct {
 	WebhookSecret string `mapstructure:"webhook_secret"`
+}
+
+// AuthConfig contém configurações de autenticação
+type AuthConfig struct {
+	Token string `mapstructure:"token"`
 }
 
 // WorkerConfig contém configurações do worker
