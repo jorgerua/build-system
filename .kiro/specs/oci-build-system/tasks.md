@@ -52,7 +52,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - _Requisitos: 1.5_
 
 - [ ] 4. Implementar Cache Service (libs/cache-service)
-  - [ ] 4.1 Criar gerenciador de cache
+  - [x] 4.1 Criar gerenciador de cache
     - Implementar interface CacheService
     - Implementar GetCachePath() para cada linguagem
     - Implementar InitializeCache() para criar estrutura de diretórios

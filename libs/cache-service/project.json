@@ -1,0 +1,32 @@
+{
+  "name": "cache-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/cache-service",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go build -o ../../dist/libs/cache-service ./...",
+        "cwd": "libs/cache-service"
+      },
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go test -v -cover ./...",
+        "cwd": "libs/cache-service"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go vet ./...",
+        "cwd": "libs/cache-service"
+      }
+    }
+  },
+  "tags": ["type:library", "scope:cache"]
+}
