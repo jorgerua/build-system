@@ -401,8 +401,8 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
   - Verificar cache de código e dependências
   - Perguntar ao usuário se há dúvidas ou ajustes necessários
 
-- [ ] 17. Documentação e finalização
-  - [ ] 17.1 Criar README.md
+- [x] 17. Documentação e finalização
+  - [x] 17.1 Criar README.md
     - Documentar arquitetura do sistema
     - Documentar como executar localmente
     - Documentar como executar testes
@@ -410,14 +410,14 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Documentar variáveis de ambiente
     - _Requisitos: 10.1_
   
-  - [ ] 17.2 Criar guia de desenvolvimento
+  - [x] 17.2 Criar guia de desenvolvimento
     - Documentar estrutura do monorepo
     - Documentar como adicionar novos serviços
     - Documentar como adicionar novos testes
     - Documentar comandos NX úteis
     - _Requisitos: 10.1_
   
-  - [ ] 17.3 Criar guia de deployment
+  - [x] 17.3 Criar guia de deployment
     - Documentar requisitos de infraestrutura
     - Documentar como fazer deploy dos serviços
     - Documentar configuração de NATS em produção
