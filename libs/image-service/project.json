@@ -7,16 +7,19 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go build -o ../../dist/libs/image-service ./...",
+        "command": "go build ./...",
         "cwd": "libs/image-service"
-      }
+      },
+      "outputs": ["{workspaceRoot}/dist/libs/image-service"],
+      "dependsOn": ["^build"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v -cover ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/image-service"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "nx:run-commands",
@@ -26,5 +29,6 @@
       }
     }
   },
-  "tags": ["type:library", "scope:image"]
+  "tags": ["type:library", "scope:image"],
+  "implicitDependencies": ["shared"]
 }

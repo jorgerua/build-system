@@ -5,25 +5,38 @@
   "sourceRoot": "apps/worker-service",
   "targets": {
     "build": {
-      "executor": "@nx/go:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/apps/worker-service",
-        "main": "apps/worker-service/main.go"
-      }
+        "command": "go build -o ../../dist/apps/worker-service/worker-service",
+        "cwd": "apps/worker-service"
+      },
+      "outputs": ["{workspaceRoot}/dist/apps/worker-service"],
+      "dependsOn": ["^build"]
     },
     "test": {
-      "executor": "@nx/go:test",
+      "executor": "nx:run-commands",
       "options": {
-        "codeCoverage": true
-      }
+        "command": "go test -v -coverprofile=coverage.out ./...",
+        "cwd": "apps/worker-service"
+      },
+      "dependsOn": ["build"]
     },
     "serve": {
-      "executor": "@nx/go:serve",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "worker-service:build"
+        "command": "go run main.go",
+        "cwd": "apps/worker-service"
+      },
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go vet ./...",
+        "cwd": "apps/worker-service"
       }
     }
   },
-  "tags": ["type:app", "scope:worker"]
+  "tags": ["type:app", "scope:worker"],
+  "implicitDependencies": ["shared", "nats-client", "git-service", "nx-service", "image-service", "cache-service"]
 }

@@ -7,16 +7,19 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go build -o ../../dist/libs/git-service ./...",
+        "command": "go build ./...",
         "cwd": "libs/git-service"
-      }
+      },
+      "outputs": ["{workspaceRoot}/dist/libs/git-service"],
+      "dependsOn": ["^build"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v -cover ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/git-service"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "nx:run-commands",
@@ -26,5 +29,6 @@
       }
     }
   },
-  "tags": ["type:library", "scope:git"]
+  "tags": ["type:library", "scope:git"],
+  "implicitDependencies": ["shared"]
 }

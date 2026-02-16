@@ -7,7 +7,7 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go build -o ../../dist/libs/shared ./...",
+        "command": "go build ./...",
         "cwd": "libs/shared"
       },
       "outputs": ["{workspaceRoot}/dist/libs/shared"]
@@ -15,7 +15,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/shared"
       },
       "dependsOn": ["build"]

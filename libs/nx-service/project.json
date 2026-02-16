@@ -7,14 +7,16 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go build -o ../../dist/libs/nx-service ./...",
+        "command": "go build ./...",
         "cwd": "libs/nx-service"
-      }
+      },
+      "outputs": ["{workspaceRoot}/dist/libs/nx-service"],
+      "dependsOn": ["^build"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v -cover ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/nx-service"
       },
       "dependsOn": ["build"]
@@ -27,5 +29,6 @@
       }
     }
   },
-  "tags": ["type:library", "scope:nx-service"]
+  "tags": ["type:library", "scope:nx-service"],
+  "implicitDependencies": ["shared", "cache-service"]
 }

@@ -10,6 +10,7 @@
         "command": "go build -o ../../dist/apps/api-service/api-service",
         "cwd": "apps/api-service"
       },
+      "outputs": ["{workspaceRoot}/dist/apps/api-service"],
       "dependsOn": ["^build"]
     },
     "test": {
@@ -17,7 +18,8 @@
       "options": {
         "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "apps/api-service"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "serve": {
       "executor": "nx:run-commands",
@@ -25,8 +27,16 @@
         "command": "go run main.go",
         "cwd": "apps/api-service"
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go vet ./...",
+        "cwd": "apps/api-service"
+      }
     }
   },
-  "tags": ["type:app", "scope:api"]
+  "tags": ["type:app", "scope:api"],
+  "implicitDependencies": ["shared", "nats-client"]
 }

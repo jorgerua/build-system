@@ -319,26 +319,26 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Definir entrypoint
     - _Requisitos: 10.1_
 
-- [ ] 13. Configurar NX para build dos serviços
-  - [ ] 13.1 Criar project.json para api-service
+- [x] 13. Configurar NX para build dos serviços
+  - [x] 13.1 Criar project.json para api-service
     - Configurar target build
     - Configurar target test
     - Configurar target serve
     - Configurar dependências
     - _Requisitos: 10.1_
   
-  - [ ] 13.2 Criar project.json para worker-service
+  - [x] 13.2 Criar project.json para worker-service
     - Configurar target build
     - Configurar target test
     - Configurar dependências
     - _Requisitos: 10.1_
   
-  - [ ] 13.3 Criar project.json para cada lib
+  - [x] 13.3 Criar project.json para cada lib
     - Configurar targets para git-service, nx-service, image-service, cache-service, nats-client, shared
     - Configurar dependências entre libs
     - _Requisitos: 10.1_
   
-  - [ ] 13.4 Testar builds com NX
+  - [x] 13.4 Testar builds com NX
     - Executar nx build api-service
     - Executar nx build worker-service
     - Executar nx affected:build

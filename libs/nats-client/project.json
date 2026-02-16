@@ -9,14 +9,17 @@
       "options": {
         "command": "go build ./...",
         "cwd": "libs/nats-client"
-      }
+      },
+      "outputs": ["{workspaceRoot}/dist/libs/nats-client"],
+      "dependsOn": ["^build"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v -cover ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/nats-client"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "nx:run-commands",
@@ -26,5 +29,6 @@
       }
     }
   },
-  "tags": ["type:library", "scope:nats"]
+  "tags": ["type:library", "scope:nats"],
+  "implicitDependencies": ["shared"]
 }

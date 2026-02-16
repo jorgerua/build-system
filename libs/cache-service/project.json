@@ -7,15 +7,16 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go build -o ../../dist/libs/cache-service ./...",
+        "command": "go build ./...",
         "cwd": "libs/cache-service"
       },
+      "outputs": ["{workspaceRoot}/dist/libs/cache-service"],
       "dependsOn": ["^build"]
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go test -v -cover ./...",
+        "command": "go test -v -coverprofile=coverage.out ./...",
         "cwd": "libs/cache-service"
       },
       "dependsOn": ["build"]
@@ -28,5 +29,6 @@
       }
     }
   },
-  "tags": ["type:library", "scope:cache"]
+  "tags": ["type:library", "scope:cache"],
+  "implicitDependencies": ["shared"]
 }
