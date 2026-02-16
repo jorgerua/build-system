@@ -1,0 +1,30 @@
+{
+  "name": "nats-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/nats-client",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go build ./...",
+        "cwd": "libs/nats-client"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go test -v -race -coverprofile=coverage.out ./...",
+        "cwd": "libs/nats-client"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go vet ./...",
+        "cwd": "libs/nats-client"
+      }
+    }
+  },
+  "tags": ["type:library", "scope:nats"]
+}

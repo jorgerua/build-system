@@ -36,7 +36,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - _Requisitos: 10.1, 10.2_
 
 - [ ] 3. Implementar NATS Client (libs/nats-client)
-  - [ ] 3.1 Criar wrapper do cliente NATS
+  - [x] 3.1 Criar wrapper do cliente NATS
     - Implementar interface NATSClient
     - Implementar Connect() com retry automático
     - Implementar Publish(), Subscribe(), Request()
