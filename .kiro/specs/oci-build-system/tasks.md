@@ -130,7 +130,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Valida: Requisitos 4.2, 6.1, 6.2, 6.3**
 
 - [ ] 7. Implementar Image Service (libs/image-service)
-  - [ ] 7.1 Criar construtor de imagens OCI
+  - [x] 7.1 Criar construtor de imagens OCI
     - Implementar interface ImageService
     - Implementar BuildImage() com execução de buildah
     - Implementar TagImage() para aplicar tags
