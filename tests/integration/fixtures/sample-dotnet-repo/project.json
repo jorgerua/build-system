@@ -1,0 +1,19 @@
+{
+  "name": "sample-dotnet-repo",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "dotnet build",
+        "cwd": "tests/integration/fixtures/sample-dotnet-repo"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "dotnet test",
+        "cwd": "tests/integration/fixtures/sample-dotnet-repo"
+      }
+    }
+  }
+}

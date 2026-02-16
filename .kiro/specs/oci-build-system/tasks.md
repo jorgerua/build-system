@@ -345,7 +345,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Verificar cache do NX
     - _Requisitos: 10.1_
 
-- [ ] 14. Atualizar docker-compose.yml
+- [x] 14. Atualizar docker-compose.yml
   - Adicionar volumes para cache e logs
   - Configurar variáveis de ambiente
   - Configurar dependências entre serviços
@@ -353,29 +353,29 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
   - Adicionar health checks
   - _Requisitos: 10.1_
 
-- [ ] 15. Criar testes de integração com Robot Framework
-  - [ ] 15.1 Configurar ambiente de testes Robot
+- [x] 15. Criar testes de integração com Robot Framework
+  - [x] 15.1 Configurar ambiente de testes Robot
     - Instalar Robot Framework e bibliotecas (RequestsLibrary)
     - Criar estrutura de diretórios (tests/integration)
     - Criar keywords customizadas
     - Criar variáveis de teste
     - _Requisitos: 8.1, 8.2_
   
-  - [ ] 15.2 Criar repositórios de teste
+  - [x] 15.2 Criar repositórios de teste
     - Criar sample-java-repo com pom.xml e Dockerfile
     - Criar sample-dotnet-repo com .csproj e Dockerfile
     - Criar sample-go-repo com go.mod e Dockerfile
     - Adicionar em tests/integration/fixtures
     - _Requisitos: 6.1, 6.2, 6.3_
   
-  - [ ] 15.3 Criar webhook.robot
+  - [x] 15.3 Criar webhook.robot
     - Teste: enviar webhook válido e verificar enfileiramento
     - Teste: enviar webhook com assinatura inválida
     - Teste: enviar múltiplos webhooks simultâneos
     - Teste: verificar parsing de payload
     - _Requisitos: 1.1, 1.2, 1.3, 1.5_
   
-  - [ ] 15.4 Criar build.robot
+  - [x] 15.4 Criar build.robot
     - Teste: build completo de projeto Java
     - Teste: build completo de projeto .NET
     - Teste: build completo de projeto Go
@@ -384,7 +384,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Teste: build com cache de dependências
     - _Requisitos: 3.1, 3.3, 5.3, 6.1, 6.2, 6.3_
   
-  - [ ] 15.5 Criar api.robot
+  - [x] 15.5 Criar api.robot
     - Teste: consultar status de build existente
     - Teste: consultar status de build inexistente
     - Teste: listar histórico de builds

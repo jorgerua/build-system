@@ -14,6 +14,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 5s
+    restart: unless-stopped
     
   api-service:
     build:
@@ -22,41 +24,111 @@ services:
     ports:
       - "8080:8080"
     environment:
+      # NATS Configuration
       - NATS_URL=nats://nats:4222
-      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET}
-      - LOG_LEVEL=debug
+      
+      # GitHub Configuration
+      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET:-changeme}
+      
+      # Server Configuration
+      - SERVER_PORT=8080
+      - SERVER_READ_TIMEOUT=${SERVER_READ_TIMEOUT:-30}
+      - SERVER_WRITE_TIMEOUT=${SERVER_WRITE_TIMEOUT:-30}
+      - SERVER_SHUTDOWN_TIMEOUT=${SERVER_SHUTDOWN_TIMEOUT:-10}
+      
+      # Logging Configuration
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
     volumes:
-      - ./cache:/var/cache/oci-build
-      - ./logs:/var/log/oci-build
+      # Cache volumes
+      - cache-repos:/var/cache/oci-build/repos
+      - cache-deps:/var/cache/oci-build/deps
+      
+      # Log volumes
+      - logs-api:/var/log/oci-build
+      
+      # Config file (optional)
+      - ./apps/api-service/config.yaml:/app/config.yaml:ro
     depends_on:
       nats:
         condition: service_healthy
     networks:
       - oci-build-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
       
   worker-service:
     build:
       context: .
       dockerfile: apps/worker-service/Dockerfile
     environment:
+      # NATS Configuration
       - NATS_URL=nats://nats:4222
-      - LOG_LEVEL=debug
+      
+      # Worker Configuration
+      - WORKER_POOL_SIZE=${WORKER_POOL_SIZE:-5}
+      - WORKER_TIMEOUT=${WORKER_TIMEOUT:-3600}
+      - WORKER_MAX_RETRIES=${WORKER_MAX_RETRIES:-3}
+      
+      # Build Configuration
+      - BUILD_CODE_CACHE_PATH=/var/cache/oci-build/repos
+      - BUILD_BUILD_CACHE_PATH=/var/cache/oci-build/deps
+      
+      # Logging Configuration
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
+      
+      # Cache paths for different languages
+      - MAVEN_CACHE=/var/cache/oci-build/deps/maven
+      - GRADLE_CACHE=/var/cache/oci-build/deps/gradle
+      - NUGET_CACHE=/var/cache/oci-build/deps/nuget
+      - GOCACHE=/var/cache/oci-build/deps/go
+      - GOMODCACHE=/var/cache/oci-build/deps/go/mod
     volumes:
-      - ./cache:/var/cache/oci-build
-      - ./logs:/var/log/oci-build
+      # Cache volumes
+      - cache-repos:/var/cache/oci-build/repos
+      - cache-deps:/var/cache/oci-build/deps
+      
+      # Log volumes
+      - logs-worker:/var/log/oci-build
+      
+      # Docker socket for buildah
       - /var/run/docker.sock:/var/run/docker.sock
+      
+      # Config file (optional)
+      - ./apps/worker-service/config.yaml:/app/config.yaml:ro
     depends_on:
       nats:
         condition: service_healthy
+      api-service:
+        condition: service_healthy
     networks:
       - oci-build-network
+    restart: unless-stopped
     deploy:
       replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 networks:
   oci-build-network:
     driver: bridge
 
 volumes:
-  cache:
-  logs:
+  # Named volumes for persistent storage
+  cache-repos:
+    driver: local
+  cache-deps:
+    driver: local
+  logs-api:
+    driver: local
+  logs-worker:
+    driver: local
