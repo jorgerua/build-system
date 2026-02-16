@@ -148,11 +148,11 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar comandos buildah
     - _Requisitos: 5.1, 5.2, 5.3, 5.4_
   
-  - [-] 7.3 Escrever teste de propriedade para localização de Dockerfile
+  - [x] 7.3 Escrever teste de propriedade para localização de Dockerfile
     - **Propriedade 13: Localização de Dockerfile**
     - **Valida: Requisitos 5.2**
   
-  - [~] 7.4 Escrever teste de propriedade para aplicação de tags
+  - [-] 7.4 Escrever teste de propriedade para aplicação de tags
     - **Propriedade 15: Aplicação de tags de imagem**
     - **Valida: Requisitos 5.4**
 
