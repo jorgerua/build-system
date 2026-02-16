@@ -72,7 +72,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Valida: Requisitos 4.3, 4.5**
 
 - [ ] 5. Implementar Git Service (libs/git-service)
-  - [ ] 5.1 Criar gerenciador de operações Git
+  - [x] 5.1 Criar gerenciador de operações Git
     - Implementar interface GitService
     - Implementar SyncRepository() com lógica de clone vs pull
     - Implementar RepositoryExists() para verificar cache
