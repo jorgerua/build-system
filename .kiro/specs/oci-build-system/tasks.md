@@ -81,7 +81,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Adicionar logging detalhado
     - _Requisitos: 2.1, 2.2, 2.3, 9.1_
   
-  - [ ]* 5.2 Escrever testes unitários para git service
+  - [x] 5.2 Escrever testes unitários para git service
     - Testar clone de repositório novo
     - Testar pull de repositório existente
     - Testar detecção de repositório em cache
