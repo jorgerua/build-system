@@ -297,7 +297,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 19: Métricas de duração por fase**
     - **Valida: Requisitos 7.3**
 
-- [ ] 11. Checkpoint - Verificar serviços principais
+- [x] 11. Checkpoint - Verificar serviços principais
   - Executar testes unitários de api-service e worker-service
   - Testar comunicação via NATS localmente
   - Verificar logs estruturados

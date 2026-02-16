@@ -1,0 +1,29 @@
+{
+  "name": "worker-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/worker-service",
+  "targets": {
+    "build": {
+      "executor": "@nx/go:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/worker-service",
+        "main": "apps/worker-service/main.go"
+      }
+    },
+    "test": {
+      "executor": "@nx/go:test",
+      "options": {
+        "codeCoverage": true
+      }
+    },
+    "serve": {
+      "executor": "@nx/go:serve",
+      "options": {
+        "buildTarget": "worker-service:build"
+      }
+    }
+  },
+  "tags": ["type:app", "scope:worker"]
+}
