@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "projects": {
+    "api-service": "apps/api-service",
+    "worker-service": "apps/worker-service",
+    "git-service": "libs/git-service",
+    "nx-service": "libs/nx-service",
+    "image-service": "libs/image-service",
+    "cache-service": "libs/cache-service",
+    "nats-client": "libs/nats-client",
+    "shared": "libs/shared"
+  }
+}

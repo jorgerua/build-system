@@ -30,3 +30,16 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# NX
+.nx/
+node_modules/
+dist/
+
+# Build artifacts
+cache/
+logs/
+
+# Docker volumes
+/var/cache/oci-build/
+/var/log/oci-build/

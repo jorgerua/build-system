@@ -6,7 +6,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
 
 ## Tarefas
 
-- [ ] 1. Configurar estrutura do monorepo e dependências base
+- [x] 1. Configurar estrutura do monorepo e dependências base
   - Criar estrutura de diretórios (apps/, libs/, tests/)
   - Inicializar NX workspace
   - Configurar nx.json com targets de build e test

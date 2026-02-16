@@ -1,0 +1,13 @@
+{
+  "name": "oci-build-system",
+  "version": "1.0.0",
+  "description": "OCI Build System - Distributed build system using Go, NATS, NX, and buildah",
+  "private": true,
+  "scripts": {
+    "test": "nx run-many --target=test --all"
+  },
+  "devDependencies": {
+    "nx": "^18.0.0",
+    "@nrwl/workspace": "^18.0.0"
+  }
+}
