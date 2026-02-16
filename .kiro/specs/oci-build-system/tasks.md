@@ -35,7 +35,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Testar criação e manipulação de BuildJob
     - _Requisitos: 10.1, 10.2_
 
-- [ ] 3. Implementar NATS Client (libs/nats-client)
+- [x] 3. Implementar NATS Client (libs/nats-client)
   - [x] 3.1 Criar wrapper do cliente NATS
     - Implementar interface NATSClient
     - Implementar Connect() com retry automático
@@ -44,7 +44,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Adicionar logging com Zap
     - _Requisitos: 1.5, 9.1_
   
-  - [ ]* 3.2 Escrever testes unitários para NATS client
+  - [x] 3.2 Escrever testes unitários para NATS client
     - Testar conexão e reconexão
     - Testar publish/subscribe
     - Testar request/reply pattern
