@@ -67,7 +67,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Testar paths para diferentes linguagens
     - _Requisitos: 4.1, 4.4_
   
-  - [ ]* 4.3 Escrever teste de propriedade para cache service
+  - [x] 4.3 Escrever teste de propriedade para cache service
     - **Propriedade 10: Persistência de dependências em cache**
     - **Valida: Requisitos 4.3, 4.5**
 
