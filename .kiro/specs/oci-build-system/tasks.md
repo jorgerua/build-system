@@ -98,7 +98,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Valida: Requisitos 2.4**
 
 - [ ] 6. Implementar NX Service (libs/nx-service)
-  - [ ] 6.1 Criar executor de builds NX
+  - [x] 6.1 Criar executor de builds NX
     - Implementar interface NXService
     - Implementar Build() com execução de comando nx
     - Implementar DetectProjects() para descobrir projetos
