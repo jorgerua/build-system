@@ -89,7 +89,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar operações go-git
     - _Requisitos: 2.1, 2.2, 2.3_
   
-  - [ ]* 5.3 Escrever teste de propriedade para sincronização
+  - [x] 5.3 Escrever teste de propriedade para sincronização
     - **Propriedade 4: Sincronização de repositório**
     - **Valida: Requisitos 2.1, 2.2, 2.3**
   
