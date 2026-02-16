@@ -93,11 +93,11 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 4: Sincronização de repositório**
     - **Valida: Requisitos 2.1, 2.2, 2.3**
   
-  - [ ]* 5.4 Escrever teste de propriedade para fallback em falha de rede
+  - [x] 5.4 Escrever teste de propriedade para fallback em falha de rede
     - **Propriedade 5: Fallback para cache em falha de rede**
     - **Valida: Requisitos 2.4**
 
-- [ ] 6. Implementar NX Service (libs/nx-service)
+- [x] 6. Implementar NX Service (libs/nx-service)
   - [x] 6.1 Criar executor de builds NX
     - Implementar interface NXService
     - Implementar Build() com execução de comando nx
@@ -108,7 +108,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Implementar timeout configurável
     - _Requisitos: 3.1, 3.2, 3.5, 6.4_
   
-  - [ ]* 6.2 Escrever testes unitários para NX service
+  - [x] 6.2 Escrever testes unitários para NX service
     - Testar execução de build bem-sucedido
     - Testar captura de output
     - Testar detecção de linguagem (Java, .NET, Go)
