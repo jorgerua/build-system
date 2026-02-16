@@ -15,14 +15,14 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
   - Criar docker-compose.yml com NATS
   - _Requisitos: 10.1_
 
-- [ ] 2. Implementar biblioteca compartilhada (libs/shared)
-  - [ ] 2.1 Criar tipos de dados compartilhados
+- [x] 2. Implementar biblioteca compartilhada (libs/shared)
+  - [x] 2.1 Criar tipos de dados compartilhados
     - Definir structs: BuildJob, JobStatus, PhaseMetric, RepositoryInfo
     - Definir enums: JobStatus, BuildPhase, Language
     - Implementar métodos auxiliares para tipos
     - _Requisitos: 1.2, 7.1, 7.3_
   
-  - [ ] 2.2 Implementar carregamento de configuração com Viper
+  - [x] 2.2 Implementar carregamento de configuração com Viper
     - Criar struct Config com tags mapstructure
     - Implementar LoadConfig() com suporte a YAML e variáveis de ambiente
     - Implementar validateConfig() para validação de campos obrigatórios
