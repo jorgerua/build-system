@@ -1,6 +1,7 @@
 package imageservice
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -329,4 +330,415 @@ func pathsEqual(path1, path2 string) bool {
 	
 	// Comparar case-insensitive usando strings.EqualFold
 	return strings.EqualFold(filepath.ToSlash(path1), filepath.ToSlash(path2))
+}
+
+// Feature: oci-build-system, Property 15: Aplicação de tags de imagem
+// Para qualquer imagem OCI construída com sucesso, o sistema deve aplicar pelo menos
+// duas tags: uma com o commit hash completo e outra com o nome do branch.
+// Valida: Requisitos 5.4
+func TestProperty_ImageTagApplication(t *testing.T) {
+	properties := gopter.NewProperties(nil)
+
+	properties.Property("generates at least two tags for main/master branch", prop.ForAll(
+		func(repoName string, commitHash string, isMain bool) bool {
+			// Garantir que repoName e commitHash não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if commitHash == "" || len(commitHash) < 7 {
+				commitHash = "abc123def456"
+			}
+
+			// Escolher branch main ou master
+			branch := "main"
+			if !isMain {
+				branch = "master"
+			}
+
+			// Gerar tags
+			tags := GenerateImageTags(repoName, commitHash, branch)
+
+			// Verificar que pelo menos 2 tags foram geradas
+			if len(tags) < 2 {
+				t.Logf("Expected at least 2 tags for main/master branch, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que contém tag com commit hash
+			hasCommitTag := false
+			expectedCommitTag := fmt.Sprintf("%s:%s", repoName, commitHash)
+			for _, tag := range tags {
+				if tag == expectedCommitTag {
+					hasCommitTag = true
+					break
+				}
+			}
+			if !hasCommitTag {
+				t.Logf("Expected commit tag %s not found in %v", expectedCommitTag, tags)
+				return false
+			}
+
+			// Verificar que contém tag com branch
+			hasBranchTag := false
+			expectedBranchTag := fmt.Sprintf("%s:%s", repoName, branch)
+			for _, tag := range tags {
+				if tag == expectedBranchTag {
+					hasBranchTag = true
+					break
+				}
+			}
+			if !hasBranchTag {
+				t.Logf("Expected branch tag %s not found in %v", expectedBranchTag, tags)
+				return false
+			}
+
+			// Verificar que contém tag latest para main/master
+			hasLatestTag := false
+			expectedLatestTag := fmt.Sprintf("%s:latest", repoName)
+			for _, tag := range tags {
+				if tag == expectedLatestTag {
+					hasLatestTag = true
+					break
+				}
+			}
+			if !hasLatestTag {
+				t.Logf("Expected latest tag %s not found in %v for main/master branch", expectedLatestTag, tags)
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Bool(),
+	))
+
+	properties.Property("generates at least two tags for feature branches", prop.ForAll(
+		func(repoName string, commitHash string, branchSuffix string) bool {
+			// Garantir que repoName e commitHash não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if commitHash == "" || len(commitHash) < 7 {
+				commitHash = "abc123def456"
+			}
+			if branchSuffix == "" {
+				branchSuffix = "new-feature"
+			}
+
+			// Criar branch de feature
+			branch := fmt.Sprintf("feature/%s", branchSuffix)
+
+			// Gerar tags
+			tags := GenerateImageTags(repoName, commitHash, branch)
+
+			// Verificar que pelo menos 2 tags foram geradas
+			if len(tags) < 2 {
+				t.Logf("Expected at least 2 tags for feature branch, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que contém tag com commit hash
+			hasCommitTag := false
+			expectedCommitTag := fmt.Sprintf("%s:%s", repoName, commitHash)
+			for _, tag := range tags {
+				if tag == expectedCommitTag {
+					hasCommitTag = true
+					break
+				}
+			}
+			if !hasCommitTag {
+				t.Logf("Expected commit tag %s not found in %v", expectedCommitTag, tags)
+				return false
+			}
+
+			// Verificar que contém tag com branch (com slashes substituídos por hífens)
+			hasBranchTag := false
+			cleanBranch := strings.ReplaceAll(branch, "/", "-")
+			expectedBranchTag := fmt.Sprintf("%s:%s", repoName, cleanBranch)
+			for _, tag := range tags {
+				if tag == expectedBranchTag {
+					hasBranchTag = true
+					break
+				}
+			}
+			if !hasBranchTag {
+				t.Logf("Expected branch tag %s not found in %v", expectedBranchTag, tags)
+				return false
+			}
+
+			// Verificar que NÃO contém tag latest para feature branches
+			hasLatestTag := false
+			expectedLatestTag := fmt.Sprintf("%s:latest", repoName)
+			for _, tag := range tags {
+				if tag == expectedLatestTag {
+					hasLatestTag = true
+					break
+				}
+			}
+			if hasLatestTag {
+				t.Logf("Unexpected latest tag %s found in %v for feature branch", expectedLatestTag, tags)
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.Property("generates tags with refs/heads/ prefix stripped", prop.ForAll(
+		func(repoName string, commitHash string, branchName string) bool {
+			// Garantir que repoName e commitHash não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if commitHash == "" || len(commitHash) < 7 {
+				commitHash = "abc123def456"
+			}
+			if branchName == "" {
+				branchName = "develop"
+			}
+
+			// Criar branch com refs/heads/ prefix
+			branch := fmt.Sprintf("refs/heads/%s", branchName)
+
+			// Gerar tags
+			tags := GenerateImageTags(repoName, commitHash, branch)
+
+			// Verificar que pelo menos 2 tags foram geradas
+			if len(tags) < 2 {
+				t.Logf("Expected at least 2 tags, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que a tag do branch não contém refs/heads/
+			for _, tag := range tags {
+				if strings.Contains(tag, "refs/heads/") {
+					t.Logf("Tag %s should not contain 'refs/heads/' prefix", tag)
+					return false
+				}
+			}
+
+			// Verificar que contém tag com branch limpo
+			hasBranchTag := false
+			expectedBranchTag := fmt.Sprintf("%s:%s", repoName, branchName)
+			for _, tag := range tags {
+				if tag == expectedBranchTag {
+					hasBranchTag = true
+					break
+				}
+			}
+			if !hasBranchTag {
+				t.Logf("Expected branch tag %s not found in %v", expectedBranchTag, tags)
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.Property("replaces slashes with hyphens in branch names", prop.ForAll(
+		func(repoName string, commitHash string, part1 string, part2 string) bool {
+			// Garantir que repoName e commitHash não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if commitHash == "" || len(commitHash) < 7 {
+				commitHash = "abc123def456"
+			}
+			if part1 == "" {
+				part1 = "feature"
+			}
+			if part2 == "" {
+				part2 = "new-feature"
+			}
+
+			// Criar branch com múltiplos slashes
+			branch := fmt.Sprintf("%s/%s", part1, part2)
+
+			// Gerar tags
+			tags := GenerateImageTags(repoName, commitHash, branch)
+
+			// Verificar que pelo menos 2 tags foram geradas
+			if len(tags) < 2 {
+				t.Logf("Expected at least 2 tags, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que nenhuma tag contém slashes (exceto na separação repo:tag)
+			for _, tag := range tags {
+				// Separar repo e tag
+				tagParts := strings.Split(tag, ":")
+				if len(tagParts) != 2 {
+					continue
+				}
+				tagName := tagParts[1]
+				
+				// Verificar que a parte da tag não contém slashes
+				if strings.Contains(tagName, "/") {
+					t.Logf("Tag name %s should not contain slashes", tagName)
+					return false
+				}
+			}
+
+			// Verificar que contém tag com branch (slashes substituídos por hífens)
+			hasBranchTag := false
+			cleanBranch := strings.ReplaceAll(branch, "/", "-")
+			expectedBranchTag := fmt.Sprintf("%s:%s", repoName, cleanBranch)
+			for _, tag := range tags {
+				if tag == expectedBranchTag {
+					hasBranchTag = true
+					break
+				}
+			}
+			if !hasBranchTag {
+				t.Logf("Expected branch tag %s not found in %v", expectedBranchTag, tags)
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.Property("generates only commit tag when branch is empty", prop.ForAll(
+		func(repoName string, commitHash string) bool {
+			// Garantir que repoName e commitHash não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if commitHash == "" || len(commitHash) < 7 {
+				commitHash = "abc123def456"
+			}
+
+			// Gerar tags sem branch
+			tags := GenerateImageTags(repoName, commitHash, "")
+
+			// Verificar que exatamente 1 tag foi gerada
+			if len(tags) != 1 {
+				t.Logf("Expected exactly 1 tag when branch is empty, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que é a tag do commit
+			expectedTag := fmt.Sprintf("%s:%s", repoName, commitHash)
+			if tags[0] != expectedTag {
+				t.Logf("Expected tag %s, got %s", expectedTag, tags[0])
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.Property("generates only branch tag when commit is empty", prop.ForAll(
+		func(repoName string, branchName string) bool {
+			// Garantir que repoName e branchName não sejam vazios
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			if branchName == "" {
+				branchName = "develop"
+			}
+
+			// Gerar tags sem commit
+			tags := GenerateImageTags(repoName, "", branchName)
+
+			// Verificar que exatamente 1 tag foi gerada
+			if len(tags) != 1 {
+				t.Logf("Expected exactly 1 tag when commit is empty, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			// Verificar que é a tag do branch
+			expectedTag := fmt.Sprintf("%s:%s", repoName, branchName)
+			if tags[0] != expectedTag {
+				t.Logf("Expected tag %s, got %s", expectedTag, tags[0])
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.Property("generates no tags when both commit and branch are empty", prop.ForAll(
+		func(repoName string) bool {
+			// Garantir que repoName não seja vazio
+			if repoName == "" {
+				repoName = "testapp"
+			}
+
+			// Gerar tags sem commit e sem branch
+			tags := GenerateImageTags(repoName, "", "")
+
+			// Verificar que nenhuma tag foi gerada
+			if len(tags) != 0 {
+				t.Logf("Expected 0 tags when both commit and branch are empty, got %d: %v", len(tags), tags)
+				return false
+			}
+
+			return true
+		},
+		gen.Identifier(),
+	))
+
+	properties.Property("all generated tags follow valid format", prop.ForAll(
+		func(repoName string, commitHash string, branchName string) bool {
+			// Garantir que repoName não seja vazio
+			if repoName == "" {
+				repoName = "testapp"
+			}
+			// commitHash e branchName podem ser vazios
+
+			// Gerar tags
+			tags := GenerateImageTags(repoName, commitHash, branchName)
+
+			// Verificar formato de cada tag
+			for _, tag := range tags {
+				// Tag deve conter exatamente um ':'
+				parts := strings.Split(tag, ":")
+				if len(parts) != 2 {
+					t.Logf("Tag %s does not follow format 'repo:tag'", tag)
+					return false
+				}
+
+				// Parte do repo deve ser igual ao repoName
+				if parts[0] != repoName {
+					t.Logf("Tag %s has incorrect repo name, expected %s", tag, repoName)
+					return false
+				}
+
+				// Parte da tag não deve estar vazia
+				if parts[1] == "" {
+					t.Logf("Tag %s has empty tag name", tag)
+					return false
+				}
+
+				// Tag não deve conter espaços
+				if strings.Contains(tag, " ") {
+					t.Logf("Tag %s contains spaces", tag)
+					return false
+				}
+			}
+
+			return true
+		},
+		gen.Identifier(),
+		gen.Identifier(),
+		gen.Identifier(),
+	))
+
+	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }

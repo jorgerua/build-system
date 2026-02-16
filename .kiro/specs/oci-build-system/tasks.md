@@ -152,7 +152,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 13: Localização de Dockerfile**
     - **Valida: Requisitos 5.2**
   
-  - [-] 7.4 Escrever teste de propriedade para aplicação de tags
+  - [x] 7.4 Escrever teste de propriedade para aplicação de tags
     - **Propriedade 15: Aplicação de tags de imagem**
     - **Valida: Requisitos 5.4**
 
