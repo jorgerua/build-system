@@ -28,7 +28,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Implementar validateConfig() para validação de campos obrigatórios
     - _Requisitos: 10.1, 10.2_
   
-  - [ ]* 2.3 Escrever testes unitários para shared library
+  - [x] 2.3 Escrever testes unitários para shared library
     - Testar parsing de configuração YAML
     - Testar override com variáveis de ambiente
     - Testar validação de configuração inválida
