@@ -156,7 +156,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 15: Aplicação de tags de imagem**
     - **Valida: Requisitos 5.4**
 
-- [ ] 8. Checkpoint - Verificar bibliotecas base
+- [x] 8. Checkpoint - Verificar bibliotecas base
   - Executar testes unitários de todas as libs
   - Verificar cobertura de código (meta: 80%)
   - Garantir que todas as interfaces estão bem definidas
@@ -206,7 +206,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Retornar status do serviço
     - _Requisitos: 8.1_
   
-  - [ ]* 9.7 Escrever testes unitários para API service
+  - [ ] 9.7 Escrever testes unitários para API service
     - Testar webhook handler com payload válido
     - Testar webhook handler com assinatura inválida
     - Testar status handler
@@ -215,15 +215,15 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar NATS client
     - _Requisitos: 1.1, 1.2, 1.3, 8.4_
   
-  - [ ]* 9.8 Escrever teste de propriedade para validação de webhook
+  - [ ] 9.8 Escrever teste de propriedade para validação de webhook
     - **Propriedade 1: Validação de assinatura de webhook**
     - **Valida: Requisitos 1.1, 10.4**
   
-  - [ ]* 9.9 Escrever teste de propriedade para extração de informações
+  - [ ] 9.9 Escrever teste de propriedade para extração de informações
     - **Propriedade 2: Extração completa de informações de webhook**
     - **Valida: Requisitos 1.2**
   
-  - [ ]* 9.10 Escrever teste de propriedade para autenticação
+  - [ ] 9.10 Escrever teste de propriedade para autenticação
     - **Propriedade 23: Autenticação em endpoints de consulta**
     - **Valida: Requisitos 8.4**
 

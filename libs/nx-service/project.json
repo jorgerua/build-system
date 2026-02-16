@@ -5,27 +5,25 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/libs/nx-service",
-        "main": "libs/nx-service/builder.go",
-        "tsConfig": "libs/nx-service/tsconfig.json"
+        "command": "go build -o ../../dist/libs/nx-service ./...",
+        "cwd": "libs/nx-service"
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "libs/nx-service/jest.config.js",
-        "passWithNoTests": true
-      }
+        "command": "go test -v -cover ./...",
+        "cwd": "libs/nx-service"
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "nx:run-commands",
       "options": {
-        "lintFilePatterns": ["libs/nx-service/**/*.go"]
+        "command": "go vet ./...",
+        "cwd": "libs/nx-service"
       }
     }
   },
