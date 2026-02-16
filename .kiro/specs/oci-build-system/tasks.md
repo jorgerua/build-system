@@ -393,7 +393,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Teste: autenticação com token inválido
     - _Requisitos: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 16. Checkpoint final - Testes end-to-end
+- [x] 16. Checkpoint final - Testes end-to-end
   - Subir ambiente completo com docker-compose
   - Executar todos os testes Robot Framework
   - Verificar logs de todos os serviços

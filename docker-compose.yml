@@ -9,12 +9,6 @@ services:
     command: "-js -m 8222"
     networks:
       - oci-build-network
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
     restart: unless-stopped
     
   api-service:
@@ -50,8 +44,7 @@ services:
       # Config file (optional)
       - ./apps/api-service/config.yaml:/app/config.yaml:ro
     depends_on:
-      nats:
-        condition: service_healthy
+      - nats
     networks:
       - oci-build-network
     healthcheck:
@@ -103,10 +96,8 @@ services:
       # Config file (optional)
       - ./apps/worker-service/config.yaml:/app/config.yaml:ro
     depends_on:
-      nats:
-        condition: service_healthy
-      api-service:
-        condition: service_healthy
+      - nats
+      - api-service
     networks:
       - oci-build-network
     restart: unless-stopped
