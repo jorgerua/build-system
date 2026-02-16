@@ -5,27 +5,24 @@
   "sourceRoot": "libs/image-service",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/libs/image-service",
-        "main": "libs/image-service/service.go",
-        "tsConfig": "libs/image-service/tsconfig.json"
+        "command": "go build -o ../../dist/libs/image-service ./...",
+        "cwd": "libs/image-service"
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "libs/image-service/jest.config.ts",
-        "passWithNoTests": true
+        "command": "go test -v -cover ./...",
+        "cwd": "libs/image-service"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "nx:run-commands",
       "options": {
-        "lintFilePatterns": ["libs/image-service/**/*.go"]
+        "command": "go vet ./...",
+        "cwd": "libs/image-service"
       }
     }
   },
