@@ -60,7 +60,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Implementar GetCacheSize() para monitoramento
     - _Requisitos: 4.1, 4.4_
   
-  - [ ]* 4.2 Escrever testes unitários para cache service
+  - [x] 4.2 Escrever testes unitários para cache service
     - Testar criação de estrutura de diretórios
     - Testar cálculo de tamanho de cache
     - Testar limpeza de arquivos antigos
