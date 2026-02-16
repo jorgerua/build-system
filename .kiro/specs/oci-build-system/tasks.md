@@ -117,15 +117,15 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar execução de comandos
     - _Requisitos: 3.1, 3.2, 6.4_
   
-  - [ ]* 6.3 Escrever teste de propriedade para captura de saída
+  - [x] 6.3 Escrever teste de propriedade para captura de saída
     - **Propriedade 6: Captura de saída de build**
     - **Valida: Requisitos 3.2**
   
-  - [ ]* 6.4 Escrever teste de propriedade para detecção de linguagem
+  - [-] 6.4 Escrever teste de propriedade para detecção de linguagem
     - **Propriedade 11: Detecção automática de linguagem**
     - **Valida: Requisitos 6.4**
   
-  - [ ]* 6.5 Escrever teste de propriedade para configuração de cache
+  - [~] 6.5 Escrever teste de propriedade para configuração de cache
     - **Propriedade 9: Configuração de cache por linguagem**
     - **Valida: Requisitos 4.2, 6.1, 6.2, 6.3**
 
@@ -139,7 +139,7 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Aplicar tags baseadas em commit hash e branch
     - _Requisitos: 5.1, 5.2, 5.4_
   
-  - [ ]* 7.2 Escrever testes unitários para image service
+  - [~] 7.2 Escrever testes unitários para image service
     - Testar build de imagem
     - Testar aplicação de tags
     - Testar localização de Dockerfile
