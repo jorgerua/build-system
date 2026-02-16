@@ -3,6 +3,7 @@ package shared
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -28,7 +29,9 @@ type ServerConfig struct {
 
 // NATSConfig contém configurações do NATS
 type NATSConfig struct {
-	URL string `mapstructure:"url"`
+	URL            string        `mapstructure:"url"`
+	ReconnectWait  time.Duration `mapstructure:"reconnect_wait"`
+	ConnectTimeout time.Duration `mapstructure:"connect_timeout"`
 }
 
 // GitHubConfig contém configurações do GitHub
@@ -43,9 +46,11 @@ type AuthConfig struct {
 
 // WorkerConfig contém configurações do worker
 type WorkerConfig struct {
-	PoolSize   int `mapstructure:"pool_size"`
-	Timeout    int `mapstructure:"timeout"`
-	MaxRetries int `mapstructure:"max_retries"`
+	PoolSize   int           `mapstructure:"pool_size"`
+	QueueSize  int           `mapstructure:"queue_size"`
+	Timeout    int           `mapstructure:"timeout"`
+	MaxRetries int           `mapstructure:"max_retries"`
+	RetryDelay time.Duration `mapstructure:"retry_delay"`
 }
 
 // BuildConfig contém configurações de build

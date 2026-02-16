@@ -227,8 +227,8 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - **Propriedade 23: Autenticação em endpoints de consulta**
     - **Valida: Requisitos 8.4**
 
-- [ ] 10. Implementar Worker Service (apps/worker-service)
-  - [ ] 10.1 Configurar aplicação com FX
+- [x] 10. Implementar Worker Service (apps/worker-service)
+  - [x] 10.1 Configurar aplicação com FX
     - Criar main.go com FX app
     - Configurar providers FX (logger, config, nats client, services)
     - Implementar lifecycle hooks
@@ -236,14 +236,14 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Criar config.yaml com valores padrão
     - _Requisitos: 10.1, 10.2_
   
-  - [ ] 10.2 Implementar subscriber NATS
+  - [x] 10.2 Implementar subscriber NATS
     - Criar subscriber para subject builds.webhook
     - Implementar pool de workers (goroutines)
     - Implementar fila de jobs usando channels
     - Implementar graceful shutdown
     - _Requisitos: 1.5_
   
-  - [ ] 10.3 Implementar Build Orchestrator
+  - [x] 10.3 Implementar Build Orchestrator
     - Criar BuildOrchestrator struct
     - Implementar ExecuteBuild() com coordenação de fases
     - Implementar fase Git Sync (chamar GitService)
@@ -254,21 +254,21 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Publicar conclusão no NATS ao finalizar
     - _Requisitos: 3.1, 3.3, 3.4, 5.1, 7.3_
   
-  - [ ] 10.4 Implementar tratamento de erros
+  - [x] 10.4 Implementar tratamento de erros
     - Implementar retry com backoff exponencial
     - Implementar rollback em caso de falha
     - Preservar logs e estado em falhas
     - Implementar timeout para operações longas
     - _Requisitos: 9.1, 9.2, 9.4_
   
-  - [ ] 10.5 Implementar logging de métricas
+  - [x] 10.5 Implementar logging de métricas
     - Registrar início e fim de cada job
     - Registrar duração de cada fase
     - Registrar informações de commit
     - Usar Zap para logging estruturado em JSON
     - _Requisitos: 7.1, 7.2, 7.3, 7.4, 7.5_
   
-  - [ ] 10.6 Escrever testes unitários para worker service
+  - [x] 10.6 Escrever testes unitários para worker service
     - Testar processamento de job bem-sucedido
     - Testar processamento de job com falha
     - Testar coordenação de fases
@@ -277,23 +277,23 @@ Este plano implementa um sistema de build OCI distribuído usando Go, NATS, NX, 
     - Mockar todos os services
     - _Requisitos: 3.3, 3.4, 9.1, 9.4_
   
-  - [ ] 10.7 Escrever teste de propriedade para enfileiramento
+  - [x] 10.7 Escrever teste de propriedade para enfileiramento
     - **Propriedade 3: Enfileiramento de webhooks simultâneos**
     - **Valida: Requisitos 1.5**
   
-  - [ ] 10.8 Escrever teste de propriedade para interrupção em falha
+  - [x] 10.8 Escrever teste de propriedade para interrupção em falha
     - **Propriedade 7: Interrupção em falha de build**
     - **Valida: Requisitos 3.3**
   
-  - [ ] 10.9 Escrever teste de propriedade para progressão após sucesso
+  - [x] 10.9 Escrever teste de propriedade para progressão após sucesso
     - **Propriedade 8: Progressão após build bem-sucedido**
     - **Valida: Requisitos 3.4**
   
-  - [ ] 10.10 Escrever teste de propriedade para logging
+  - [x] 10.10 Escrever teste de propriedade para logging
     - **Propriedade 17: Logging de início e fim de job**
     - **Valida: Requisitos 7.1**
   
-  - [ ] 10.11 Escrever teste de propriedade para métricas
+  - [x] 10.11 Escrever teste de propriedade para métricas
     - **Propriedade 19: Métricas de duração por fase**
     - **Valida: Requisitos 7.3**
 

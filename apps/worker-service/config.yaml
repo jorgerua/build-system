@@ -1,0 +1,19 @@
+nats:
+  url: "nats://localhost:4222"
+  reconnect_wait: 2s
+  connect_timeout: 5s
+
+worker:
+  pool_size: 5
+  queue_size: 100
+  timeout: 3600
+  max_retries: 3
+  retry_delay: 1s
+
+build:
+  code_cache_path: "/var/cache/oci-build/repos"
+  build_cache_path: "/var/cache/oci-build/deps"
+
+logging:
+  level: "info"
+  format: "json"
