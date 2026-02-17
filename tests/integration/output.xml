@@ -1,0 +1,1770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.9.6 on darwin)" generated="2026-02-17T17:08:45.846324" rpa="false" schemaversion="5">
+<suite id="s1" name="Api" source="/Users/rua/sources/build-system/tests/integration/api.robot">
+<kw name="Setup Test Environment" owner="keywords" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.416631" level="INFO">Creating Session using : alias=api, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_BASE_URL}</arg>
+<arg>verify=False</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-02-17T17:08:46.416486" elapsed="0.000272"/>
+</kw>
+<doc>Initialize test environment and create HTTP session</doc>
+<status status="PASS" start="2026-02-17T17:08:46.416080" elapsed="0.000734"/>
+</kw>
+<test id="s1-t1" name="Query Status Of Existing Build" line="9">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.418984" level="INFO">${hash} = ddee43f93a516e5be08fa62c54a161585fa50e8b</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.417289" elapsed="0.001717"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.419042" elapsed="0.000029"/>
+</return>
+<msg time="2026-02-17T17:08:46.419157" level="INFO">${commit_hash} = ddee43f93a516e5be08fa62c54a161585fa50e8b</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.417155" elapsed="0.002017"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.419851" level="INFO">${payload} = {"ref": "refs/heads/main","after": "ddee43f93a516e5be08fa62c54a161585fa50e8b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.419508" elapsed="0.000359"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.419923" elapsed="0.000016"/>
+</return>
+<msg time="2026-02-17T17:08:46.420008" level="INFO">${payload} = {"ref": "refs/heads/main","after": "ddee43f93a516e5be08fa62c54a161585fa50e8b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.419289" elapsed="0.000734"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.420531" level="INFO">${signature} = 4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.420299" elapsed="0.000247"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.420574" elapsed="0.000016"/>
+</return>
+<msg time="2026-02-17T17:08:46.420661" level="INFO">${signature} = sha256=4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.420126" elapsed="0.000549"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.421236" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.420973" elapsed="0.000279"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.440339" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "ddee43f93a516e5be08fa62c54a161585fa50e8b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "ddee43f93a516e5be08fa62c54a161585fa50e8b","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.440401" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.440493" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.421319" elapsed="0.019192"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.440564" elapsed="0.000030"/>
+</return>
+<msg time="2026-02-17T17:08:46.440878" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.420780" elapsed="0.020122"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.441759" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-02-17T17:08:46.441830" level="FAIL">401.0 != 202.0</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.441314" elapsed="0.000559">401.0 != 202.0</status>
+</kw>
+<arg>${response}</arg>
+<arg>${HTTP_ACCEPTED}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.441073" elapsed="0.000866">401.0 != 202.0</status>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${job_id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442036" elapsed="0.000013"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<arg>Wait for job to be processed</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442167" elapsed="0.000012"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442287" elapsed="0.000014"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${status_response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442389" elapsed="0.000013"/>
+</kw>
+<kw name="Verify JSON Response" owner="keywords">
+<arg>${status_response}</arg>
+<doc>Verify response contains valid JSON</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442509" elapsed="0.000012"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${job_data}</var>
+<arg>${status_response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442592" elapsed="0.000011"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442672" elapsed="0.000073"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>status</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442817" elapsed="0.000010"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>repository</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442894" elapsed="0.000010"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>commit_hash</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.442969" elapsed="0.000010"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>created_at</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.443042" elapsed="0.000009"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${returned_id}</var>
+<arg>${job_data}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.443115" elapsed="0.000010"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${returned_id}</arg>
+<arg>${job_id}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.443209" elapsed="0.000010"/>
+</kw>
+<doc>Test querying status of an existing build
+Validates: Requirements 8.1, 8.2</doc>
+<tag>api</tag>
+<tag>happy-path</tag>
+<tag>status</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.416857" elapsed="0.026468">401.0 != 202.0</status>
+</test>
+<test id="s1-t2" name="Query Status Of Non-Existent Build" line="43">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.443894" level="INFO">${fake_job_id} = non-existent-job-id-12345</msg>
+<var>${fake_job_id}</var>
+<arg>non-existent-job-id-12345</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.443727" elapsed="0.000182"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.444388" level="INFO">${headers} = {'Authorization': 'Bearer test-auth-token'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${AUTH_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.444180" elapsed="0.000223"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.446885" level="INFO">GET Request : url=http://localhost:8080/builds/non-existent-job-id-12345 
+ path_url=/builds/non-existent-job-id-12345 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} 
+ body=None 
+ </msg>
+<msg time="2026-02-17T17:08:46.446930" level="INFO">GET Response : url=http://localhost:8080/builds/non-existent-job-id-12345 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '40'} 
+ body={"error":"invalid authentication token"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.446997" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/builds/${build_id}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.444466" elapsed="0.002546"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.447055" elapsed="0.000023"/>
+</return>
+<msg time="2026-02-17T17:08:46.447159" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${fake_job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="PASS" start="2026-02-17T17:08:46.444013" elapsed="0.003161"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.447926" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-02-17T17:08:46.447987" level="FAIL">401.0 != 404.0</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.447510" elapsed="0.000515">401.0 != 404.0</status>
+</kw>
+<arg>${response}</arg>
+<arg>${HTTP_NOT_FOUND}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.447301" elapsed="0.001046">401.0 != 404.0</status>
+</kw>
+<doc>Test querying status of a build that doesn't exist
+Validates: Requirements 8.1, 8.5</doc>
+<tag>api</tag>
+<tag>negative</tag>
+<tag>status</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.443459" elapsed="0.005011">401.0 != 404.0</status>
+</test>
+<test id="s1-t3" name="List Build History" line="55">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.449197" level="INFO">${hash} = 17038ac885ed4dc6b32fa0c83ef895a17a60ea62</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.448995" elapsed="0.000218"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.449244" elapsed="0.000016"/>
+</return>
+<msg time="2026-02-17T17:08:46.449329" level="INFO">${commit_hash_1} = 17038ac885ed4dc6b32fa0c83ef895a17a60ea62</msg>
+<var>${commit_hash_1}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.448861" elapsed="0.000481"/>
+</kw>
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.449724" level="INFO">${hash} = c2c88f7d30cea1bcefaebd42bbe96ca071713f8e</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.449570" elapsed="0.000168"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.449763" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.449846" level="INFO">${commit_hash_2} = c2c88f7d30cea1bcefaebd42bbe96ca071713f8e</msg>
+<var>${commit_hash_2}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.449440" elapsed="0.000452"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.450591" level="INFO">${payload} = {"ref": "refs/heads/main","after": "17038ac885ed4dc6b32fa0c83ef895a17a60ea62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.450180" elapsed="0.000428"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.450667" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.450751" level="INFO">${payload_1} = {"ref": "refs/heads/main","after": "17038ac885ed4dc6b32fa0c83ef895a17a60ea62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload_1}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash_1}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.449984" elapsed="0.000781"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.451389" level="INFO">${payload} = {"ref": "refs/heads/develop","after": "c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","repository": {"name": "sample-go-repo","full_name": "test-owner/sample-go-repo","clone_url": "https://github.com/test-...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.451070" elapsed="0.000334"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.451459" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.451540" level="INFO">${payload_2} = {"ref": "refs/heads/develop","after": "c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","repository": {"name": "sample-go-repo","full_name": "test-owner/sample-go-repo","clone_url": "https://github.com/test-...</msg>
+<var>${payload_2}</var>
+<arg>${TEST_REPO_GO}</arg>
+<arg>${commit_hash_2}</arg>
+<arg>develop</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.450869" elapsed="0.000685"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.452053" level="INFO">${signature} = a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.451830" elapsed="0.000238"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.452095" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.452180" level="INFO">${signature_1} = sha256=a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316</msg>
+<var>${signature_1}</var>
+<arg>${payload_1}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.451654" elapsed="0.000540"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.452680" level="INFO">${signature} = 7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.452470" elapsed="0.000225"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.452723" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.452810" level="INFO">${signature_2} = sha256=7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2</msg>
+<var>${signature_2}</var>
+<arg>${payload_2}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.452293" elapsed="0.000531"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.453489" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.453284" elapsed="0.000220"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.455634" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "17038ac885ed4dc6b32fa0c83ef895a17a60ea62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "17038ac885ed4dc6b32fa0c83ef895a17a60ea62","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.455674" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.455741" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.453576" elapsed="0.002181"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.455798" elapsed="0.000020"/>
+</return>
+<msg time="2026-02-17T17:08:46.455899" level="INFO">${response_1} = &lt;Response [401]&gt;</msg>
+<var>${response_1}</var>
+<arg>${payload_1}</arg>
+<arg>${signature_1}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.452926" elapsed="0.003019"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.456489" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.456278" elapsed="0.000227"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.458472" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2', 'Content-Length': '414'} 
+ body={"ref": "refs/heads/develop","after": "c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","repository": {"name": "sample-go-repo","full_name": "test-owner/sample-go-repo","clone_url": "https://github.com/test-owner/sample-go-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.458510" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.458570" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.456573" elapsed="0.002012"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.458626" elapsed="0.000019"/>
+</return>
+<msg time="2026-02-17T17:08:46.458724" level="INFO">${response_2} = &lt;Response [401]&gt;</msg>
+<var>${response_2}</var>
+<arg>${payload_2}</arg>
+<arg>${signature_2}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.456073" elapsed="0.002666"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.459244" level="FAIL">Dictionary does not contain key 'id'.</msg>
+<var>${job_id_1}</var>
+<arg>${response_1.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.458832" elapsed="0.000460">Dictionary does not contain key 'id'.</status>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${job_id_2}</var>
+<arg>${response_2.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459394" elapsed="0.000012"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<arg>Wait for jobs to be processed</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459476" elapsed="0.000011"/>
+</kw>
+<kw name="List Builds" owner="keywords">
+<var>${list_response}</var>
+<doc>List all builds</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459587" elapsed="0.000013"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${list_response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459687" elapsed="0.000012"/>
+</kw>
+<kw name="Verify JSON Response" owner="keywords">
+<arg>${list_response}</arg>
+<doc>Verify response contains valid JSON</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459788" elapsed="0.000013"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${builds}</var>
+<arg>${list_response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459876" elapsed="0.000011"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${builds_type}</var>
+<arg>type($builds).__name__</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.459956" elapsed="0.000010"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${builds_type}</arg>
+<arg>list</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460034" elapsed="0.000009"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${build_ids}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460124" elapsed="0.000010"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${build_id}</var>
+<arg>${build}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460271" elapsed="0.000010"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${build_ids}</arg>
+<arg>${build_id}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460336" elapsed="0.000010"/>
+</kw>
+<var name="${build}"/>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460222" elapsed="0.000142"/>
+</iter>
+<var>${build}</var>
+<value>@{builds}</value>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460181" elapsed="0.000197"/>
+</for>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${build_ids}</arg>
+<arg>${job_id_1}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460449" elapsed="0.000113"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${build_ids}</arg>
+<arg>${job_id_2}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.460632" elapsed="0.000010"/>
+</kw>
+<doc>Test listing all builds
+Validates: Requirements 8.2, 8.3</doc>
+<tag>api</tag>
+<tag>list</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.448606" elapsed="0.012129">Dictionary does not contain key 'id'.</status>
+</test>
+<test id="s1-t4" name="Health Check Endpoint" line="99">
+<kw name="Check Health" owner="keywords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.463349" level="INFO">GET Request : url=http://localhost:8080/health 
+ path_url=/health 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-02-17T17:08:46.463389" level="INFO">GET Response : url=http://localhost:8080/health 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '123'} 
+ body={"status":"healthy","timestamp":"2026-02-17T20:08:46.462174762Z","uptime":"53m29.477273506s","checks":{"nats":"connected"}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.463458" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/health</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.461229" elapsed="0.002246"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.463514" elapsed="0.000022"/>
+</return>
+<msg time="2026-02-17T17:08:46.463620" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<doc>Check API health endpoint</doc>
+<status status="PASS" start="2026-02-17T17:08:46.461100" elapsed="0.002572"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.464538" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.463994" elapsed="0.000586"/>
+</kw>
+<arg>${response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="PASS" start="2026-02-17T17:08:46.463789" elapsed="0.000830"/>
+</kw>
+<kw name="Verify JSON Response" owner="keywords">
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.465281" level="INFO">${content_type} = application/json; charset=utf-8</msg>
+<var>${content_type}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.464915" elapsed="0.000381"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${content_type}</arg>
+<arg>application/json</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.465362" elapsed="0.000256"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.466088" level="INFO">${json} = {'status': 'healthy', 'timestamp': '2026-02-17T20:08:46.462174762Z', 'uptime': '53m29.477273506s', 'checks': {'nats': 'connected'}}</msg>
+<var>${json}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.465688" elapsed="0.000416"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.466307" level="INFO">Length is 4.</msg>
+<arg>${json}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.466167" elapsed="0.000166"/>
+</kw>
+<arg>${response}</arg>
+<doc>Verify response contains valid JSON</doc>
+<status status="PASS" start="2026-02-17T17:08:46.464736" elapsed="0.001629"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.466841" level="INFO">${health_data} = {'status': 'healthy', 'timestamp': '2026-02-17T20:08:46.462174762Z', 'uptime': '53m29.477273506s', 'checks': {'nats': 'connected'}}</msg>
+<var>${health_data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.466451" elapsed="0.000406"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${health_data}</arg>
+<arg>status</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.466937" elapsed="0.000094"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.467209" level="INFO">${status} = healthy</msg>
+<var>${status}</var>
+<arg>${health_data}</arg>
+<arg>status</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.467109" elapsed="0.000114"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${status}</arg>
+<arg>healthy</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.467296" elapsed="0.000141"/>
+</kw>
+<doc>Test health check endpoint
+Validates: Requirements 8.1</doc>
+<tag>api</tag>
+<tag>health</tag>
+<status status="PASS" start="2026-02-17T17:08:46.460860" elapsed="0.006651"/>
+</test>
+<test id="s1-t5" name="Authentication With Valid Token" line="118">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.468192" level="INFO">${hash} = 35696986adc84c712ac98e9a58720dc27ead682b</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.468013" elapsed="0.000193"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.468232" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.468310" level="INFO">${commit_hash} = 35696986adc84c712ac98e9a58720dc27ead682b</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.467883" elapsed="0.000439"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.468989" level="INFO">${payload} = {"ref": "refs/heads/main","after": "35696986adc84c712ac98e9a58720dc27ead682b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.468600" elapsed="0.000403"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.469054" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.469129" level="INFO">${payload} = {"ref": "refs/heads/main","after": "35696986adc84c712ac98e9a58720dc27ead682b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.468411" elapsed="0.000732"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.469601" level="INFO">${signature} = f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.469403" elapsed="0.000211"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.469639" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.469718" level="INFO">${signature} = sha256=f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.469237" elapsed="0.000494"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.470202" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.470006" elapsed="0.000212"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.473002" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "35696986adc84c712ac98e9a58720dc27ead682b","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "35696986adc84c712ac98e9a58720dc27ead682b","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.473045" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.473120" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.470282" elapsed="0.002855"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.473181" elapsed="0.000021"/>
+</return>
+<msg time="2026-02-17T17:08:46.473283" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.469825" elapsed="0.003473"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.473781" level="FAIL">Dictionary does not contain key 'id'.</msg>
+<var>${job_id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.473397" elapsed="0.000433">Dictionary does not contain key 'id'.</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.473923" elapsed="0.000013"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.474043" elapsed="0.000014"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${status_response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.474141" elapsed="0.000012"/>
+</kw>
+<doc>Test API authentication with valid token
+Validates: Requirements 8.4</doc>
+<tag>api</tag>
+<tag>auth</tag>
+<tag>security</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.467622" elapsed="0.006621">Dictionary does not contain key 'id'.</status>
+</test>
+<test id="s1-t6" name="Authentication With Invalid Token" line="138">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.474938" level="INFO">${hash} = cff24ee3f892110b92f8cfafa7c68f1c1d3244dd</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.474744" elapsed="0.000209"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.474981" elapsed="0.000016"/>
+</return>
+<msg time="2026-02-17T17:08:46.475067" level="INFO">${commit_hash} = cff24ee3f892110b92f8cfafa7c68f1c1d3244dd</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.474617" elapsed="0.000463"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.475699" level="INFO">${payload} = {"ref": "refs/heads/main","after": "cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.475375" elapsed="0.000339"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.475768" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.475846" level="INFO">${payload} = {"ref": "refs/heads/main","after": "cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.475177" elapsed="0.000683"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.476338" level="INFO">${signature} = 33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.476130" elapsed="0.000223"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.476379" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.476461" level="INFO">${signature} = sha256=33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.475956" elapsed="0.000518"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.477058" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.476752" elapsed="0.000322"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.480188" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.480308" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.480406" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.477137" elapsed="0.003287"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.480485" elapsed="0.000031"/>
+</return>
+<msg time="2026-02-17T17:08:46.480618" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.476573" elapsed="0.004060"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.481248" level="FAIL">Dictionary does not contain key 'id'.</msg>
+<var>${job_id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.480770" elapsed="0.000533">Dictionary does not contain key 'id'.</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.481418" elapsed="0.000015"/>
+</kw>
+<kw name="Get Build Status Without Auth" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status without authentication</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.481539" elapsed="0.000014"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${status_response}</arg>
+<arg>${HTTP_UNAUTHORIZED}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.481636" elapsed="0.000011"/>
+</kw>
+<doc>Test API authentication with invalid token
+Validates: Requirements 8.4</doc>
+<tag>api</tag>
+<tag>auth</tag>
+<tag>negative</tag>
+<tag>security</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.474369" elapsed="0.007369">Dictionary does not contain key 'id'.</status>
+</test>
+<test id="s1-t7" name="Authentication Required For List Endpoint" line="158">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.482310" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.482131" elapsed="0.000194"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.484305" level="INFO">GET Request : url=http://localhost:8080/builds 
+ path_url=/builds 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2026-02-17T17:08:46.484338" level="INFO">GET Response : url=http://localhost:8080/builds 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '44'} 
+ body={"error":"authorization header is required"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.484394" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/builds</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.482411" elapsed="0.001997"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.485090" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.484715" elapsed="0.000409"/>
+</kw>
+<arg>${response}</arg>
+<arg>${HTTP_UNAUTHORIZED}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="PASS" start="2026-02-17T17:08:46.484519" elapsed="0.000638"/>
+</kw>
+<doc>Test that list endpoint requires authentication
+Validates: Requirements 8.4</doc>
+<tag>api</tag>
+<tag>auth</tag>
+<tag>negative</tag>
+<tag>security</tag>
+<status status="PASS" start="2026-02-17T17:08:46.481864" elapsed="0.003360"/>
+</test>
+<test id="s1-t8" name="Verify JSON Content Type In Responses" line="170">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.485877" level="INFO">${hash} = fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.485694" elapsed="0.000199"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.485921" elapsed="0.000020"/>
+</return>
+<msg time="2026-02-17T17:08:46.486009" level="INFO">${commit_hash} = fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.485576" elapsed="0.000447"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.486633" level="INFO">${payload} = {"ref": "refs/heads/main","after": "fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.486315" elapsed="0.000334"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.486703" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.486843" level="INFO">${payload} = {"ref": "refs/heads/main","after": "fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.486117" elapsed="0.000743"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.487512" level="INFO">${signature} = 17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.487296" elapsed="0.000231"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.487553" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.487637" level="INFO">${signature} = sha256=17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.487119" elapsed="0.000531"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.488124" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.487935" elapsed="0.000205"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.490078" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.490114" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.490180" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.488202" elapsed="0.001993"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.490235" elapsed="0.000018"/>
+</return>
+<msg time="2026-02-17T17:08:46.490328" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.487754" elapsed="0.002588"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.490790" level="FAIL">Dictionary does not contain key 'id'.</msg>
+<var>${job_id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.490431" elapsed="0.000402">Dictionary does not contain key 'id'.</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.490919" elapsed="0.000012"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.491034" elapsed="0.000013"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${content_type}</var>
+<arg>${status_response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.491114" elapsed="0.000010"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${content_type}</arg>
+<arg>application/json</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.491190" elapsed="0.000010"/>
+</kw>
+<doc>Test that API responses have correct Content-Type
+Validates: Requirements 8.3</doc>
+<tag>api</tag>
+<tag>content-type</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.485332" elapsed="0.005963">Dictionary does not contain key 'id'.</status>
+</test>
+<test id="s1-t9" name="Verify HTTP Status Codes" line="191">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.491942" level="INFO">${hash} = 9d0e04ee5e2e2de11b50183ca95cad797598cd62</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.491762" elapsed="0.000196"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.491985" elapsed="0.000016"/>
+</return>
+<msg time="2026-02-17T17:08:46.492068" level="INFO">${commit_hash} = 9d0e04ee5e2e2de11b50183ca95cad797598cd62</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.491636" elapsed="0.000446"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.492660" level="INFO">${payload} = {"ref": "refs/heads/main","after": "9d0e04ee5e2e2de11b50183ca95cad797598cd62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.492360" elapsed="0.000315"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.492729" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.492807" level="INFO">${payload} = {"ref": "refs/heads/main","after": "9d0e04ee5e2e2de11b50183ca95cad797598cd62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.492174" elapsed="0.000646"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.493281" level="INFO">${signature} = a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.493087" elapsed="0.000233"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.493345" elapsed="0.000013"/>
+</return>
+<msg time="2026-02-17T17:08:46.493422" level="INFO">${signature} = sha256=a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.492916" elapsed="0.000518"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.493882" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.493691" elapsed="0.000207"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.495836" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "9d0e04ee5e2e2de11b50183ca95cad797598cd62","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "9d0e04ee5e2e2de11b50183ca95cad797598cd62","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.495891" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.495981" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.493965" elapsed="0.002039"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.496060" elapsed="0.000027"/>
+</return>
+<msg time="2026-02-17T17:08:46.496178" level="INFO">${webhook_response} = &lt;Response [401]&gt;</msg>
+<var>${webhook_response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.493527" elapsed="0.002665"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.497031" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-02-17T17:08:46.497098" level="FAIL">401.0 != 202.0</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.496581" elapsed="0.000563">401.0 != 202.0</status>
+</kw>
+<arg>${webhook_response}</arg>
+<arg>${HTTP_ACCEPTED}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.496353" elapsed="0.000850">401.0 != 202.0</status>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${job_id}</var>
+<arg>${webhook_response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497316" elapsed="0.000012"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497404" elapsed="0.000010"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497523" elapsed="0.000012"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${status_response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497621" elapsed="0.000011"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${not_found_response}</var>
+<arg>fake-id-12345</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497741" elapsed="0.000012"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${not_found_response}</arg>
+<arg>${HTTP_NOT_FOUND}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.497969" elapsed="0.000011"/>
+</kw>
+<kw name="Get Build Status Without Auth" owner="keywords">
+<var>${unauth_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status without authentication</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.498072" elapsed="0.000010"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<arg>${unauth_response}</arg>
+<arg>${HTTP_UNAUTHORIZED}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.498162" elapsed="0.000011"/>
+</kw>
+<doc>Test that API returns appropriate HTTP status codes
+Validates: Requirements 8.5</doc>
+<tag>api</tag>
+<tag>status-codes</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.491405" elapsed="0.006872">401.0 != 202.0</status>
+</test>
+<test id="s1-t10" name="Query Build With Complete Information" line="217">
+<kw name="Generate Random Commit Hash" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.499021" level="INFO">${hash} = 9294a569dbb8b8a660d737d9744f412319c9146d</msg>
+<var>${hash}</var>
+<arg>__import__('secrets').token_hex(20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.498807" elapsed="0.000233"/>
+</kw>
+<return>
+<value>${hash}</value>
+<status status="PASS" start="2026-02-17T17:08:46.499071" elapsed="0.000031"/>
+</return>
+<msg time="2026-02-17T17:08:46.499171" level="INFO">${commit_hash} = 9294a569dbb8b8a660d737d9744f412319c9146d</msg>
+<var>${commit_hash}</var>
+<doc>Generate a random 40-character hex string (like git commit hash)</doc>
+<status status="PASS" start="2026-02-17T17:08:46.498685" elapsed="0.000499"/>
+</kw>
+<kw name="Create Webhook Payload" owner="keywords">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.499830" level="INFO">${payload} = {"ref": "refs/heads/main","after": "9294a569dbb8b8a660d737d9744f412319c9146d","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>SEPARATOR=</arg>
+<arg>{</arg>
+<arg>"ref": "refs/heads/${branch}",</arg>
+<arg>"after": "${commit_hash}",</arg>
+<arg>"repository": {</arg>
+<arg>"name": "${repo_name}",</arg>
+<arg>"full_name": "test-owner/${repo_name}",</arg>
+<arg>"clone_url": "https://github.com/test-owner/${repo_name}.git",</arg>
+<arg>"owner": {"login": "test-owner"}</arg>
+<arg>},</arg>
+<arg>"head_commit": {</arg>
+<arg>"id": "${commit_hash}",</arg>
+<arg>"message": "Test commit",</arg>
+<arg>"author": {"name": "Test Author", "email": "test@example.com"}</arg>
+<arg>}</arg>
+<arg>}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.499491" elapsed="0.000355"/>
+</kw>
+<return>
+<value>${payload}</value>
+<status status="PASS" start="2026-02-17T17:08:46.499943" elapsed="0.000015"/>
+</return>
+<msg time="2026-02-17T17:08:46.500025" level="INFO">${payload} = {"ref": "refs/heads/main","after": "9294a569dbb8b8a660d737d9744f412319c9146d","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test...</msg>
+<var>${payload}</var>
+<arg>${TEST_REPO_JAVA}</arg>
+<arg>${commit_hash}</arg>
+<arg>main</arg>
+<doc>Create a valid GitHub webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.499286" elapsed="0.000753"/>
+</kw>
+<kw name="Generate HMAC Signature" owner="keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.500547" level="INFO">${signature} = 54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2</msg>
+<var>${signature}</var>
+<arg>__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.500339" elapsed="0.000221"/>
+</kw>
+<return>
+<value>sha256=${signature}</value>
+<status status="PASS" start="2026-02-17T17:08:46.500589" elapsed="0.000014"/>
+</return>
+<msg time="2026-02-17T17:08:46.500668" level="INFO">${signature} = sha256=54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2</msg>
+<var>${signature}</var>
+<arg>${payload}</arg>
+<arg>${GITHUB_SECRET}</arg>
+<doc>Generate HMAC-SHA256 signature for webhook payload</doc>
+<status status="PASS" start="2026-02-17T17:08:46.500144" elapsed="0.000537"/>
+</kw>
+<kw name="Send Webhook" owner="keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.501179" level="INFO">${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>X-Hub-Signature-256=${signature}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.500988" elapsed="0.000205"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.503120" level="INFO">POST Request : url=http://localhost:8080/webhook 
+ path_url=/webhook 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2', 'Content-Length': '417'} 
+ body={"ref": "refs/heads/main","after": "9294a569dbb8b8a660d737d9744f412319c9146d","repository": {"name": "sample-java-repo","full_name": "test-owner/sample-java-repo","clone_url": "https://github.com/test-owner/sample-java-repo.git","owner": {"login": "test-owner"}},"head_commit": {"id": "9294a569dbb8b8a660d737d9744f412319c9146d","message": "Test commit","author": {"name": "Test Author", "email": "test@example.com"}}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.503162" level="INFO">POST Response : url=http://localhost:8080/webhook 
+ status=401, reason=Unauthorized 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} 
+ body={"error":"invalid signature"} 
+ </msg>
+<msg time="2026-02-17T17:08:46.503231" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/webhook</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.501253" elapsed="0.001994"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.503292" elapsed="0.000022"/>
+</return>
+<msg time="2026-02-17T17:08:46.503398" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${signature}</arg>
+<doc>Send webhook POST request to API</doc>
+<status status="PASS" start="2026-02-17T17:08:46.500787" elapsed="0.002625"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-02-17T17:08:46.504020" level="FAIL">Dictionary does not contain key 'id'.</msg>
+<var>${job_id}</var>
+<arg>${response.json()}</arg>
+<arg>id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2026-02-17T17:08:46.503514" elapsed="0.000598">Dictionary does not contain key 'id'.</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504223" elapsed="0.000017"/>
+</kw>
+<kw name="Get Build Status" owner="keywords">
+<var>${status_response}</var>
+<arg>${job_id}</arg>
+<doc>Query build status by ID</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504368" elapsed="0.000013"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${job_data}</var>
+<arg>${status_response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504464" elapsed="0.000011"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>id</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504539" elapsed="0.000009"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>status</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504635" elapsed="0.000009"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>created_at</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504707" elapsed="0.000011"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>repository</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504782" elapsed="0.000011"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${repo_info}</var>
+<arg>${job_data}</arg>
+<arg>repository</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504862" elapsed="0.000009"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${repo_info}</arg>
+<arg>name</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.504932" elapsed="0.000009"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${repo_info}</arg>
+<arg>owner</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505008" elapsed="0.000008"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${repo_info}</arg>
+<arg>url</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505085" elapsed="0.000009"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>commit_hash</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505151" elapsed="0.000008"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${job_data}</arg>
+<arg>branch</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505228" elapsed="0.000009"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${status}</var>
+<arg>${job_data}</arg>
+<arg>status</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505295" elapsed="0.000037"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${status}' in ['running', 'completed', 'failed']</arg>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${job_data}</arg>
+<arg>started_at</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505408" elapsed="0.000010"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${status}' in ['completed', 'failed']</arg>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${job_data}</arg>
+<arg>completed_at</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505489" elapsed="0.000009"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${status}' in ['completed', 'failed']</arg>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${job_data}</arg>
+<arg>duration</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-02-17T17:08:46.505569" elapsed="0.000009"/>
+</kw>
+<doc>Test that build status includes all required information
+Validates: Requirements 8.2, 8.3</doc>
+<tag>api</tag>
+<tag>detailed</tag>
+<tag>status</tag>
+<status status="FAIL" start="2026-02-17T17:08:46.498411" elapsed="0.007263">Dictionary does not contain key 'id'.</status>
+</test>
+<test id="s1-t11" name="Verify API Response Time" line="264">
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.506198" level="INFO">${start_time} = 1771358926</msg>
+<var>${start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.506014" elapsed="0.000198"/>
+</kw>
+<kw name="Check Health" owner="keywords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.508307" level="INFO">GET Request : url=http://localhost:8080/health 
+ path_url=/health 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-02-17T17:08:46.508358" level="INFO">GET Response : url=http://localhost:8080/health 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '123'} 
+ body={"status":"healthy","timestamp":"2026-02-17T20:08:46.507100637Z","uptime":"53m29.522199381s","checks":{"nats":"connected"}} 
+ </msg>
+<msg time="2026-02-17T17:08:46.508447" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/health</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.506542" elapsed="0.001926"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2026-02-17T17:08:46.508519" elapsed="0.000024"/>
+</return>
+<msg time="2026-02-17T17:08:46.508632" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<doc>Check API health endpoint</doc>
+<status status="PASS" start="2026-02-17T17:08:46.506308" elapsed="0.002338"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.508957" level="INFO">${end_time} = 1771358926</msg>
+<var>${end_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.508782" elapsed="0.000190"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.509230" level="INFO">${response_time} = 0</msg>
+<var>${response_time}</var>
+<arg>${end_time} - ${start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.509049" elapsed="0.000195"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${response_time} &lt; 5</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.509322" elapsed="0.000140"/>
+</kw>
+<kw name="Verify Response Status" owner="keywords">
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-02-17T17:08:46.510075" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-02-17T17:08:46.509719" elapsed="0.000388"/>
+</kw>
+<arg>${response}</arg>
+<arg>${HTTP_OK}</arg>
+<doc>Verify HTTP response status code</doc>
+<status status="PASS" start="2026-02-17T17:08:46.509550" elapsed="0.000588"/>
+</kw>
+<doc>Test that API responds within acceptable time
+Validates: Requirements 8.1</doc>
+<tag>api</tag>
+<tag>performance</tag>
+<status status="PASS" start="2026-02-17T17:08:46.505794" elapsed="0.004413"/>
+</test>
+<kw name="Teardown Test Environment" owner="keywords" type="TEARDOWN">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-02-17T17:08:46.510628" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-02-17T17:08:46.510591" elapsed="0.000073"/>
+</kw>
+<doc>Clean up test environment</doc>
+<status status="PASS" start="2026-02-17T17:08:46.510502" elapsed="0.000188"/>
+</kw>
+<doc>Integration tests for API endpoints</doc>
+<status status="FAIL" start="2026-02-17T17:08:45.847083" elapsed="0.663623"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="8" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="8" skip="0">api</stat>
+<stat pass="1" fail="2" skip="0">auth</stat>
+<stat pass="0" fail="1" skip="0">content-type</stat>
+<stat pass="0" fail="1" skip="0">detailed</stat>
+<stat pass="0" fail="1" skip="0">happy-path</stat>
+<stat pass="1" fail="0" skip="0">health</stat>
+<stat pass="0" fail="1" skip="0">list</stat>
+<stat pass="1" fail="2" skip="0">negative</stat>
+<stat pass="1" fail="0" skip="0">performance</stat>
+<stat pass="1" fail="2" skip="0">security</stat>
+<stat pass="0" fail="3" skip="0">status</stat>
+<stat pass="0" fail="1" skip="0">status-codes</stat>
+</tag>
+<suite>
+<stat name="Api" id="s1" pass="3" fail="8" skip="0">Api</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-02-17T17:08:45.866703" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 26: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.866828" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 47: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.866914" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 56: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.866988" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 63: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.867056" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 70: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.867117" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 76: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.867172" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 82: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.867221" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-17T17:08:45.867453" level="WARN">Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 117: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

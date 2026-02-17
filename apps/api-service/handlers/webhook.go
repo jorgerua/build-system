@@ -57,7 +57,7 @@ type WebhookPayload struct {
 
 // WebhookResponse representa a resposta enviada ao GitHub
 type WebhookResponse struct {
-	ID      string `json:"id"`
+	JobId   string `json:"job_id"`
 	Status  string `json:"status"`
 	Message string `json:"message"`
 }
@@ -138,7 +138,7 @@ func (h *WebhookHandler) Handle(c *gin.Context) {
 
 	// Retornar HTTP 202 Accepted com job ID
 	c.JSON(http.StatusAccepted, WebhookResponse{
-		ID:      buildJob.ID,
+		JobId:   buildJob.ID,
 		Status:  "accepted",
 		Message: "build job enqueued successfully",
 	})
@@ -203,9 +203,9 @@ func (h *WebhookHandler) extractBuildJob(payload *WebhookPayload) (*shared.Build
 	buildJob := &shared.BuildJob{
 		ID: uuid.New().String(),
 		Repository: shared.RepositoryInfo{
-			URL:   payload.Repository.CloneURL,
-			Name:  payload.Repository.Name,
-			Owner: payload.Repository.Owner.Login,
+			URL:    payload.Repository.CloneURL,
+			Name:   payload.Repository.Name,
+			Owner:  payload.Repository.Owner.Login,
 			Branch: branch,
 		},
 		CommitHash:   commitHash,

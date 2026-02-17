@@ -61,10 +61,10 @@ func TestWebhookHandler_ValidPayload(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	logger := zap.NewNop()
 	secret := "test-secret"
-	
+
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Criar payload válido
 	payload := WebhookPayload{
 		Ref:   "refs/heads/main",
@@ -105,14 +105,14 @@ func TestWebhookHandler_ValidPayload(t *testing.T) {
 			},
 		},
 	}
-	
+
 	payloadBytes, _ := json.Marshal(payload)
-	
+
 	// Calcular assinatura HMAC-SHA256
 	mac := hmac.New(sha256.New, []byte(secret))
 	mac.Write(payloadBytes)
 	signature := "sha256=" + hex.EncodeToString(mac.Sum(nil))
-	
+
 	// Configurar mock para esperar publicação no NATS
 	mockNATS.On("Publish", "builds.webhook", mock.MatchedBy(func(data []byte) bool {
 		var job shared.BuildJob
@@ -124,27 +124,27 @@ func TestWebhookHandler_ValidPayload(t *testing.T) {
 			job.CommitHash == "abc123def456" &&
 			job.Branch == "main"
 	})).Return(nil)
-	
+
 	// Criar requisição HTTP
 	router := gin.New()
 	router.POST("/webhook", handler.Handle)
-	
+
 	req, _ := http.NewRequest("POST", "/webhook", bytes.NewBuffer(payloadBytes))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Hub-Signature-256", signature)
-	
+
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
-	
+
 	// Verificar resposta
 	assert.Equal(t, http.StatusAccepted, w.Code)
-	
+
 	var response WebhookResponse
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
 	assert.Equal(t, "accepted", response.Status)
-	assert.NotEmpty(t, response.JobID)
-	
+	assert.NotEmpty(t, response.JobId)
+
 	mockNATS.AssertExpectations(t)
 }
 
@@ -153,36 +153,36 @@ func TestWebhookHandler_InvalidSignature(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	logger := zap.NewNop()
 	secret := "test-secret"
-	
+
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Criar payload
 	payload := map[string]string{"test": "data"}
 	payloadBytes, _ := json.Marshal(payload)
-	
+
 	// Usar assinatura inválida
 	invalidSignature := "sha256=invalid"
-	
+
 	// Criar requisição HTTP
 	router := gin.New()
 	router.POST("/webhook", handler.Handle)
-	
+
 	req, _ := http.NewRequest("POST", "/webhook", bytes.NewBuffer(payloadBytes))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Hub-Signature-256", invalidSignature)
-	
+
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
-	
+
 	// Verificar resposta
 	assert.Equal(t, http.StatusUnauthorized, w.Code)
-	
+
 	var response map[string]string
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
 	assert.Equal(t, "invalid signature", response["error"])
-	
+
 	// NATS não deve ser chamado
 	mockNATS.AssertNotCalled(t, "Publish")
 }
@@ -192,27 +192,27 @@ func TestWebhookHandler_MissingSignature(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	logger := zap.NewNop()
 	secret := "test-secret"
-	
+
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Criar payload
 	payload := map[string]string{"test": "data"}
 	payloadBytes, _ := json.Marshal(payload)
-	
+
 	// Criar requisição HTTP sem assinatura
 	router := gin.New()
 	router.POST("/webhook", handler.Handle)
-	
+
 	req, _ := http.NewRequest("POST", "/webhook", bytes.NewBuffer(payloadBytes))
 	req.Header.Set("Content-Type", "application/json")
-	
+
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
-	
+
 	// Verificar resposta
 	assert.Equal(t, http.StatusUnauthorized, w.Code)
-	
+
 	// NATS não deve ser chamado
 	mockNATS.AssertNotCalled(t, "Publish")
 }
@@ -222,37 +222,37 @@ func TestWebhookHandler_InvalidJSON(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	logger := zap.NewNop()
 	secret := "test-secret"
-	
+
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Criar payload inválido
 	payloadBytes := []byte("invalid json")
-	
+
 	// Calcular assinatura
 	mac := hmac.New(sha256.New, []byte(secret))
 	mac.Write(payloadBytes)
 	signature := "sha256=" + hex.EncodeToString(mac.Sum(nil))
-	
+
 	// Criar requisição HTTP
 	router := gin.New()
 	router.POST("/webhook", handler.Handle)
-	
+
 	req, _ := http.NewRequest("POST", "/webhook", bytes.NewBuffer(payloadBytes))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Hub-Signature-256", signature)
-	
+
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
-	
+
 	// Verificar resposta
 	assert.Equal(t, http.StatusBadRequest, w.Code)
-	
+
 	var response map[string]string
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
 	assert.Equal(t, "invalid JSON payload", response["error"])
-	
+
 	// NATS não deve ser chamado
 	mockNATS.AssertNotCalled(t, "Publish")
 }
@@ -263,7 +263,7 @@ func TestExtractBuildJob_ValidPayload(t *testing.T) {
 	secret := "test-secret"
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Criar payload válido
 	payload := &WebhookPayload{
 		Ref:   "refs/heads/develop",
@@ -304,10 +304,10 @@ func TestExtractBuildJob_ValidPayload(t *testing.T) {
 			},
 		},
 	}
-	
+
 	// Extrair BuildJob
 	job, err := handler.extractBuildJob(payload)
-	
+
 	// Verificar resultado
 	assert.NoError(t, err)
 	assert.NotNil(t, job)
@@ -328,13 +328,13 @@ func TestExtractBuildJob_MissingRequiredFields(t *testing.T) {
 	secret := "test-secret"
 	mockNATS := new(MockNATSClient)
 	handler := NewWebhookHandler(mockNATS, logger, secret)
-	
+
 	// Testar payload sem clone URL
 	payload := &WebhookPayload{
 		Ref:   "refs/heads/main",
 		After: "abc123",
 	}
-	
+
 	job, err := handler.extractBuildJob(payload)
 	assert.Error(t, err)
 	assert.Nil(t, job)
