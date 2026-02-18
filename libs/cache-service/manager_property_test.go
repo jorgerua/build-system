@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"
 	"github.com/leanovate/gopter/prop"
-	"github.com/oci-build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
@@ -74,7 +74,7 @@ func TestProperty_CachePersistence(t *testing.T) {
 			for i := uint8(0); i < fileCount; i++ {
 				// Criar arquivo com nome único
 				fileName := filepath.Join(cachePath, "dep", "group", "artifact", "version", "file"+string(rune('a'+i))+".jar")
-				
+
 				// Criar diretórios necessários
 				if err := os.MkdirAll(filepath.Dir(fileName), 0755); err != nil {
 					t.Logf("Failed to create directory for %s: %v", fileName, err)
@@ -164,8 +164,8 @@ func TestProperty_CachePersistence(t *testing.T) {
 			shared.LanguageUnknown,
 			shared.Language("invalid"),
 		),
-		gen.UInt8(),    // fileCount
-		gen.UInt16(),   // fileSize
+		gen.UInt8(),  // fileCount
+		gen.UInt16(), // fileSize
 	))
 
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
@@ -235,14 +235,14 @@ func TestProperty_CachePersistence_WithCleanup(t *testing.T) {
 					t.Logf("Failed to write old file: %v", err)
 					return false
 				}
-				
+
 				// Modificar timestamp para 48 horas atrás
 				oldTime := time.Now().Add(-48 * time.Hour)
 				if err := os.Chtimes(fileName, oldTime, oldTime); err != nil {
 					t.Logf("Failed to change file time: %v", err)
 					return false
 				}
-				
+
 				oldFiles = append(oldFiles, fileName)
 			}
 
