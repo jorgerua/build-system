@@ -27,12 +27,12 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
   - [x] 3.4 Criar função logConfig para log de configuração (sem secrets)
   - [x] 3.5 Atualizar LoadConfig para usar as novas funções
 
-- [ ] 4. Adicionar testes unitários para configuração
-  - [ ] 4.1 Testar LoadConfig com arquivo válido
-  - [ ] 4.2 Testar LoadConfig com variáveis de ambiente
-  - [ ] 4.3 Testar validateConfig com configuração inválida
-  - [ ] 4.4 Testar expandEnvVars com diferentes formatos
-  - [ ] 4.5 Testar validateCachePath com paths válidos e inválidos
+- [x] 4. Adicionar testes unitários para configuração
+  - [x] 4.1 Testar LoadConfig com arquivo válido
+  - [x] 4.2 Testar LoadConfig com variáveis de ambiente
+  - [x] 4.3 Testar validateConfig com configuração inválida
+  - [x] 4.4 Testar expandEnvVars com diferentes formatos
+  - [x] 4.5 Testar validateCachePath com paths válidos e inválidos
 
 ### Phase 2: Health Checks (High Priority)
 
