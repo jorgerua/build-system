@@ -9,6 +9,12 @@ services:
     command: "-js -m 8222"
     networks:
       - oci-build-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
     restart: unless-stopped
     
   api-service:
@@ -19,13 +25,16 @@ services:
       - "8080:8080"
     environment:
       # NATS Configuration
-      - NATS_URL=nats://nats:4222
+      - NATS_URL=${NATS_URL:-nats://nats:4222}
       
-      # GitHub Configuration
-      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET:-changeme}
+      # GitHub Configuration (OBRIGATÓRIO)
+      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET:?GITHUB_WEBHOOK_SECRET is required}
+      
+      # Auth Configuration (OBRIGATÓRIO)
+      - API_AUTH_TOKEN=${API_AUTH_TOKEN:?API_AUTH_TOKEN is required}
       
       # Server Configuration
-      - SERVER_PORT=8080
+      - SERVER_PORT=${SERVER_PORT:-8080}
       - SERVER_READ_TIMEOUT=${SERVER_READ_TIMEOUT:-30}
       - SERVER_WRITE_TIMEOUT=${SERVER_WRITE_TIMEOUT:-30}
       - SERVER_SHUTDOWN_TIMEOUT=${SERVER_SHUTDOWN_TIMEOUT:-10}
@@ -44,14 +53,15 @@ services:
       # Config file (optional)
       - ./apps/api-service/config.yaml:/app/config.yaml:ro
     depends_on:
-      - nats
+      nats:
+        condition: service_healthy
     networks:
       - oci-build-network
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
-      interval: 15s
+      interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
       start_period: 10s
     restart: unless-stopped
       
@@ -61,7 +71,7 @@ services:
       dockerfile: apps/worker-service/Dockerfile
     environment:
       # NATS Configuration
-      - NATS_URL=nats://nats:4222
+      - NATS_URL=${NATS_URL:-nats://nats:4222}
       
       # Worker Configuration
       - WORKER_POOL_SIZE=${WORKER_POOL_SIZE:-5}
@@ -96,8 +106,10 @@ services:
       # Config file (optional)
       - ./apps/worker-service/config.yaml:/app/config.yaml:ro
     depends_on:
-      - nats
-      - api-service
+      nats:
+        condition: service_healthy
+      api-service:
+        condition: service_healthy
     networks:
       - oci-build-network
     restart: unless-stopped
