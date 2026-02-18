@@ -1,10 +1,10 @@
-module github.com/oci-build-system/libs/image-service
+module github.com/jorgerua/build-system/libs/image-service
 
-go 1.21
-
-require go.uber.org/zap v1.26.0
+go 1.25
 
 require (
-	github.com/leanovate/gopter v0.2.11 // indirect
-	go.uber.org/multierr v1.10.0 // indirect
+	github.com/leanovate/gopter v0.2.11
+	go.uber.org/zap v1.27.1
 )
+
+require go.uber.org/multierr v1.11.0 // indirect
