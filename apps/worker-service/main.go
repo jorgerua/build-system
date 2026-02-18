@@ -64,33 +64,33 @@ func main() {
 }
 
 // NewLogger creates a new Zap logger
-func NewLogger(config *shared.Config) (*zap.Logger, error) {
-	var logger *zap.Logger
-	var err error
-
-	if config.Logging.Level == "debug" {
-		logger, err = zap.NewDevelopment()
-	} else {
-		logger, err = zap.NewProduction()
-	}
-
+func NewLogger() (*zap.Logger, error) {
+	// Create a basic logger first
+	logger, err := zap.NewProduction()
 	if err != nil {
 		return nil, err
 	}
-
 	return logger, nil
 }
 
 // NewConfig loads configuration from file
-func NewConfig() (*shared.Config, error) {
+func NewConfig(logger *zap.Logger) (*shared.Config, error) {
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		configPath = "config.yaml"
 	}
 
-	config, err := shared.LoadConfig(configPath)
+	config, err := shared.LoadConfig(configPath, logger)
 	if err != nil {
 		return nil, err
+	}
+
+	// Update logger level based on config
+	if config.Logging.Level == "debug" {
+		devLogger, err := zap.NewDevelopment()
+		if err == nil {
+			*logger = *devLogger
+		}
 	}
 
 	return config, nil

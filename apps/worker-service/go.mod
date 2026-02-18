@@ -24,7 +24,7 @@ require (
 	github.com/oci-build-system/libs/nx-service v0.0.0
 	github.com/oci-build-system/libs/shared v0.0.0
 	go.uber.org/fx v1.20.1
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.1
 )
 
 require (

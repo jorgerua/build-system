@@ -20,12 +20,12 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
   - [x] 2.4 Configurar depends_on com condition: service_healthy
   - [x] 2.5 Testar que compose falha se variáveis obrigatórias não estão definidas
 
-- [ ] 3. Implementar função LoadConfig com validação
-  - [ ] 3.1 Criar função expandEnvVars para expandir ${VAR_NAME}
-  - [ ] 3.2 Criar função validateConfig com validação de campos obrigatórios
-  - [ ] 3.3 Criar função validateCachePath para verificar paths
-  - [ ] 3.4 Criar função logConfig para log de configuração (sem secrets)
-  - [ ] 3.5 Atualizar LoadConfig para usar as novas funções
+- [x] 3. Implementar função LoadConfig com validação
+  - [x] 3.1 Criar função expandEnvVars para expandir ${VAR_NAME}
+  - [x] 3.2 Criar função validateConfig com validação de campos obrigatórios
+  - [x] 3.3 Criar função validateCachePath para verificar paths
+  - [x] 3.4 Criar função logConfig para log de configuração (sem secrets)
+  - [x] 3.5 Atualizar LoadConfig para usar as novas funções
 
 - [ ] 4. Adicionar testes unitários para configuração
   - [ ] 4.1 Testar LoadConfig com arquivo válido

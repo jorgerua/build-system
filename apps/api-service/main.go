@@ -54,7 +54,7 @@ func ProvideConfig(logger *zap.Logger) (*shared.Config, error) {
 	
 	logger.Info("loading configuration", zap.String("path", configPath))
 	
-	config, err := shared.LoadConfig(configPath)
+	config, err := shared.LoadConfig(configPath, logger)
 	if err != nil {
 		logger.Error("failed to load configuration", zap.Error(err))
 		return nil, err

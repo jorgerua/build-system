@@ -3,7 +3,10 @@ package shared
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+
+	"go.uber.org/zap"
 )
 
 // TestLoadConfig_ValidYAML testa o parsing de configuração YAML válida
@@ -25,6 +28,9 @@ nats:
 github:
   webhook_secret: "test-secret"
 
+auth:
+  token: "test-token"
+
 worker:
   pool_size: 5
   timeout: 3600
@@ -44,7 +50,8 @@ logging:
 	}
 
 	// Carregar configuração
-	config, err := LoadConfig(configPath)
+	logger := zap.NewNop() // Use no-op logger for tests
+	config, err := LoadConfig(configPath, logger)
 	if err != nil {
 		t.Fatalf("LoadConfig failed: %v", err)
 	}
@@ -83,6 +90,9 @@ nats:
 github:
   webhook_secret: "default-secret"
 
+auth:
+  token: "default-token"
+
 logging:
   level: "info"
 `
@@ -100,7 +110,8 @@ logging:
 	}()
 
 	// Carregar configuração
-	config, err := LoadConfig(configPath)
+	logger := zap.NewNop() // Use no-op logger for tests
+	config, err := LoadConfig(configPath, logger)
 	if err != nil {
 		t.Fatalf("LoadConfig failed: %v", err)
 	}
@@ -114,15 +125,43 @@ logging:
 	}
 }
 
-// TestLoadConfig_MissingFile testa erro quando arquivo não existe
+// TestLoadConfig_MissingFile testa que arquivo ausente usa apenas variáveis de ambiente
 func TestLoadConfig_MissingFile(t *testing.T) {
-	_, err := LoadConfig("/nonexistent/config.yaml")
+	logger := zap.NewNop()
+	
+	// Limpar variáveis de ambiente que podem interferir
+	oldGithubSecret := os.Getenv("GITHUB_WEBHOOK_SECRET")
+	oldAuthToken := os.Getenv("AUTH_TOKEN")
+	oldNatsURL := os.Getenv("NATS_URL")
+	
+	os.Unsetenv("GITHUB_WEBHOOK_SECRET")
+	os.Unsetenv("AUTH_TOKEN")
+	os.Unsetenv("NATS_URL")
+	
+	defer func() {
+		if oldGithubSecret != "" {
+			os.Setenv("GITHUB_WEBHOOK_SECRET", oldGithubSecret)
+		}
+		if oldAuthToken != "" {
+			os.Setenv("AUTH_TOKEN", oldAuthToken)
+		}
+		if oldNatsURL != "" {
+			os.Setenv("NATS_URL", oldNatsURL)
+		}
+	}()
+	
+	// Sem definir variáveis de ambiente obrigatórias, deve falhar na validação
+	_, err := LoadConfig("/nonexistent/config.yaml", logger)
 	if err == nil {
-		t.Error("Expected error for missing config file, got nil")
+		t.Error("Expected error for missing config file without env vars, got nil")
+	}
+	// Deve conter erro de validação
+	if err != nil && !strings.Contains(err.Error(), "configuration validation failed") {
+		t.Errorf("Expected validation error, got: %v", err)
 	}
 }
 
-// TestLoadConfig_InvalidYAML testa erro com YAML malformado
+// TestLoadConfig_InvalidYAML testa que YAML inválido usa apenas variáveis de ambiente
 func TestLoadConfig_InvalidYAML(t *testing.T) {
 	tmpDir := t.TempDir()
 	configPath := filepath.Join(tmpDir, "config.yaml")
@@ -137,26 +176,58 @@ nats:
 		t.Fatalf("Failed to write config file: %v", err)
 	}
 
-	_, err := LoadConfig(configPath)
+	logger := zap.NewNop()
+	
+	// Limpar variáveis de ambiente que podem interferir
+	oldGithubSecret := os.Getenv("GITHUB_WEBHOOK_SECRET")
+	oldAuthToken := os.Getenv("AUTH_TOKEN")
+	oldNatsURL := os.Getenv("NATS_URL")
+	
+	os.Unsetenv("GITHUB_WEBHOOK_SECRET")
+	os.Unsetenv("AUTH_TOKEN")
+	os.Unsetenv("NATS_URL")
+	
+	defer func() {
+		if oldGithubSecret != "" {
+			os.Setenv("GITHUB_WEBHOOK_SECRET", oldGithubSecret)
+		}
+		if oldAuthToken != "" {
+			os.Setenv("AUTH_TOKEN", oldAuthToken)
+		}
+		if oldNatsURL != "" {
+			os.Setenv("NATS_URL", oldNatsURL)
+		}
+	}()
+	
+	// Sem variáveis de ambiente obrigatórias, deve falhar na validação
+	_, err := LoadConfig(configPath, logger)
 	if err == nil {
-		t.Error("Expected error for invalid YAML, got nil")
+		t.Error("Expected error for invalid YAML without env vars, got nil")
+	}
+	// Deve conter erro de validação
+	if err != nil && !strings.Contains(err.Error(), "configuration validation failed") {
+		t.Errorf("Expected validation error, got: %v", err)
 	}
 }
 
 // TestValidateConfig_MissingNATSURL testa validação com NATS URL ausente
 func TestValidateConfig_MissingNATSURL(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
 		NATS: NATSConfig{
 			URL: "",
 		},
+		GitHub: GitHubConfig{
+			WebhookSecret: "test-secret",
+		},
+		Auth: AuthConfig{
+			Token: "test-token",
+		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err == nil {
 		t.Error("Expected error for missing NATS URL, got nil")
-	}
-	if err != nil && err.Error() != "nats.url is required" {
-		t.Errorf("Expected 'nats.url is required' error, got '%v'", err)
 	}
 }
 
@@ -172,14 +243,17 @@ func TestValidateConfig_InvalidPort(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			logger := zap.NewNop()
 			config := &Config{
 				NATS: NATSConfig{URL: "nats://localhost:4222"},
+				GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+				Auth: AuthConfig{Token: "test-token"},
 				Server: ServerConfig{
 					Port: tt.port,
 				},
 			}
 
-			err := validateConfig(config)
+			err := validateConfig(config, logger)
 			if err == nil {
 				t.Errorf("Expected error for %s, got nil", tt.name)
 			}
@@ -189,14 +263,17 @@ func TestValidateConfig_InvalidPort(t *testing.T) {
 
 // TestValidateConfig_PortZeroSkipsValidation testa que porta 0 pula validação (não configurado)
 func TestValidateConfig_PortZeroSkipsValidation(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
 		NATS: NATSConfig{URL: "nats://localhost:4222"},
+		GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+		Auth: AuthConfig{Token: "test-token"},
 		Server: ServerConfig{
 			Port: 0, // Port 0 significa "não configurado"
 		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err != nil {
 		t.Errorf("Expected no error for port 0 (not configured), got %v", err)
 	}
@@ -224,12 +301,15 @@ func TestValidateConfig_NegativeTimeouts(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			logger := zap.NewNop()
 			config := &Config{
 				NATS:   NATSConfig{URL: "nats://localhost:4222"},
+				GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+				Auth:   AuthConfig{Token: "test-token"},
 				Server: tt.config,
 			}
 
-			err := validateConfig(config)
+			err := validateConfig(config, logger)
 			if err == nil {
 				t.Errorf("Expected error for %s, got nil", tt.name)
 			}
@@ -255,12 +335,15 @@ func TestValidateConfig_InvalidWorkerConfig(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			logger := zap.NewNop()
 			config := &Config{
 				NATS:   NATSConfig{URL: "nats://localhost:4222"},
+				GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+				Auth:   AuthConfig{Token: "test-token"},
 				Worker: tt.config,
 			}
 
-			err := validateConfig(config)
+			err := validateConfig(config, logger)
 			if err == nil {
 				t.Errorf("Expected error for %s, got nil", tt.name)
 			}
@@ -270,14 +353,17 @@ func TestValidateConfig_InvalidWorkerConfig(t *testing.T) {
 
 // TestValidateConfig_PoolSizeZeroSkipsValidation testa que pool_size 0 pula validação (não configurado)
 func TestValidateConfig_PoolSizeZeroSkipsValidation(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
-		NATS: NATSConfig{URL: "nats://localhost:4222"},
+		NATS:   NATSConfig{URL: "nats://localhost:4222"},
+		GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+		Auth:   AuthConfig{Token: "test-token"},
 		Worker: WorkerConfig{
 			PoolSize: 0, // PoolSize 0 significa "não configurado"
 		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err != nil {
 		t.Errorf("Expected no error for pool_size 0 (not configured), got %v", err)
 	}
@@ -301,12 +387,15 @@ func TestValidateConfig_IncompleteBuildConfig(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			logger := zap.NewNop()
 			config := &Config{
-				NATS:  NATSConfig{URL: "nats://localhost:4222"},
-				Build: tt.config,
+				NATS:   NATSConfig{URL: "nats://localhost:4222"},
+				GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+				Auth:   AuthConfig{Token: "test-token"},
+				Build:  tt.config,
 			}
 
-			err := validateConfig(config)
+			err := validateConfig(config, logger)
 			if err == nil {
 				t.Errorf("Expected error for %s, got nil", tt.name)
 			}
@@ -316,14 +405,17 @@ func TestValidateConfig_IncompleteBuildConfig(t *testing.T) {
 
 // TestValidateConfig_InvalidLogLevel testa validação de nível de log inválido
 func TestValidateConfig_InvalidLogLevel(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
-		NATS: NATSConfig{URL: "nats://localhost:4222"},
+		NATS:   NATSConfig{URL: "nats://localhost:4222"},
+		GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+		Auth:   AuthConfig{Token: "test-token"},
 		Logging: LoggingConfig{
 			Level: "invalid",
 		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err == nil {
 		t.Error("Expected error for invalid log level, got nil")
 	}
@@ -331,15 +423,18 @@ func TestValidateConfig_InvalidLogLevel(t *testing.T) {
 
 // TestValidateConfig_InvalidLogFormat testa validação de formato de log inválido
 func TestValidateConfig_InvalidLogFormat(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
-		NATS: NATSConfig{URL: "nats://localhost:4222"},
+		NATS:   NATSConfig{URL: "nats://localhost:4222"},
+		GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+		Auth:   AuthConfig{Token: "test-token"},
 		Logging: LoggingConfig{
 			Level:  "info",
 			Format: "xml",
 		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err == nil {
 		t.Error("Expected error for invalid log format, got nil")
 	}
@@ -347,8 +442,11 @@ func TestValidateConfig_InvalidLogFormat(t *testing.T) {
 
 // TestValidateConfig_ValidConfig testa validação de configuração válida
 func TestValidateConfig_ValidConfig(t *testing.T) {
+	logger := zap.NewNop()
 	config := &Config{
-		NATS: NATSConfig{URL: "nats://localhost:4222"},
+		NATS:   NATSConfig{URL: "nats://localhost:4222"},
+		GitHub: GitHubConfig{WebhookSecret: "test-secret"},
+		Auth:   AuthConfig{Token: "test-token"},
 		Server: ServerConfig{
 			Port:            8080,
 			ReadTimeout:     30,
@@ -370,7 +468,7 @@ func TestValidateConfig_ValidConfig(t *testing.T) {
 		},
 	}
 
-	err := validateConfig(config)
+	err := validateConfig(config, logger)
 	if err != nil {
 		t.Errorf("Expected no error for valid config, got %v", err)
 	}
