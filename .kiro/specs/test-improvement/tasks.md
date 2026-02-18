@@ -36,12 +36,12 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
 
 ### Phase 2: Health Checks (High Priority)
 
-- [ ] 5. Implementar endpoints de health check
-  - [ ] 5.1 Atualizar HealthHandler com verificação de NATS
-  - [ ] 5.2 Implementar endpoint /health com status detalhado
-  - [ ] 5.3 Implementar endpoint /readiness
-  - [ ] 5.4 Implementar endpoint /liveness
-  - [ ] 5.5 Registrar endpoints no router
+- [x] 5. Implementar endpoints de health check
+  - [x] 5.1 Atualizar HealthHandler com verificação de NATS
+  - [x] 5.2 Implementar endpoint /health com status detalhado
+  - [x] 5.3 Implementar endpoint /readiness
+  - [x] 5.4 Implementar endpoint /liveness
+  - [x] 5.5 Registrar endpoints no router
 
 - [ ] 6. Adicionar testes para health handlers
   - [ ] 6.1 Testar /health quando NATS está conectado

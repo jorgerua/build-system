@@ -33,7 +33,7 @@ type HealthResponse struct {
 	Checks    map[string]string `json:"checks"`
 }
 
-// Handle processa requisições de health check
+// Handle processa requisições de health check com status detalhado
 func (h *HealthHandler) Handle(c *gin.Context) {
 	checks := make(map[string]string)
 	overallStatus := "healthy"
@@ -70,4 +70,30 @@ func (h *HealthHandler) Handle(c *gin.Context) {
 	)
 
 	c.JSON(statusCode, response)
+}
+
+// Readiness verifica se o serviço está pronto para receber tráfego
+func (h *HealthHandler) Readiness(c *gin.Context) {
+	// Verificar se NATS está conectado
+	if !h.natsClient.IsConnected() {
+		h.logger.Warn("readiness check failed: NATS not connected")
+		c.JSON(http.StatusServiceUnavailable, gin.H{
+			"status": "not_ready",
+			"reason": "nats_not_connected",
+		})
+		return
+	}
+
+	h.logger.Debug("readiness check passed")
+	c.JSON(http.StatusOK, gin.H{
+		"status": "ready",
+	})
+}
+
+// Liveness verifica se o serviço está vivo (para Kubernetes)
+func (h *HealthHandler) Liveness(c *gin.Context) {
+	h.logger.Debug("liveness check passed")
+	c.JSON(http.StatusOK, gin.H{
+		"status": "alive",
+	})
 }

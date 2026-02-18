@@ -71,3 +71,88 @@ func TestHealthHandler_Unhealthy_NATSDisconnected(t *testing.T) {
 	
 	mockNATS.AssertExpectations(t)
 }
+
+func TestHealthHandler_Readiness_Ready(t *testing.T) {
+	// Setup
+	gin.SetMode(gin.TestMode)
+	logger := zap.NewNop()
+	
+	mockNATS := new(MockNATSClient)
+	mockNATS.On("IsConnected").Return(true)
+	
+	handler := NewHealthHandler(mockNATS, logger)
+	
+	// Criar requisição HTTP
+	router := gin.New()
+	router.GET("/readiness", handler.Readiness)
+	
+	req, _ := http.NewRequest("GET", "/readiness", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+	
+	// Verificar resposta
+	assert.Equal(t, http.StatusOK, w.Code)
+	
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
+	assert.Equal(t, "ready", response["status"])
+	
+	mockNATS.AssertExpectations(t)
+}
+
+func TestHealthHandler_Readiness_NotReady(t *testing.T) {
+	// Setup
+	gin.SetMode(gin.TestMode)
+	logger := zap.NewNop()
+	
+	mockNATS := new(MockNATSClient)
+	mockNATS.On("IsConnected").Return(false)
+	
+	handler := NewHealthHandler(mockNATS, logger)
+	
+	// Criar requisição HTTP
+	router := gin.New()
+	router.GET("/readiness", handler.Readiness)
+	
+	req, _ := http.NewRequest("GET", "/readiness", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+	
+	// Verificar resposta
+	assert.Equal(t, http.StatusServiceUnavailable, w.Code)
+	
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
+	assert.Equal(t, "not_ready", response["status"])
+	assert.Equal(t, "nats_not_connected", response["reason"])
+	
+	mockNATS.AssertExpectations(t)
+}
+
+func TestHealthHandler_Liveness(t *testing.T) {
+	// Setup
+	gin.SetMode(gin.TestMode)
+	logger := zap.NewNop()
+	
+	mockNATS := new(MockNATSClient)
+	
+	handler := NewHealthHandler(mockNATS, logger)
+	
+	// Criar requisição HTTP
+	router := gin.New()
+	router.GET("/liveness", handler.Liveness)
+	
+	req, _ := http.NewRequest("GET", "/liveness", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+	
+	// Verificar resposta
+	assert.Equal(t, http.StatusOK, w.Code)
+	
+	var response map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
+	assert.Equal(t, "alive", response["status"])
+}

@@ -138,6 +138,8 @@ func RegisterHandlers(
 	// Criar e registrar health check handler (sem autenticação)
 	healthHandler := handlers.NewHealthHandler(natsClient, logger)
 	router.GET("/health", healthHandler.Handle)
+	router.GET("/readiness", healthHandler.Readiness)
+	router.GET("/liveness", healthHandler.Liveness)
 	
 	// Criar e registrar webhook handler (sem autenticação)
 	webhookHandler := handlers.NewWebhookHandler(natsClient, logger, config.GitHub.WebhookSecret)
