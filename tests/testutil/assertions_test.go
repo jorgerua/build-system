@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oci-build-system/libs/shared"
+	"github.com/jorgerua/build-system/libs/shared"
 )
 
 func TestAssertBuildJobValid_ValidJob(t *testing.T) {
@@ -34,7 +34,7 @@ func TestAssertHTTPStatus_MatchingCodes(t *testing.T) {
 
 func TestAssertJSONResponse_ValidJSON(t *testing.T) {
 	body := []byte(`{"status":"ok","message":"success"}`)
-	
+
 	// This should not fail
 	AssertJSONResponse(t, body)
 }
@@ -57,7 +57,7 @@ func TestAssertContentType_MatchingType(t *testing.T) {
 	headers := http.Header{
 		"Content-Type": []string{"application/json"},
 	}
-	
+
 	// This should not fail
 	AssertContentType(t, headers, "application/json")
 }
@@ -66,14 +66,14 @@ func TestAssertJSONContentType_ValidJSON(t *testing.T) {
 	headers := http.Header{
 		"Content-Type": []string{"application/json; charset=utf-8"},
 	}
-	
+
 	// This should not fail
 	AssertJSONContentType(t, headers)
 }
 
 func TestAssertErrorResponse_ValidError(t *testing.T) {
 	body := []byte(`{"error":"something went wrong"}`)
-	
+
 	// This should not fail
 	AssertErrorResponse(t, body, "went wrong")
 }
@@ -85,7 +85,7 @@ func TestAssertRepositoryInfoValid_ValidRepo(t *testing.T) {
 		Owner:  "owner",
 		Branch: "main",
 	}
-	
+
 	// This should not fail
 	AssertRepositoryInfoValid(t, repo)
 }
@@ -97,7 +97,7 @@ func TestAssertNoError_NoError(t *testing.T) {
 
 func TestAssertErrorContains_WithError(t *testing.T) {
 	err := &testError{msg: "test error message"}
-	
+
 	// This should not fail
 	AssertErrorContains(t, err, "error message")
 }
@@ -110,4 +110,3 @@ type testError struct {
 func (e *testError) Error() string {
 	return e.msg
 }
-

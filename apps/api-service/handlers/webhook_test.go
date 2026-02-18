@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/nats-io/nats.go"
-	"github.com/oci-build-system/libs/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"go.uber.org/zap"

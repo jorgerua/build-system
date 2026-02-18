@@ -6,11 +6,11 @@ import (
 	"math"
 	"time"
 
-	cacheservice "github.com/oci-build-system/libs/cache-service"
-	gitservice "github.com/oci-build-system/libs/git-service"
-	imageservice "github.com/oci-build-system/libs/image-service"
-	nxservice "github.com/oci-build-system/libs/nx-service"
-	"github.com/oci-build-system/libs/shared"
+	cacheservice "github.com/jorgerua/build-system/libs/cache-service"
+	gitservice "github.com/jorgerua/build-system/libs/git-service"
+	imageservice "github.com/jorgerua/build-system/libs/image-service"
+	nxservice "github.com/jorgerua/build-system/libs/nx-service"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 

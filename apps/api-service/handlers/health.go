@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	natsclient "github.com/oci-build-system/libs/nats-client"
+	natsclient "github.com/jorgerua/build-system/libs/nats-client"
 	"go.uber.org/zap"
 )
 

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/nats-io/nats.go"
-	"github.com/oci-build-system/libs/shared"
 )
 
 // MockMessage representa uma mensagem publicada no mock NATS
@@ -47,11 +47,11 @@ func (m *MockNATSClient) Publish(subject string, data []byte) error {
 	if m.PublishFunc != nil {
 		return m.PublishFunc(subject, data)
 	}
-	
+
 	if !m.Connected {
 		return fmt.Errorf("not connected")
 	}
-	
+
 	m.PublishedMessages = append(m.PublishedMessages, MockMessage{
 		Subject: subject,
 		Data:    data,
@@ -64,11 +64,11 @@ func (m *MockNATSClient) Subscribe(subject string, handler nats.MsgHandler) (*na
 	if m.SubscribeFunc != nil {
 		return m.SubscribeFunc(subject, handler)
 	}
-	
+
 	if !m.Connected {
 		return nil, fmt.Errorf("not connected")
 	}
-	
+
 	m.Subscriptions[subject] = handler
 	return &nats.Subscription{}, nil
 }
@@ -78,11 +78,11 @@ func (m *MockNATSClient) Request(subject string, data []byte, timeout time.Durat
 	if m.RequestFunc != nil {
 		return m.RequestFunc(subject, data, timeout)
 	}
-	
+
 	if !m.Connected {
 		return nil, fmt.Errorf("not connected")
 	}
-	
+
 	// Simular resposta
 	return &nats.Msg{
 		Subject: subject,
@@ -176,7 +176,7 @@ func (m *MockNXService) Build(ctx context.Context, repoPath string, config inter
 	if m.BuildFunc != nil {
 		return m.BuildFunc(ctx, repoPath, config)
 	}
-	
+
 	// Retornar resultado de sucesso padrão
 	return &struct {
 		Success      bool
@@ -217,7 +217,7 @@ func (m *MockImageService) BuildImage(ctx context.Context, config interface{}) (
 	if m.BuildImageFunc != nil {
 		return m.BuildImageFunc(ctx, config)
 	}
-	
+
 	// Retornar resultado de sucesso padrão
 	return &struct {
 		ImageID  string

@@ -12,8 +12,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	natsclient "github.com/oci-build-system/libs/nats-client"
-	"github.com/oci-build-system/libs/shared"
+	natsclient "github.com/jorgerua/build-system/libs/nats-client"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 

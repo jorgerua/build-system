@@ -13,7 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 13: Localização de Dockerfile
+// Feature: jorgerua/build-system, Property 13: Localização de Dockerfile
 // Para qualquer repositório, o sistema deve buscar Dockerfile no diretório raiz
 // e em subdiretórios comuns (./docker, ./build, etc.).
 // Valida: Requisitos 5.2
@@ -45,7 +45,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Criar o Dockerfile na localização escolhida
 			dockerfilePath := filepath.Join(tmpDir, location)
-			
+
 			// Criar diretórios necessários
 			if err := os.MkdirAll(filepath.Dir(dockerfilePath), 0755); err != nil {
 				t.Logf("Failed to create directory for %s: %v", dockerfilePath, err)
@@ -72,7 +72,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Tentar localizar o Dockerfile
 			foundPath, err := svc.locateDockerfile(tmpDir, "")
-			
+
 			// Verificar que o Dockerfile foi encontrado
 			if err != nil {
 				t.Logf("Failed to locate Dockerfile at %s: %v", location, err)
@@ -129,7 +129,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Tentar localizar Dockerfile (deve falhar)
 			_, err = svc.locateDockerfile(tmpDir, "")
-			
+
 			// Verificar que retornou erro
 			if err == nil {
 				t.Logf("Expected error when Dockerfile not found, got nil")
@@ -154,10 +154,10 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 			if customPath == "" || customPath == "." || customPath == ".." {
 				customPath = "custom/Dockerfile.prod"
 			}
-			
+
 			// Limpar path para evitar caracteres inválidos
 			customPath = filepath.Clean(customPath)
-			
+
 			// Garantir que termina com um nome de arquivo
 			if filepath.Ext(customPath) == "" {
 				customPath = filepath.Join(customPath, "Dockerfile")
@@ -174,7 +174,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 			// Determinar path completo
 			var fullPath string
 			var pathToProvide string
-			
+
 			if isRelative {
 				// Path relativo ao context
 				fullPath = filepath.Join(tmpDir, customPath)
@@ -204,7 +204,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Localizar usando path especificado
 			foundPath, err := svc.locateDockerfile(tmpDir, pathToProvide)
-			
+
 			// Verificar que encontrou
 			if err != nil {
 				t.Logf("Failed to locate specified Dockerfile at %s: %v", pathToProvide, err)
@@ -229,7 +229,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 			if nonExistentPath == "" || nonExistentPath == "." {
 				nonExistentPath = "nonexistent/Dockerfile"
 			}
-			
+
 			nonExistentPath = filepath.Clean(nonExistentPath)
 
 			// Criar diretório temporário
@@ -246,7 +246,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Tentar localizar Dockerfile inexistente
 			_, err = svc.locateDockerfile(tmpDir, nonExistentPath)
-			
+
 			// Verificar que retornou erro
 			if err == nil {
 				t.Logf("Expected error when specified Dockerfile does not exist, got nil")
@@ -300,7 +300,7 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 
 			// Localizar Dockerfile
 			foundPath, err := svc.locateDockerfile(tmpDir, "")
-			
+
 			// Verificar que encontrou
 			if err != nil {
 				t.Logf("Failed to locate Dockerfile: %v", err)
@@ -321,18 +321,17 @@ func TestProperty_DockerfileLocalization(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-
 // pathsEqual compara dois paths considerando case-insensitivity no Windows
 func pathsEqual(path1, path2 string) bool {
 	// Normalizar ambos os paths
 	path1 = filepath.Clean(path1)
 	path2 = filepath.Clean(path2)
-	
+
 	// Comparar case-insensitive usando strings.EqualFold
 	return strings.EqualFold(filepath.ToSlash(path1), filepath.ToSlash(path2))
 }
 
-// Feature: oci-build-system, Property 15: Aplicação de tags de imagem
+// Feature: jorgerua/build-system, Property 15: Aplicação de tags de imagem
 // Para qualquer imagem OCI construída com sucesso, o sistema deve aplicar pelo menos
 // duas tags: uma com o commit hash completo e outra com o nome do branch.
 // Valida: Requisitos 5.4
@@ -578,7 +577,7 @@ func TestProperty_ImageTagApplication(t *testing.T) {
 					continue
 				}
 				tagName := tagParts[1]
-				
+
 				// Verificar que a parte da tag não contém slashes
 				if strings.Contains(tagName, "/") {
 					t.Logf("Tag name %s should not contain slashes", tagName)

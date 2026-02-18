@@ -8,18 +8,18 @@ import (
 	"testing"
 	"time"
 
+	imageservice "github.com/jorgerua/build-system/libs/image-service"
+	natsclient "github.com/jorgerua/build-system/libs/nats-client"
+	nxservice "github.com/jorgerua/build-system/libs/nx-service"
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"
 	"github.com/leanovate/gopter/prop"
-	imageservice "github.com/oci-build-system/libs/image-service"
-	natsclient "github.com/oci-build-system/libs/nats-client"
-	nxservice "github.com/oci-build-system/libs/nx-service"
-	"github.com/oci-build-system/libs/shared"
 	"github.com/nats-io/nats.go"
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 3: Enfileiramento de webhooks simultâneos
+// Feature: jorgerua/build-system, Property 3: Enfileiramento de webhooks simultâneos
 // Valida: Requisitos 1.5
 //
 // Para qualquer conjunto de webhooks válidos recebidos simultaneamente,
@@ -111,7 +111,7 @@ func generateCommitHash(index int) string {
 	return hash
 }
 
-// Feature: oci-build-system, Property 7: Interrupção em falha de build
+// Feature: jorgerua/build-system, Property 7: Interrupção em falha de build
 // Valida: Requisitos 3.3
 //
 // Para qualquer build NX que retorne código de saída diferente de zero,
@@ -201,7 +201,7 @@ func TestProperty_BuildFailureInterruption(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 8: Progressão após build bem-sucedido
+// Feature: jorgerua/build-system, Property 8: Progressão após build bem-sucedido
 // Valida: Requisitos 3.4
 //
 // Para qualquer build NX que retorne código de saída zero,
@@ -295,7 +295,7 @@ func TestProperty_BuildSuccessProgression(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 17: Logging de início e fim de job
+// Feature: jorgerua/build-system, Property 17: Logging de início e fim de job
 // Valida: Requisitos 7.1
 //
 // Para qualquer BuildJob processado, deve existir uma entrada de log
@@ -391,7 +391,7 @@ func TestProperty_JobLogging(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 19: Métricas de duração por fase
+// Feature: jorgerua/build-system, Property 19: Métricas de duração por fase
 // Valida: Requisitos 7.3
 //
 // Para qualquer BuildJob, cada fase (git_sync, nx_build, image_build)

@@ -17,7 +17,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 9: Configuração de cache por linguagem
+// Feature: jorgerua/build-system, Property 9: Configuração de cache por linguagem
 // **Valida: Requisitos 4.2, 6.1, 6.2, 6.3**
 //
 // Para qualquer projeto detectado como Java, .NET ou Go, o sistema deve configurar

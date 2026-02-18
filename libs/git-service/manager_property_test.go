@@ -16,7 +16,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 4: Sincronização de repositório
+// Feature: jorgerua/build-system, Property 4: Sincronização de repositório
 // Para qualquer repositório, se ele não existe localmente, então git clone deve ser executado;
 // se existe, então git pull deve ser executado; e em ambos os casos o código local deve
 // refletir o commit especificado.
@@ -252,7 +252,7 @@ func TestProperty_RepositorySynchronization(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 5: Fallback para cache em falha de rede
+// Feature: jorgerua/build-system, Property 5: Fallback para cache em falha de rede
 // Para qualquer operação git pull que falhe devido a erro de rede, se o repositório existe
 // em cache, então o sistema deve usar o código em cache e registrar um aviso sem falhar o build.
 // **Valida: Requisitos 2.4**

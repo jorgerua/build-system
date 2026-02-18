@@ -7,12 +7,12 @@ import (
 	"sync"
 	"time"
 
-	cacheservice "github.com/oci-build-system/libs/cache-service"
-	gitservice "github.com/oci-build-system/libs/git-service"
-	imageservice "github.com/oci-build-system/libs/image-service"
-	natsclient "github.com/oci-build-system/libs/nats-client"
-	nxservice "github.com/oci-build-system/libs/nx-service"
-	"github.com/oci-build-system/libs/shared"
+	cacheservice "github.com/jorgerua/build-system/libs/cache-service"
+	gitservice "github.com/jorgerua/build-system/libs/git-service"
+	imageservice "github.com/jorgerua/build-system/libs/image-service"
+	natsclient "github.com/jorgerua/build-system/libs/nats-client"
+	nxservice "github.com/jorgerua/build-system/libs/nx-service"
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/nats-io/nats.go"
 	"go.uber.org/zap"
 )

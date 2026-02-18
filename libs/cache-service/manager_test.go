@@ -13,7 +13,7 @@ import (
 // TestGetCachePath testa obtenção de paths de cache para diferentes linguagens
 func TestGetCachePath(t *testing.T) {
 	logger := zap.NewNop()
-	basePath := "/var/cache/oci-build/deps"
+	basePath := "/var/cache/jorgerua/build/deps"
 	cm := NewCacheService(basePath, logger)
 
 	tests := []struct {

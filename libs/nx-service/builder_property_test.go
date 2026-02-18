@@ -16,7 +16,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 6: Captura de saída de build
+// Feature: jorgerua/build-system, Property 6: Captura de saída de build
 // Valida: Requisitos 3.2
 //
 // Para qualquer execução de build NX, tanto stdout quanto stderr devem ser
@@ -136,7 +136,7 @@ func isWindows() bool {
 	return os.PathSeparator == '\\' && os.PathListSeparator == ';'
 }
 
-// Feature: oci-build-system, Property 6: Captura de saída de build
+// Feature: jorgerua/build-system, Property 6: Captura de saída de build
 // Valida: Requisitos 3.2
 //
 // Teste adicional: verifica que saídas longas são capturadas completamente
@@ -245,7 +245,7 @@ exit 0
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 6: Captura de saída de build
+// Feature: jorgerua/build-system, Property 6: Captura de saída de build
 // Valida: Requisitos 3.2
 //
 // Teste adicional: verifica que caracteres especiais são capturados corretamente
@@ -320,7 +320,7 @@ func TestProperty_BuildOutputCapture_SpecialCharacters(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 6: Captura de saída de build
+// Feature: jorgerua/build-system, Property 6: Captura de saída de build
 // Valida: Requisitos 3.2
 //
 // Teste adicional: verifica que saída vazia é tratada corretamente
@@ -378,7 +378,7 @@ func TestProperty_BuildOutputCapture_EmptyOutput(t *testing.T) {
 	}
 }
 
-// Feature: oci-build-system, Property 6: Captura de saída de build
+// Feature: jorgerua/build-system, Property 6: Captura de saída de build
 // Valida: Requisitos 3.2
 //
 // Teste adicional: verifica que saída é capturada mesmo quando o comando falha
@@ -495,7 +495,7 @@ exit %d
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 11: Detecção automática de linguagem
+// Feature: jorgerua/build-system, Property 11: Detecção automática de linguagem
 // **Valida: Requisitos 6.4**
 //
 // Para qualquer repositório contendo arquivos de configuração de linguagem

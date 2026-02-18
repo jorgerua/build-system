@@ -6,12 +6,12 @@ import (
 	"os/signal"
 	"syscall"
 
-	cacheservice "github.com/oci-build-system/libs/cache-service"
-	gitservice "github.com/oci-build-system/libs/git-service"
-	imageservice "github.com/oci-build-system/libs/image-service"
-	natsclient "github.com/oci-build-system/libs/nats-client"
-	nxservice "github.com/oci-build-system/libs/nx-service"
-	"github.com/oci-build-system/libs/shared"
+	cacheservice "github.com/jorgerua/build-system/libs/cache-service"
+	gitservice "github.com/jorgerua/build-system/libs/git-service"
+	imageservice "github.com/jorgerua/build-system/libs/image-service"
+	natsclient "github.com/jorgerua/build-system/libs/nats-client"
+	nxservice "github.com/jorgerua/build-system/libs/nx-service"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -20,22 +20,22 @@ func main() {
 	app := fx.New(
 		// Provide logger
 		fx.Provide(NewLogger),
-		
+
 		// Provide configuration
 		fx.Provide(NewConfig),
-		
+
 		// Provide NATS client
 		fx.Provide(NewNATSClient),
-		
+
 		// Provide services
 		fx.Provide(NewGitService),
 		fx.Provide(NewNXService),
 		fx.Provide(NewImageService),
 		fx.Provide(NewCacheService),
-		
+
 		// Provide worker service
 		fx.Provide(NewWorkerService),
-		
+
 		// Invoke worker service to start it
 		fx.Invoke(func(ws *WorkerService) {}),
 	)

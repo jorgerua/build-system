@@ -13,7 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Feature: oci-build-system, Property 10: Persistência de dependências em cache
+// Feature: jorgerua/build-system, Property 10: Persistência de dependências em cache
 // Para qualquer build que baixe dependências, essas dependências devem ser armazenadas
 // no diretório de cache apropriado para a linguagem e estar disponíveis para builds subsequentes.
 // Valida: Requisitos 4.3, 4.5
@@ -171,7 +171,7 @@ func TestProperty_CachePersistence(t *testing.T) {
 	properties.TestingRun(t, gopter.ConsoleReporter(false))
 }
 
-// Feature: oci-build-system, Property 10: Persistência de dependências em cache (variante com limpeza)
+// Feature: jorgerua/build-system, Property 10: Persistência de dependências em cache (variante com limpeza)
 // Verifica que dependências persistem mesmo após limpeza de cache antigo
 func TestProperty_CachePersistence_WithCleanup(t *testing.T) {
 	properties := gopter.NewProperties(nil)

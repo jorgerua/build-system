@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	imageservice "github.com/oci-build-system/libs/image-service"
-	nxservice "github.com/oci-build-system/libs/nx-service"
-	"github.com/oci-build-system/libs/shared"
+	imageservice "github.com/jorgerua/build-system/libs/image-service"
+	nxservice "github.com/jorgerua/build-system/libs/nx-service"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
