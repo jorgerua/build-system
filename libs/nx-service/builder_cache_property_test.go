@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"
 	"github.com/leanovate/gopter/prop"
-	"github.com/oci-build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
@@ -733,12 +733,12 @@ func TestCachePathGeneration(t *testing.T) {
 			for key, expectedPath := range tt.expectedPaths {
 				// Converter para caminho do sistema operacional
 				normalizedExpected := filepath.FromSlash(expectedPath)
-				
+
 				found := false
 				for envKey, envValue := range envMap {
 					// Normalizar o valor da variável de ambiente também
 					normalizedValue := filepath.FromSlash(envValue)
-					
+
 					// Verificar se o valor contém o caminho esperado
 					if strings.Contains(normalizedValue, normalizedExpected) {
 						found = true

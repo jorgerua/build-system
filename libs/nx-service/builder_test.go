@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oci-build-system/libs/shared"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 

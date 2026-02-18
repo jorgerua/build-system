@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"
 	"github.com/leanovate/gopter/prop"
-	"github.com/oci-build-system/libs/shared"
 	"go.uber.org/zap"
 )
 

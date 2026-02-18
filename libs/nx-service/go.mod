@@ -1,16 +1,16 @@
-module github.com/oci-build-system/libs/nx-service
+module github.com/jorgerua/build-system/libs/nx-service
 
-go 1.21
+go 1.25
 
 require (
-	github.com/jorgerua/build-system/libs/shared v0.0.0
+	github.com/jorgerua/build-system/libs/shared v0.0.1
+	github.com/leanovate/gopter v0.2.11
 	go.uber.org/zap v1.27.1
 )
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/leanovate/gopter v0.2.11 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
@@ -29,5 +29,3 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/oci-build-system/libs/shared => ../shared
