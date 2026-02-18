@@ -3,7 +3,7 @@ module github.com/oci-build-system/libs/nx-service
 go 1.21
 
 require (
-	github.com/oci-build-system/libs/shared v0.0.0
+	github.com/jorgerua/build-system/libs/shared v0.0.0
 	go.uber.org/zap v1.27.1
 )
 
