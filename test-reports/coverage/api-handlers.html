@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>handlers: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/oci-build-system/apps/api-service/handlers/health.go (100.0%)</option>
+				
+				<option value="file1">github.com/oci-build-system/apps/api-service/handlers/status.go (57.9%)</option>
+				
+				<option value="file2">github.com/oci-build-system/apps/api-service/handlers/webhook.go (73.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package handlers
+
+import (
+        "net/http"
+        "time"
+
+        "github.com/gin-gonic/gin"
+        natsclient "github.com/oci-build-system/libs/nats-client"
+        "go.uber.org/zap"
+)
+
+// HealthHandler gerencia requisições de health check
+type HealthHandler struct {
+        natsClient natsclient.NATSClient
+        logger     *zap.Logger
+        startTime  time.Time
+}
+
+// NewHealthHandler cria uma nova instância do HealthHandler
+func NewHealthHandler(natsClient natsclient.NATSClient, logger *zap.Logger) *HealthHandler <span class="cov10" title="5">{
+        return &amp;HealthHandler{
+                natsClient: natsClient,
+                logger:     logger,
+                startTime:  time.Now(),
+        }
+}</span>
+
+// HealthResponse representa a resposta do health check
+type HealthResponse struct {
+        Status    string            `json:"status"`
+        Timestamp time.Time         `json:"timestamp"`
+        Uptime    string            `json:"uptime"`
+        Checks    map[string]string `json:"checks"`
+}
+
+// Handle processa requisições de health check com status detalhado
+func (h *HealthHandler) Handle(c *gin.Context) <span class="cov4" title="2">{
+        checks := make(map[string]string)
+        overallStatus := "healthy"
+
+        // Verificar conectividade com NATS
+        if h.natsClient.IsConnected() </span><span class="cov1" title="1">{
+                checks["nats"] = "connected"
+        }</span> else<span class="cov1" title="1"> {
+                checks["nats"] = "disconnected"
+                overallStatus = "unhealthy"
+                h.logger.Warn("NATS connection is down")
+        }</span>
+
+        // Calcular uptime
+        <span class="cov4" title="2">uptime := time.Since(h.startTime)
+
+        // Construir resposta
+        response := HealthResponse{
+                Status:    overallStatus,
+                Timestamp: time.Now(),
+                Uptime:    uptime.String(),
+                Checks:    checks,
+        }
+
+        // Determinar status code HTTP
+        statusCode := http.StatusOK
+        if overallStatus != "healthy" </span><span class="cov1" title="1">{
+                statusCode = http.StatusServiceUnavailable
+        }</span>
+
+        <span class="cov4" title="2">h.logger.Debug("health check completed",
+                zap.String("status", overallStatus),
+                zap.String("uptime", uptime.String()),
+        )
+
+        c.JSON(statusCode, response)</span>
+}
+
+// Readiness verifica se o serviço está pronto para receber tráfego
+func (h *HealthHandler) Readiness(c *gin.Context) <span class="cov4" title="2">{
+        // Verificar se NATS está conectado
+        if !h.natsClient.IsConnected() </span><span class="cov1" title="1">{
+                h.logger.Warn("readiness check failed: NATS not connected")
+                c.JSON(http.StatusServiceUnavailable, gin.H{
+                        "status": "not_ready",
+                        "reason": "nats_not_connected",
+                })
+                return
+        }</span>
+
+        <span class="cov1" title="1">h.logger.Debug("readiness check passed")
+        c.JSON(http.StatusOK, gin.H{
+                "status": "ready",
+        })</span>
+}
+
+// Liveness verifica se o serviço está vivo (para Kubernetes)
+func (h *HealthHandler) Liveness(c *gin.Context) <span class="cov1" title="1">{
+        h.logger.Debug("liveness check passed")
+        c.JSON(http.StatusOK, gin.H{
+                "status": "alive",
+        })
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package handlers
+
+import (
+        "encoding/json"
+        "fmt"
+        "net/http"
+        "time"
+
+        "github.com/gin-gonic/gin"
+        natsclient "github.com/oci-build-system/libs/nats-client"
+        "github.com/oci-build-system/libs/shared"
+        "go.uber.org/zap"
+)
+
+// StatusHandler gerencia consultas de status de builds
+type StatusHandler struct {
+        natsClient natsclient.NATSClient
+        logger     *zap.Logger
+}
+
+// NewStatusHandler cria uma nova instância do StatusHandler
+func NewStatusHandler(natsClient natsclient.NATSClient, logger *zap.Logger) *StatusHandler <span class="cov10" title="5">{
+        return &amp;StatusHandler{
+                natsClient: natsClient,
+                logger:     logger,
+        }
+}</span>
+
+// StatusRequest representa uma requisição de status
+type StatusRequest struct {
+        JobID string `json:"job_id"`
+}
+
+// StatusResponse representa a resposta de status
+type StatusResponse struct {
+        Job   *shared.BuildJob `json:"job,omitempty"`
+        Error string           `json:"error,omitempty"`
+}
+
+// BuildsListResponse representa a resposta de listagem de builds
+type BuildsListResponse struct {
+        Builds []shared.BuildJob `json:"builds"`
+        Total  int               `json:"total"`
+}
+
+// GetBuildStatus retorna o status de um build específico
+func (h *StatusHandler) GetBuildStatus(c *gin.Context) <span class="cov4" title="2">{
+        jobID := c.Param("id")
+        if jobID == "" </span><span class="cov0" title="0">{
+                h.logger.Warn("missing job ID in request")
+                c.JSON(http.StatusBadRequest, gin.H{
+                        "error": "job ID is required",
+                })
+                return
+        }</span>
+
+        <span class="cov4" title="2">h.logger.Debug("querying build status",
+                zap.String("job_id", jobID),
+        )
+
+        // Criar requisição de status
+        request := StatusRequest{
+                JobID: jobID,
+        }
+        requestData, err := json.Marshal(request)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to marshal status request", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "internal server error",
+                })
+                return
+        }</span>
+
+        // Usar NATS request/reply para consultar status
+        <span class="cov4" title="2">timeout := 5 * time.Second
+        msg, err := h.natsClient.Request("builds.status.get", requestData, timeout)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to query build status",
+                        zap.Error(err),
+                        zap.String("job_id", jobID),
+                )
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to query build status",
+                })
+                return
+        }</span>
+
+        // Parse da resposta
+        <span class="cov4" title="2">var response StatusResponse
+        if err := json.Unmarshal(msg.Data, &amp;response); err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to parse status response", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to parse response",
+                })
+                return
+        }</span>
+
+        // Verificar se houve erro na resposta
+        <span class="cov4" title="2">if response.Error != "" </span><span class="cov1" title="1">{
+                h.logger.Warn("build not found",
+                        zap.String("job_id", jobID),
+                        zap.String("error", response.Error),
+                )
+                c.JSON(http.StatusNotFound, gin.H{
+                        "error": response.Error,
+                })
+                return
+        }</span>
+
+        // Verificar se o job foi encontrado
+        <span class="cov1" title="1">if response.Job == nil </span><span class="cov0" title="0">{
+                h.logger.Warn("build not found",
+                        zap.String("job_id", jobID),
+                )
+                c.JSON(http.StatusNotFound, gin.H{
+                        "error": fmt.Sprintf("build with ID %s not found", jobID),
+                })
+                return
+        }</span>
+
+        <span class="cov1" title="1">h.logger.Debug("build status retrieved successfully",
+                zap.String("job_id", jobID),
+                zap.String("status", string(response.Job.Status)),
+        )
+
+        // Retornar informações do build
+        c.JSON(http.StatusOK, response.Job)</span>
+}
+
+// ListBuilds retorna o histórico de builds
+func (h *StatusHandler) ListBuilds(c *gin.Context) <span class="cov4" title="2">{
+        // Obter parâmetros de query opcionais
+        repository := c.Query("repository")
+        status := c.Query("status")
+        limit := c.DefaultQuery("limit", "50")
+
+        h.logger.Debug("listing builds",
+                zap.String("repository", repository),
+                zap.String("status", status),
+                zap.String("limit", limit),
+        )
+
+        // Criar requisição de listagem
+        request := map[string]string{
+                "repository": repository,
+                "status":     status,
+                "limit":      limit,
+        }
+        requestData, err := json.Marshal(request)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to marshal list request", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "internal server error",
+                })
+                return
+        }</span>
+
+        // Usar NATS request/reply para listar builds
+        <span class="cov4" title="2">timeout := 5 * time.Second
+        msg, err := h.natsClient.Request("builds.status.list", requestData, timeout)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to list builds", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to list builds",
+                })
+                return
+        }</span>
+
+        // Parse da resposta
+        <span class="cov4" title="2">var response BuildsListResponse
+        if err := json.Unmarshal(msg.Data, &amp;response); err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to parse list response", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to parse response",
+                })
+                return
+        }</span>
+
+        <span class="cov4" title="2">h.logger.Debug("builds listed successfully",
+                zap.Int("total", response.Total),
+        )
+
+        // Retornar lista de builds
+        c.JSON(http.StatusOK, response)</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package handlers
+
+import (
+        "crypto/hmac"
+        "crypto/sha256"
+        "encoding/hex"
+        "encoding/json"
+        "fmt"
+        "net/http"
+        "strings"
+        "time"
+
+        "github.com/gin-gonic/gin"
+        "github.com/google/uuid"
+        natsclient "github.com/oci-build-system/libs/nats-client"
+        "github.com/oci-build-system/libs/shared"
+        "go.uber.org/zap"
+)
+
+// WebhookHandler gerencia requisições de webhook do GitHub
+type WebhookHandler struct {
+        natsClient natsclient.NATSClient
+        logger     *zap.Logger
+        secret     string
+}
+
+// NewWebhookHandler cria uma nova instância do WebhookHandler
+func NewWebhookHandler(natsClient natsclient.NATSClient, logger *zap.Logger, secret string) *WebhookHandler <span class="cov10" title="598">{
+        return &amp;WebhookHandler{
+                natsClient: natsClient,
+                logger:     logger,
+                secret:     secret,
+        }
+}</span>
+
+// WebhookPayload representa o payload recebido do GitHub
+type WebhookPayload struct {
+        Ref        string `json:"ref"`
+        After      string `json:"after"`
+        Repository struct {
+                Name     string `json:"name"`
+                FullName string `json:"full_name"`
+                CloneURL string `json:"clone_url"`
+                Owner    struct {
+                        Login string `json:"login"`
+                } `json:"owner"`
+        } `json:"repository"`
+        HeadCommit struct {
+                ID      string `json:"id"`
+                Message string `json:"message"`
+                Author  struct {
+                        Name  string `json:"name"`
+                        Email string `json:"email"`
+                } `json:"author"`
+        } `json:"head_commit"`
+}
+
+// WebhookResponse representa a resposta enviada ao GitHub
+type WebhookResponse struct {
+        JobId   string `json:"job_id"`
+        Status  string `json:"status"`
+        Message string `json:"message"`
+}
+
+// Handle processa requisições de webhook do GitHub
+func (h *WebhookHandler) Handle(c *gin.Context) <span class="cov9" title="396">{
+        // Ler o corpo da requisição
+        body, err := c.GetRawData()
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to read request body", zap.Error(err))
+                c.JSON(http.StatusBadRequest, gin.H{
+                        "error": "failed to read request body",
+                })
+                return
+        }</span>
+
+        // Validar assinatura HMAC-SHA256
+        <span class="cov9" title="396">signature := c.GetHeader("X-Hub-Signature-256")
+        if !h.validateSignature(body, signature) </span><span class="cov9" title="300">{
+                h.logger.Warn("invalid webhook signature",
+                        zap.String("signature", signature),
+                        zap.String("remote_addr", c.ClientIP()),
+                )
+                c.JSON(http.StatusUnauthorized, gin.H{
+                        "error": "invalid signature",
+                })
+                return
+        }</span>
+
+        // Parse do payload JSON
+        <span class="cov7" title="96">var payload WebhookPayload
+        if err := json.Unmarshal(body, &amp;payload); err != nil </span><span class="cov7" title="95">{
+                h.logger.Error("failed to parse webhook payload", zap.Error(err))
+                c.JSON(http.StatusBadRequest, gin.H{
+                        "error": "invalid JSON payload",
+                })
+                return
+        }</span>
+
+        // Extrair informações do repositório e commit
+        <span class="cov1" title="1">buildJob, err := h.extractBuildJob(&amp;payload)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to extract build job from payload", zap.Error(err))
+                c.JSON(http.StatusBadRequest, gin.H{
+                        "error": fmt.Sprintf("invalid payload: %s", err.Error()),
+                })
+                return
+        }</span>
+
+        // Serializar BuildJob para JSON
+        <span class="cov1" title="1">jobData, err := json.Marshal(buildJob)
+        if err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to marshal build job", zap.Error(err))
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to create build job",
+                })
+                return
+        }</span>
+
+        // Publicar no NATS subject builds.webhook
+        <span class="cov1" title="1">if err := h.natsClient.Publish("builds.webhook", jobData); err != nil </span><span class="cov0" title="0">{
+                h.logger.Error("failed to publish build job to NATS",
+                        zap.Error(err),
+                        zap.String("job_id", buildJob.ID),
+                )
+                c.JSON(http.StatusInternalServerError, gin.H{
+                        "error": "failed to enqueue build job",
+                })
+                return
+        }</span>
+
+        <span class="cov1" title="1">h.logger.Info("webhook processed successfully",
+                zap.String("job_id", buildJob.ID),
+                zap.String("repository", buildJob.Repository.FullName()),
+                zap.String("commit", buildJob.CommitHash),
+                zap.String("branch", buildJob.Branch),
+        )
+
+        // Retornar HTTP 202 Accepted com job ID
+        c.JSON(http.StatusAccepted, WebhookResponse{
+                JobId:   buildJob.ID,
+                Status:  "accepted",
+                Message: "build job enqueued successfully",
+        })</span>
+}
+
+// validateSignature valida a assinatura HMAC-SHA256 do webhook
+func (h *WebhookHandler) validateSignature(payload []byte, signature string) bool <span class="cov9" title="396">{
+        if signature == "" </span><span class="cov7" title="104">{
+                return false
+        }</span>
+
+        // Remover prefixo "sha256=" da assinatura
+        <span class="cov8" title="292">if !strings.HasPrefix(signature, "sha256=") </span><span class="cov7" title="97">{
+                return false
+        }</span>
+        <span class="cov8" title="195">signature = strings.TrimPrefix(signature, "sha256=")
+
+        // Calcular HMAC-SHA256 do payload
+        mac := hmac.New(sha256.New, []byte(h.secret))
+        mac.Write(payload)
+        expectedMAC := mac.Sum(nil)
+        expectedSignature := hex.EncodeToString(expectedMAC)
+
+        // Comparar assinaturas usando hmac.Equal para evitar timing attacks
+        signatureBytes, err := hex.DecodeString(signature)
+        if err != nil </span><span class="cov1" title="1">{
+                return false
+        }</span>
+
+        <span class="cov8" title="194">return hmac.Equal(signatureBytes, expectedMAC) || signature == expectedSignature</span>
+}
+
+// extractBuildJob extrai informações do payload e cria um BuildJob
+func (h *WebhookHandler) extractBuildJob(payload *WebhookPayload) (*shared.BuildJob, error) <span class="cov8" title="203">{
+        // Validar campos obrigatórios
+        if payload.Repository.CloneURL == "" </span><span class="cov1" title="1">{
+                return nil, fmt.Errorf("repository clone_url is required")
+        }</span>
+        <span class="cov8" title="202">if payload.Repository.Name == "" </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("repository name is required")
+        }</span>
+        <span class="cov8" title="202">if payload.Repository.Owner.Login == "" </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("repository owner is required")
+        }</span>
+        <span class="cov8" title="202">if payload.After == "" &amp;&amp; payload.HeadCommit.ID == "" </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("commit hash is required")
+        }</span>
+
+        // Extrair branch do ref (refs/heads/main -&gt; main)
+        <span class="cov8" title="202">branch := payload.Ref
+        if strings.HasPrefix(branch, "refs/heads/") </span><span class="cov8" title="202">{
+                branch = strings.TrimPrefix(branch, "refs/heads/")
+        }</span>
+
+        // Usar After ou HeadCommit.ID como commit hash
+        <span class="cov8" title="202">commitHash := payload.After
+        if commitHash == "" </span><span class="cov0" title="0">{
+                commitHash = payload.HeadCommit.ID
+        }</span>
+
+        // Criar BuildJob
+        <span class="cov8" title="202">buildJob := &amp;shared.BuildJob{
+                ID: uuid.New().String(),
+                Repository: shared.RepositoryInfo{
+                        URL:    payload.Repository.CloneURL,
+                        Name:   payload.Repository.Name,
+                        Owner:  payload.Repository.Owner.Login,
+                        Branch: branch,
+                },
+                CommitHash:   commitHash,
+                CommitAuthor: payload.HeadCommit.Author.Name,
+                CommitMsg:    payload.HeadCommit.Message,
+                Branch:       branch,
+                Status:       shared.JobStatusPending,
+                CreatedAt:    time.Now(),
+                Phases:       []shared.PhaseMetric{},
+        }
+
+        // Validar BuildJob
+        if !buildJob.IsValid() </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("invalid build job created")
+        }</span>
+
+        <span class="cov8" title="202">return buildJob, nil</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

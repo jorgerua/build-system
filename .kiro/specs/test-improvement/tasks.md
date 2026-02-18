@@ -84,11 +84,11 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
 
 ### Phase 4: Unit Test Coverage (High Priority)
 
-- [~] 11. Analisar cobertura atual
-  - [~] 11.1 Executar go test com coverage
-  - [~] 11.2 Gerar relatório HTML
-  - [~] 11.3 Identificar componentes com < 75% cobertura
-  - [~] 11.4 Priorizar componentes críticos
+- [x] 11. Analisar cobertura atual
+  - [x] 11.1 Executar go test com coverage
+  - [x] 11.2 Gerar relatório HTML
+  - [x] 11.3 Identificar componentes com < 75% cobertura
+  - [x] 11.4 Priorizar componentes críticos
 
 - [~] 12. Adicionar testes para API Service handlers
   - [~] 12.1 Adicionar testes faltantes para webhook handler

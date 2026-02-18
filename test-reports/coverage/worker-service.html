@@ -1,0 +1,865 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>worker-service: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/oci-build-system/apps/worker-service/main.go (0.0%)</option>
+				
+				<option value="file1">github.com/oci-build-system/apps/worker-service/orchestrator.go (90.5%)</option>
+				
+				<option value="file2">github.com/oci-build-system/apps/worker-service/worker.go (9.9%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package main
+
+import (
+        "context"
+        "os"
+        "os/signal"
+        "syscall"
+
+        cacheservice "github.com/oci-build-system/libs/cache-service"
+        gitservice "github.com/oci-build-system/libs/git-service"
+        imageservice "github.com/oci-build-system/libs/image-service"
+        natsclient "github.com/oci-build-system/libs/nats-client"
+        nxservice "github.com/oci-build-system/libs/nx-service"
+        "github.com/oci-build-system/libs/shared"
+        "go.uber.org/fx"
+        "go.uber.org/zap"
+)
+
+func main() <span class="cov0" title="0">{
+        app := fx.New(
+                // Provide logger
+                fx.Provide(NewLogger),
+                
+                // Provide configuration
+                fx.Provide(NewConfig),
+                
+                // Provide NATS client
+                fx.Provide(NewNATSClient),
+                
+                // Provide services
+                fx.Provide(NewGitService),
+                fx.Provide(NewNXService),
+                fx.Provide(NewImageService),
+                fx.Provide(NewCacheService),
+                
+                // Provide worker service
+                fx.Provide(NewWorkerService),
+                
+                // Invoke worker service to start it
+                fx.Invoke(func(ws *WorkerService) </span>{<span class="cov0" title="0">}</span>),
+        )
+
+        // Handle graceful shutdown
+        <span class="cov0" title="0">ctx, cancel := context.WithCancel(context.Background())
+        defer cancel()
+
+        // Setup signal handling
+        sigChan := make(chan os.Signal, 1)
+        signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
+
+        go func() </span><span class="cov0" title="0">{
+                &lt;-sigChan
+                cancel()
+                app.Stop(context.Background())
+        }</span>()
+
+        // Start the application
+        <span class="cov0" title="0">if err := app.Start(ctx); err != nil </span><span class="cov0" title="0">{
+                panic(err)</span>
+        }
+
+        // Wait for shutdown signal
+        <span class="cov0" title="0">&lt;-app.Done()</span>
+}
+
+// NewLogger creates a new Zap logger
+func NewLogger() (*zap.Logger, error) <span class="cov0" title="0">{
+        // Create a basic logger first
+        logger, err := zap.NewProduction()
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return logger, nil</span>
+}
+
+// NewConfig loads configuration from file
+func NewConfig(logger *zap.Logger) (*shared.Config, error) <span class="cov0" title="0">{
+        configPath := os.Getenv("CONFIG_PATH")
+        if configPath == "" </span><span class="cov0" title="0">{
+                configPath = "config.yaml"
+        }</span>
+
+        <span class="cov0" title="0">config, err := shared.LoadConfig(configPath, logger)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // Update logger level based on config
+        <span class="cov0" title="0">if config.Logging.Level == "debug" </span><span class="cov0" title="0">{
+                devLogger, err := zap.NewDevelopment()
+                if err == nil </span><span class="cov0" title="0">{
+                        *logger = *devLogger
+                }</span>
+        }
+
+        <span class="cov0" title="0">return config, nil</span>
+}
+
+// NewNATSClient creates a new NATS client
+func NewNATSClient(config *shared.Config, logger *zap.Logger, lc fx.Lifecycle) (*natsclient.Client, error) <span class="cov0" title="0">{
+        natsConfig := &amp;natsclient.Config{
+                URL:            config.NATS.URL,
+                MaxReconnects:  10,
+                ReconnectWait:  config.NATS.ReconnectWait,
+                ConnectTimeout: config.NATS.ConnectTimeout,
+        }
+
+        client, err := natsclient.NewClientWithConfig(logger, natsConfig)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">lc.Append(fx.Hook{
+                OnStop: func(ctx context.Context) error </span><span class="cov0" title="0">{
+                        client.Close()
+                        return nil
+                }</span>,
+        })
+
+        <span class="cov0" title="0">return client, nil</span>
+}
+
+// NewGitService creates a new Git service
+func NewGitService(config *shared.Config, logger *zap.Logger) gitservice.GitService <span class="cov0" title="0">{
+        gitConfig := gitservice.Config{
+                CodeCachePath: config.Build.CodeCachePath,
+                MaxRetries:    config.Worker.MaxRetries,
+                RetryDelay:    config.Worker.RetryDelay,
+        }
+
+        return gitservice.NewGitService(gitConfig, logger)
+}</span>
+
+// NewNXService creates a new NX service
+func NewNXService(logger *zap.Logger) nxservice.NXService <span class="cov0" title="0">{
+        return nxservice.NewNXService(logger)
+}</span>
+
+// NewImageService creates a new Image service
+func NewImageService(logger *zap.Logger) imageservice.ImageService <span class="cov0" title="0">{
+        return imageservice.NewImageService(logger)
+}</span>
+
+// NewCacheService creates a new Cache service
+func NewCacheService(config *shared.Config, logger *zap.Logger) cacheservice.CacheService <span class="cov0" title="0">{
+        return cacheservice.NewCacheService(config.Build.BuildCachePath, logger)
+}</span>
+
+// NewWorkerService creates a new Worker service
+func NewWorkerService(
+        config *shared.Config,
+        logger *zap.Logger,
+        natsClient *natsclient.Client,
+        gitService gitservice.GitService,
+        nxService nxservice.NXService,
+        imageService imageservice.ImageService,
+        cacheService cacheservice.CacheService,
+        lc fx.Lifecycle,
+) *WorkerService <span class="cov0" title="0">{
+        ws := &amp;WorkerService{
+                config:       config,
+                logger:       logger,
+                natsClient:   natsClient,
+                gitService:   gitService,
+                nxService:    nxService,
+                imageService: imageService,
+                cacheService: cacheService,
+                jobQueue:     make(chan *shared.BuildJob, config.Worker.QueueSize),
+                stopChan:     make(chan struct{}),
+        }
+
+        lc.Append(fx.Hook{
+                OnStart: func(ctx context.Context) error </span><span class="cov0" title="0">{
+                        return ws.Start()
+                }</span>,
+                OnStop: func(ctx context.Context) error <span class="cov0" title="0">{
+                        return ws.Shutdown(ctx)
+                }</span>,
+        })
+
+        <span class="cov0" title="0">return ws</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package main
+
+import (
+        "context"
+        "fmt"
+        "math"
+        "time"
+
+        cacheservice "github.com/oci-build-system/libs/cache-service"
+        gitservice "github.com/oci-build-system/libs/git-service"
+        imageservice "github.com/oci-build-system/libs/image-service"
+        nxservice "github.com/oci-build-system/libs/nx-service"
+        "github.com/oci-build-system/libs/shared"
+        "go.uber.org/zap"
+)
+
+// BuildOrchestrator coordena as fases do build
+type BuildOrchestrator struct {
+        gitService   gitservice.GitService
+        nxService    nxservice.NXService
+        imageService imageservice.ImageService
+        cacheService cacheservice.CacheService
+        logger       *zap.Logger
+}
+
+// NewBuildOrchestrator cria uma nova instância do orchestrator
+func NewBuildOrchestrator(
+        gitService gitservice.GitService,
+        nxService nxservice.NXService,
+        imageService imageservice.ImageService,
+        cacheService cacheservice.CacheService,
+        logger *zap.Logger,
+) *BuildOrchestrator <span class="cov8" title="389">{
+        return &amp;BuildOrchestrator{
+                gitService:   gitService,
+                nxService:    nxService,
+                imageService: imageService,
+                cacheService: cacheService,
+                logger:       logger,
+        }
+}</span>
+
+// ExecuteBuild executa todas as fases do build
+func (bo *BuildOrchestrator) ExecuteBuild(ctx context.Context, job *shared.BuildJob) error <span class="cov8" title="387">{
+        bo.logger.Info("executing build",
+                zap.String("job_id", job.ID),
+                zap.String("repo", job.Repository.FullName()),
+                zap.String("commit", job.CommitHash),
+        )
+
+        // Fase 1: Git Sync
+        repoPath, err := bo.executeGitSync(ctx, job)
+        if err != nil </span><span class="cov1" title="2">{
+                return fmt.Errorf("git sync failed: %w", err)
+        }</span>
+
+        // Fase 2: NX Build
+        <span class="cov8" title="385">buildResult, err := bo.executeNXBuild(ctx, job, repoPath)
+        if err != nil </span><span class="cov6" title="101">{
+                return fmt.Errorf("nx build failed: %w", err)
+        }</span>
+
+        // Fase 3: Image Build
+        <span class="cov8" title="284">if err := bo.executeImageBuild(ctx, job, repoPath, buildResult); err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("image build failed: %w", err)
+        }</span>
+
+        <span class="cov8" title="284">bo.logger.Info("build execution completed successfully",
+                zap.String("job_id", job.ID),
+        )
+
+        return nil</span>
+}
+
+// executeGitSync executa a fase de sincronização Git
+func (bo *BuildOrchestrator) executeGitSync(ctx context.Context, job *shared.BuildJob) (string, error) <span class="cov8" title="387">{
+        phase := shared.PhaseMetric{
+                Phase:     shared.BuildPhaseGitSync,
+                StartTime: time.Now(),
+        }
+
+        bo.logger.Info("starting git sync phase",
+                zap.String("job_id", job.ID),
+                zap.String("repo", job.Repository.FullName()),
+                zap.String("commit", job.CommitHash),
+        )
+
+        // Execute git sync with retry
+        var repoPath string
+        var err error
+
+        err = bo.retryWithBackoff(ctx, 3, time.Second, func() error </span><span class="cov8" title="389">{
+                repoPath, err = bo.gitService.SyncRepository(ctx, job.Repository, job.CommitHash)
+                return err
+        }</span>)
+
+        <span class="cov8" title="387">phase.EndTime = time.Now()
+        phase.CalculateDuration()
+
+        if err != nil </span><span class="cov1" title="2">{
+                phase.Success = false
+                phase.Error = err.Error()
+                job.AddPhase(phase)
+
+                bo.logger.Error("git sync phase failed",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                        zap.Duration("duration", phase.Duration),
+                )
+                return "", err
+        }</span>
+
+        <span class="cov8" title="385">phase.Success = true
+        job.AddPhase(phase)
+
+        bo.logger.Info("git sync phase completed",
+                zap.String("job_id", job.ID),
+                zap.String("repo_path", repoPath),
+                zap.Duration("duration", phase.Duration),
+        )
+
+        return repoPath, nil</span>
+}
+
+// executeNXBuild executa a fase de build NX
+func (bo *BuildOrchestrator) executeNXBuild(ctx context.Context, job *shared.BuildJob, repoPath string) (*nxservice.BuildResult, error) <span class="cov8" title="385">{
+        phase := shared.PhaseMetric{
+                Phase:     shared.BuildPhaseNXBuild,
+                StartTime: time.Now(),
+        }
+
+        bo.logger.Info("starting nx build phase",
+                zap.String("job_id", job.ID),
+                zap.String("repo_path", repoPath),
+        )
+
+        // Detect language
+        language := shared.LanguageUnknown
+        // Language detection will be done by NXService
+
+        // Initialize cache for detected language
+        if language.IsSupported() </span><span class="cov0" title="0">{
+                if err := bo.cacheService.InitializeCache(language); err != nil </span><span class="cov0" title="0">{
+                        bo.logger.Warn("failed to initialize cache",
+                                zap.String("language", string(language)),
+                                zap.Error(err),
+                        )
+                }</span>
+        }
+
+        // Get cache path
+        <span class="cov8" title="385">cachePath := bo.cacheService.GetCachePath(language)
+
+        // Build configuration
+        buildConfig := nxservice.BuildConfig{
+                CachePath:   cachePath,
+                Language:    language,
+                Environment: make(map[string]string),
+        }
+
+        // Execute build
+        var buildResult *nxservice.BuildResult
+        var err error
+
+        err = bo.retryWithBackoff(ctx, 1, time.Second, func() error </span><span class="cov8" title="385">{
+                buildResult, err = bo.nxService.Build(ctx, repoPath, buildConfig)
+                return err
+        }</span>)
+
+        <span class="cov8" title="385">phase.EndTime = time.Now()
+        phase.CalculateDuration()
+
+        if err != nil </span><span class="cov6" title="101">{
+                phase.Success = false
+                phase.Error = err.Error()
+                job.AddPhase(phase)
+
+                bo.logger.Error("nx build phase failed",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                        zap.Duration("duration", phase.Duration),
+                )
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="284">phase.Success = true
+        job.AddPhase(phase)
+
+        bo.logger.Info("nx build phase completed",
+                zap.String("job_id", job.ID),
+                zap.Bool("success", buildResult.Success),
+                zap.Duration("duration", phase.Duration),
+        )
+
+        return buildResult, nil</span>
+}
+
+// executeImageBuild executa a fase de build de imagem OCI
+func (bo *BuildOrchestrator) executeImageBuild(ctx context.Context, job *shared.BuildJob, repoPath string, buildResult *nxservice.BuildResult) error <span class="cov8" title="284">{
+        phase := shared.PhaseMetric{
+                Phase:     shared.BuildPhaseImageBuild,
+                StartTime: time.Now(),
+        }
+
+        bo.logger.Info("starting image build phase",
+                zap.String("job_id", job.ID),
+                zap.String("repo_path", repoPath),
+        )
+
+        // Generate image tags
+        tags := imageservice.GenerateImageTags(
+                job.Repository.Name,
+                job.CommitHash,
+                job.Branch,
+        )
+
+        bo.logger.Debug("generated image tags",
+                zap.String("job_id", job.ID),
+                zap.Strings("tags", tags),
+        )
+
+        // Image configuration
+        imageConfig := imageservice.ImageConfig{
+                ContextPath:    repoPath,
+                DockerfilePath: "", // Will be auto-detected
+                Tags:           tags,
+                BuildArgs:      make(map[string]string),
+        }
+
+        // Execute image build with retry
+        var imageResult *imageservice.ImageResult
+        var err error
+
+        err = bo.retryWithBackoff(ctx, 2, time.Second, func() error </span><span class="cov8" title="284">{
+                imageResult, err = bo.imageService.BuildImage(ctx, imageConfig)
+                return err
+        }</span>)
+
+        <span class="cov8" title="284">phase.EndTime = time.Now()
+        phase.CalculateDuration()
+
+        if err != nil </span><span class="cov0" title="0">{
+                phase.Success = false
+                phase.Error = err.Error()
+                job.AddPhase(phase)
+
+                bo.logger.Error("image build phase failed",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                        zap.Duration("duration", phase.Duration),
+                )
+                return err
+        }</span>
+
+        <span class="cov8" title="284">phase.Success = true
+        job.AddPhase(phase)
+
+        bo.logger.Info("image build phase completed",
+                zap.String("job_id", job.ID),
+                zap.String("image_id", imageResult.ImageID),
+                zap.Strings("tags", imageResult.Tags),
+                zap.Duration("duration", phase.Duration),
+        )
+
+        return nil</span>
+}
+
+// retryWithBackoff executa uma função com retry e backoff exponencial
+func (bo *BuildOrchestrator) retryWithBackoff(ctx context.Context, maxRetries int, initialDelay time.Duration, fn func() error) error <span class="cov9" title="1058">{
+        var lastErr error
+        delay := initialDelay
+
+        for attempt := 1; attempt &lt;= maxRetries; attempt++ </span><span class="cov10" title="1064">{
+                // Check context
+                select </span>{
+                case &lt;-ctx.Done():<span class="cov0" title="0">
+                        return ctx.Err()</span>
+                default:<span class="cov10" title="1064"></span>
+                }
+
+                <span class="cov10" title="1064">bo.logger.Debug("executing operation",
+                        zap.Int("attempt", attempt),
+                        zap.Int("max_retries", maxRetries),
+                )
+
+                err := fn()
+                if err == nil </span><span class="cov9" title="954">{
+                        return nil
+                }</span>
+
+                <span class="cov7" title="110">lastErr = err
+                bo.logger.Warn("operation failed",
+                        zap.Int("attempt", attempt),
+                        zap.Error(err),
+                )
+
+                // If not the last retry, wait with backoff
+                if attempt &lt; maxRetries </span><span class="cov3" title="7">{
+                        bo.logger.Debug("waiting before retry",
+                                zap.Duration("delay", delay),
+                        )
+
+                        select </span>{
+                        case &lt;-ctx.Done():<span class="cov1" title="1">
+                                return ctx.Err()</span>
+                        case &lt;-time.After(delay):<span class="cov3" title="6">
+                                // Exponential backoff with jitter
+                                delay = time.Duration(float64(delay) * math.Pow(2, float64(attempt-1)))</span>
+                        }
+                }
+        }
+
+        <span class="cov6" title="103">return fmt.Errorf("operation failed after %d attempts: %w", maxRetries, lastErr)</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package main
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "sync"
+        "time"
+
+        cacheservice "github.com/oci-build-system/libs/cache-service"
+        gitservice "github.com/oci-build-system/libs/git-service"
+        imageservice "github.com/oci-build-system/libs/image-service"
+        natsclient "github.com/oci-build-system/libs/nats-client"
+        nxservice "github.com/oci-build-system/libs/nx-service"
+        "github.com/oci-build-system/libs/shared"
+        "github.com/nats-io/nats.go"
+        "go.uber.org/zap"
+)
+
+// WorkerService gerencia o processamento de builds
+type WorkerService struct {
+        config       *shared.Config
+        logger       *zap.Logger
+        natsClient   *natsclient.Client
+        gitService   gitservice.GitService
+        nxService    nxservice.NXService
+        imageService imageservice.ImageService
+        cacheService cacheservice.CacheService
+        jobQueue     chan *shared.BuildJob
+        stopChan     chan struct{}
+        wg           sync.WaitGroup
+        subscription *nats.Subscription
+}
+
+// Start inicia o worker service
+func (ws *WorkerService) Start() error <span class="cov0" title="0">{
+        ws.logger.Info("starting worker service",
+                zap.Int("pool_size", ws.config.Worker.PoolSize),
+                zap.Int("queue_size", ws.config.Worker.QueueSize),
+        )
+
+        // Subscribe to NATS subject
+        sub, err := ws.natsClient.Subscribe("builds.webhook", ws.handleMessage)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("failed to subscribe to builds.webhook: %w", err)
+        }</span>
+        <span class="cov0" title="0">ws.subscription = sub
+
+        // Start worker pool
+        for i := 0; i &lt; ws.config.Worker.PoolSize; i++ </span><span class="cov0" title="0">{
+                ws.wg.Add(1)
+                go ws.worker(i)
+        }</span>
+
+        <span class="cov0" title="0">ws.logger.Info("worker service started successfully",
+                zap.Int("workers", ws.config.Worker.PoolSize),
+        )
+
+        return nil</span>
+}
+
+// Shutdown para o worker service gracefully
+func (ws *WorkerService) Shutdown(ctx context.Context) error <span class="cov0" title="0">{
+        ws.logger.Info("shutting down worker service")
+
+        // Unsubscribe from NATS
+        if ws.subscription != nil </span><span class="cov0" title="0">{
+                if err := ws.subscription.Unsubscribe(); err != nil </span><span class="cov0" title="0">{
+                        ws.logger.Warn("error unsubscribing from NATS", zap.Error(err))
+                }</span>
+        }
+
+        // Signal workers to stop
+        <span class="cov0" title="0">close(ws.stopChan)
+
+        // Wait for workers to finish with timeout
+        done := make(chan struct{})
+        go func() </span><span class="cov0" title="0">{
+                ws.wg.Wait()
+                close(done)
+        }</span>()
+
+        <span class="cov0" title="0">select </span>{
+        case &lt;-done:<span class="cov0" title="0">
+                ws.logger.Info("all workers stopped gracefully")</span>
+        case &lt;-ctx.Done():<span class="cov0" title="0">
+                ws.logger.Warn("shutdown timeout exceeded, some workers may not have finished")</span>
+        }
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// handleMessage processa mensagens recebidas do NATS
+func (ws *WorkerService) handleMessage(msg *nats.Msg) <span class="cov10" title="2640">{
+        ws.logger.Debug("received message from NATS",
+                zap.String("subject", msg.Subject),
+                zap.Int("size", len(msg.Data)),
+        )
+
+        // Parse build job
+        var job shared.BuildJob
+        if err := json.Unmarshal(msg.Data, &amp;job); err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("failed to unmarshal build job",
+                        zap.Error(err),
+                        zap.String("data", string(msg.Data)),
+                )
+                return
+        }</span>
+
+        // Validate job
+        <span class="cov10" title="2640">if !job.IsValid() </span><span class="cov0" title="0">{
+                ws.logger.Error("received invalid build job",
+                        zap.String("job_id", job.ID),
+                )
+                return
+        }</span>
+
+        <span class="cov10" title="2640">ws.logger.Info("enqueueing build job",
+                zap.String("job_id", job.ID),
+                zap.String("repo", job.Repository.FullName()),
+                zap.String("commit", job.CommitHash),
+        )
+
+        // Try to enqueue job (non-blocking)
+        select </span>{
+        case ws.jobQueue &lt;- &amp;job:<span class="cov10" title="2640">
+                ws.logger.Debug("job enqueued successfully", zap.String("job_id", job.ID))</span>
+        default:<span class="cov0" title="0">
+                ws.logger.Error("job queue is full, rejecting job",
+                        zap.String("job_id", job.ID),
+                        zap.Int("queue_size", ws.config.Worker.QueueSize),
+                )
+                // Publish failure status
+                job.MarkFailed("queue is full")
+                ws.publishJobStatus(&amp;job)</span>
+        }
+}
+
+// worker processa jobs da fila
+func (ws *WorkerService) worker(id int) <span class="cov0" title="0">{
+        defer ws.wg.Done()
+
+        ws.logger.Info("worker started", zap.Int("worker_id", id))
+
+        for </span><span class="cov0" title="0">{
+                select </span>{
+                case &lt;-ws.stopChan:<span class="cov0" title="0">
+                        ws.logger.Info("worker stopping", zap.Int("worker_id", id))
+                        return</span>
+
+                case job := &lt;-ws.jobQueue:<span class="cov0" title="0">
+                        ws.logger.Info("worker processing job",
+                                zap.Int("worker_id", id),
+                                zap.String("job_id", job.ID),
+                                zap.String("repo", job.Repository.FullName()),
+                        )
+
+                        // Create context with timeout
+                        ctx, cancel := context.WithTimeout(context.Background(), time.Duration(ws.config.Worker.Timeout)*time.Second)
+
+                        // Process job
+                        ws.processJob(ctx, job)
+
+                        cancel()</span>
+                }
+        }
+}
+
+// processJob processa um build job
+func (ws *WorkerService) processJob(ctx context.Context, job *shared.BuildJob) <span class="cov0" title="0">{
+        // Mark job as started
+        job.MarkStarted()
+        ws.publishJobStatus(job)
+
+        ws.logger.Info("starting build job",
+                zap.String("job_id", job.ID),
+                zap.String("repo", job.Repository.FullName()),
+                zap.String("commit", job.CommitHash),
+                zap.String("branch", job.Branch),
+        )
+
+        // Create orchestrator
+        orchestrator := NewBuildOrchestrator(
+                ws.gitService,
+                ws.nxService,
+                ws.imageService,
+                ws.cacheService,
+                ws.logger,
+        )
+
+        // Execute build
+        err := orchestrator.ExecuteBuild(ctx, job)
+
+        if err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("build job failed",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                )
+                job.MarkFailed(err.Error())
+        }</span> else<span class="cov0" title="0"> {
+                ws.logger.Info("build job completed successfully",
+                        zap.String("job_id", job.ID),
+                        zap.Duration("duration", job.Duration),
+                )
+                job.MarkCompleted()
+        }</span>
+
+        // Publish final status
+        <span class="cov0" title="0">ws.publishJobStatus(job)
+        ws.publishJobComplete(job)</span>
+}
+
+// publishJobStatus publica o status do job no NATS
+func (ws *WorkerService) publishJobStatus(job *shared.BuildJob) <span class="cov0" title="0">{
+        data, err := json.Marshal(job)
+        if err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("failed to marshal job status",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                )
+                return
+        }</span>
+
+        <span class="cov0" title="0">if err := ws.natsClient.Publish("builds.status", data); err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("failed to publish job status",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                )
+        }</span>
+}
+
+// publishJobComplete publica a conclusão do job no NATS
+func (ws *WorkerService) publishJobComplete(job *shared.BuildJob) <span class="cov0" title="0">{
+        data, err := json.Marshal(job)
+        if err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("failed to marshal job completion",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                )
+                return
+        }</span>
+
+        <span class="cov0" title="0">if err := ws.natsClient.Publish("builds.complete", data); err != nil </span><span class="cov0" title="0">{
+                ws.logger.Error("failed to publish job completion",
+                        zap.String("job_id", job.ID),
+                        zap.Error(err),
+                )
+        }</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

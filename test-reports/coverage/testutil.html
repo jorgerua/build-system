@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>testutil: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/oci-build-system/tests/testutil/assertions.go (72.3%)</option>
+				
+				<option value="file1">github.com/oci-build-system/tests/testutil/fixtures.go (94.1%)</option>
+				
+				<option value="file2">github.com/oci-build-system/tests/testutil/mocks.go (49.3%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package testutil
+
+import (
+        "encoding/json"
+        "net/http"
+        "testing"
+
+        "github.com/oci-build-system/libs/shared"
+        "github.com/stretchr/testify/assert"
+)
+
+// AssertBuildJobValid verifica se BuildJob tem todos os campos obrigatórios
+func AssertBuildJobValid(t *testing.T, job *shared.BuildJob) <span class="cov1" title="1">{
+        t.Helper()
+        
+        assert.NotEmpty(t, job.ID, "Job ID should not be empty")
+        assert.NotEmpty(t, job.Repository.Name, "Repository name should not be empty")
+        assert.NotEmpty(t, job.CommitHash, "Commit hash should not be empty")
+        assert.NotEmpty(t, job.Branch, "Branch should not be empty")
+        assert.NotZero(t, job.CreatedAt, "CreatedAt should be set")
+        assert.True(t, job.Status.IsValid(), "Job status should be valid")
+        assert.True(t, job.Repository.IsValid(), "Repository should be valid")
+}</span>
+
+// AssertHTTPStatus verifica código de status HTTP
+func AssertHTTPStatus(t *testing.T, expected, actual int, msgAndArgs ...interface{}) <span class="cov1" title="1">{
+        t.Helper()
+        
+        assert.Equal(t, expected, actual, msgAndArgs...)
+}</span>
+
+// AssertJSONResponse verifica se resposta é JSON válido
+func AssertJSONResponse(t *testing.T, body []byte) <span class="cov1" title="1">{
+        t.Helper()
+        
+        var js map[string]interface{}
+        err := json.Unmarshal(body, &amp;js)
+        assert.NoError(t, err, "Response should be valid JSON")
+}</span>
+
+// AssertJSONResponseWithKey verifica se resposta JSON contém uma chave específica
+func AssertJSONResponseWithKey(t *testing.T, body []byte, key string) <span class="cov0" title="0">{
+        t.Helper()
+        
+        var js map[string]interface{}
+        err := json.Unmarshal(body, &amp;js)
+        assert.NoError(t, err, "Response should be valid JSON")
+        assert.Contains(t, js, key, "Response should contain key: %s", key)
+}</span>
+
+// AssertHTTPSuccess verifica se o status code indica sucesso (2xx)
+func AssertHTTPSuccess(t *testing.T, statusCode int, msgAndArgs ...interface{}) <span class="cov10" title="3">{
+        t.Helper()
+        
+        assert.GreaterOrEqual(t, statusCode, 200, msgAndArgs...)
+        assert.Less(t, statusCode, 300, msgAndArgs...)
+}</span>
+
+// AssertHTTPError verifica se o status code indica erro (4xx ou 5xx)
+func AssertHTTPError(t *testing.T, statusCode int, msgAndArgs ...interface{}) <span class="cov10" title="3">{
+        t.Helper()
+        
+        assert.True(t, statusCode &gt;= 400, "Status code should indicate error (&gt;= 400), got: %d", statusCode)
+}</span>
+
+// AssertHTTPClientError verifica se o status code indica erro do cliente (4xx)
+func AssertHTTPClientError(t *testing.T, statusCode int, msgAndArgs ...interface{}) <span class="cov0" title="0">{
+        t.Helper()
+        
+        assert.GreaterOrEqual(t, statusCode, 400, msgAndArgs...)
+        assert.Less(t, statusCode, 500, msgAndArgs...)
+}</span>
+
+// AssertHTTPServerError verifica se o status code indica erro do servidor (5xx)
+func AssertHTTPServerError(t *testing.T, statusCode int, msgAndArgs ...interface{}) <span class="cov0" title="0">{
+        t.Helper()
+        
+        assert.GreaterOrEqual(t, statusCode, 500, msgAndArgs...)
+        assert.Less(t, statusCode, 600, msgAndArgs...)
+}</span>
+
+// AssertResponseHeader verifica se um header específico está presente e tem o valor esperado
+func AssertResponseHeader(t *testing.T, headers http.Header, key, expectedValue string) <span class="cov1" title="1">{
+        t.Helper()
+        
+        actualValue := headers.Get(key)
+        assert.NotEmpty(t, actualValue, "Header %s should be present", key)
+        assert.Equal(t, expectedValue, actualValue, "Header %s should have expected value", key)
+}</span>
+
+// AssertContentType verifica se o Content-Type é o esperado
+func AssertContentType(t *testing.T, headers http.Header, expectedContentType string) <span class="cov1" title="1">{
+        t.Helper()
+        
+        AssertResponseHeader(t, headers, "Content-Type", expectedContentType)
+}</span>
+
+// AssertJSONContentType verifica se o Content-Type é application/json
+func AssertJSONContentType(t *testing.T, headers http.Header) <span class="cov1" title="1">{
+        t.Helper()
+        
+        contentType := headers.Get("Content-Type")
+        assert.Contains(t, contentType, "application/json", "Content-Type should be application/json")
+}</span>
+
+// AssertErrorResponse verifica se a resposta contém um campo de erro
+func AssertErrorResponse(t *testing.T, body []byte, expectedErrorMsg string) <span class="cov1" title="1">{
+        t.Helper()
+        
+        var response map[string]interface{}
+        err := json.Unmarshal(body, &amp;response)
+        assert.NoError(t, err, "Response should be valid JSON")
+        
+        errorField, exists := response["error"]
+        assert.True(t, exists, "Response should contain 'error' field")
+        
+        if expectedErrorMsg != "" </span><span class="cov1" title="1">{
+                assert.Contains(t, errorField, expectedErrorMsg, "Error message should contain expected text")
+        }</span>
+}
+
+// AssertRepositoryInfoValid verifica se RepositoryInfo é válido
+func AssertRepositoryInfoValid(t *testing.T, repo *shared.RepositoryInfo) <span class="cov1" title="1">{
+        t.Helper()
+        
+        assert.NotEmpty(t, repo.Name, "Repository name should not be empty")
+        assert.NotEmpty(t, repo.FullName(), "Repository full name should not be empty")
+        assert.NotEmpty(t, repo.URL, "Repository URL should not be empty")
+        assert.NotEmpty(t, repo.Owner, "Repository owner should not be empty")
+        assert.True(t, repo.IsValid(), "Repository should be valid")
+}</span>
+
+// AssertJobStatusValid verifica se JobStatus é válido
+func AssertJobStatusValid(t *testing.T, status shared.JobStatus) <span class="cov0" title="0">{
+        t.Helper()
+        
+        assert.True(t, status.IsValid(), "Job status should be valid: %s", status)
+}</span>
+
+// AssertLanguageValid verifica se Language é válida
+func AssertLanguageValid(t *testing.T, language shared.Language) <span class="cov0" title="0">{
+        t.Helper()
+        
+        validLanguages := []shared.Language{
+                shared.LanguageJava,
+                shared.LanguageDotNet,
+                shared.LanguageGo,
+        }
+        
+        assert.Contains(t, validLanguages, language, "Language should be valid: %s", language)
+}</span>
+
+// AssertNoError é um wrapper para assert.NoError com mensagem customizada
+func AssertNoError(t *testing.T, err error, operation string) <span class="cov1" title="1">{
+        t.Helper()
+        
+        assert.NoError(t, err, "Operation '%s' should not return error", operation)
+}</span>
+
+// AssertError verifica se um erro foi retornado
+func AssertError(t *testing.T, err error, operation string) <span class="cov0" title="0">{
+        t.Helper()
+        
+        assert.Error(t, err, "Operation '%s' should return error", operation)
+}</span>
+
+// AssertErrorContains verifica se o erro contém uma mensagem específica
+func AssertErrorContains(t *testing.T, err error, expectedMsg string) <span class="cov1" title="1">{
+        t.Helper()
+        
+        assert.Error(t, err, "Error should not be nil")
+        assert.Contains(t, err.Error(), expectedMsg, "Error message should contain expected text")
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package testutil
+
+import (
+        "crypto/hmac"
+        "crypto/sha256"
+        "encoding/hex"
+        "encoding/json"
+        "os"
+        "path/filepath"
+        "testing"
+)
+
+// Fixture constants for different language project files
+
+// javaPomXML is a minimal Maven pom.xml for testing
+const javaPomXML = `&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;test-project&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    
+    &lt;name&gt;Test Project&lt;/name&gt;
+    &lt;description&gt;Test project for OCI Build System&lt;/description&gt;
+    
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+    
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.13.2&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.11.0&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+`
+
+// dotnetCsproj is a minimal .NET project file for testing
+const dotnetCsproj = `&lt;Project Sdk="Microsoft.NET.Sdk"&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" /&gt;
+  &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
+`
+
+// goMod is a minimal Go module file for testing
+const goMod = `module github.com/example/test-project
+
+go 1.21
+
+require (
+        github.com/stretchr/testify v1.8.4
+        go.uber.org/zap v1.26.0
+)
+`
+
+// goSum is a minimal Go checksum file for testing
+const goSum = `github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
+github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+go.uber.org/zap v1.26.0 h1:sI7k6L95XOKS281NhVKOFCUNIvv9e0w4BF8N3u+tCRo=
+go.uber.org/zap v1.26.0/go.mod h1:dtElttAiwGvoJ/vj4IwHBS/gXsEu/pZ50mUIRWuG0so=
+`
+
+// dockerfile is a minimal Dockerfile for testing
+const dockerfile = `FROM alpine:latest
+
+WORKDIR /app
+
+COPY . .
+
+CMD ["/bin/sh"]
+`
+
+// javaDockerfile is a Java-specific Dockerfile for testing
+const javaDockerfile = `FROM maven:3.9-eclipse-temurin-17 AS builder
+
+WORKDIR /app
+
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+`
+
+// dotnetDockerfile is a .NET-specific Dockerfile for testing
+const dotnetDockerfile = `FROM mcr.microsoft.com/dotnet/sdk:8.0 AS builder
+
+WORKDIR /app
+
+COPY *.csproj .
+RUN dotnet restore
+
+COPY . .
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/runtime:8.0
+
+WORKDIR /app
+
+COPY --from=builder /app/out .
+
+ENTRYPOINT ["dotnet", "test-project.dll"]
+`
+
+// goDockerfile is a Go-specific Dockerfile for testing
+const goDockerfile = `FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+COPY --from=builder /app/main .
+
+EXPOSE 8080
+
+CMD ["./main"]
+`
+
+// CreateTempRepo creates a temporary repository for testing with the specified language
+func CreateTempRepo(t *testing.T, language string) string <span class="cov6" title="4">{
+        t.Helper()
+        
+        tmpDir := t.TempDir()
+        
+        switch language </span>{
+        case "java":<span class="cov1" title="1">
+                createFile(t, filepath.Join(tmpDir, "pom.xml"), javaPomXML)
+                createFile(t, filepath.Join(tmpDir, "Dockerfile"), javaDockerfile)
+                
+                // Create minimal Java source structure
+                srcDir := filepath.Join(tmpDir, "src", "main", "java", "com", "example")
+                if err := os.MkdirAll(srcDir, 0755); err != nil </span><span class="cov0" title="0">{
+                        t.Fatalf("Failed to create Java source directory: %v", err)
+                }</span>
+                <span class="cov1" title="1">createFile(t, filepath.Join(srcDir, "Main.java"), javaMainClass)</span>
+                
+        case "dotnet":<span class="cov1" title="1">
+                createFile(t, filepath.Join(tmpDir, "test-project.csproj"), dotnetCsproj)
+                createFile(t, filepath.Join(tmpDir, "Dockerfile"), dotnetDockerfile)
+                
+                // Create minimal C# source
+                createFile(t, filepath.Join(tmpDir, "Program.cs"), dotnetProgram)</span>
+                
+        case "go":<span class="cov1" title="1">
+                createFile(t, filepath.Join(tmpDir, "go.mod"), goMod)
+                createFile(t, filepath.Join(tmpDir, "go.sum"), goSum)
+                createFile(t, filepath.Join(tmpDir, "Dockerfile"), goDockerfile)
+                
+                // Create minimal Go source
+                createFile(t, filepath.Join(tmpDir, "main.go"), goMain)</span>
+                
+        default:<span class="cov1" title="1">
+                // Generic repository with just a Dockerfile
+                createFile(t, filepath.Join(tmpDir, "Dockerfile"), dockerfile)</span>
+        }
+        
+        <span class="cov6" title="4">return tmpDir</span>
+}
+
+// createFile is a helper to create a file with content
+func createFile(t *testing.T, path string, content string) <span class="cov10" title="11">{
+        t.Helper()
+        
+        if err := os.WriteFile(path, []byte(content), 0644); err != nil </span><span class="cov0" title="0">{
+                t.Fatalf("Failed to create file %s: %v", path, err)
+        }</span>
+}
+
+// LoadWebhookPayload creates a GitHub webhook payload for testing
+func LoadWebhookPayload(t *testing.T, repoName string) map[string]interface{} <span class="cov1" title="1">{
+        t.Helper()
+        
+        payload := map[string]interface{}{
+                "ref":   "refs/heads/main",
+                "after": "abc123def456789012345678901234567890abcd",
+                "repository": map[string]interface{}{
+                        "name":      repoName,
+                        "full_name": "test-owner/" + repoName,
+                        "clone_url": "https://github.com/test-owner/" + repoName + ".git",
+                        "owner": map[string]interface{}{
+                                "login": "test-owner",
+                        },
+                },
+                "head_commit": map[string]interface{}{
+                        "id":      "abc123def456789012345678901234567890abcd",
+                        "message": "Test commit message",
+                        "author": map[string]interface{}{
+                                "name":  "Test Author",
+                                "email": "test@example.com",
+                        },
+                },
+        }
+        
+        return payload
+}</span>
+
+// LoadWebhookPayloadWithBranch creates a GitHub webhook payload with custom branch
+func LoadWebhookPayloadWithBranch(t *testing.T, repoName, branch, commitHash string) map[string]interface{} <span class="cov1" title="1">{
+        t.Helper()
+        
+        payload := map[string]interface{}{
+                "ref":   "refs/heads/" + branch,
+                "after": commitHash,
+                "repository": map[string]interface{}{
+                        "name":      repoName,
+                        "full_name": "test-owner/" + repoName,
+                        "clone_url": "https://github.com/test-owner/" + repoName + ".git",
+                        "owner": map[string]interface{}{
+                                "login": "test-owner",
+                        },
+                },
+                "head_commit": map[string]interface{}{
+                        "id":      commitHash,
+                        "message": "Test commit on " + branch,
+                        "author": map[string]interface{}{
+                                "name":  "Test Author",
+                                "email": "test@example.com",
+                        },
+                },
+        }
+        
+        return payload
+}</span>
+
+// GenerateHMACSignature generates an HMAC-SHA256 signature for webhook validation
+func GenerateHMACSignature(payload []byte, secret string) string <span class="cov9" title="9">{
+        mac := hmac.New(sha256.New, []byte(secret))
+        mac.Write(payload)
+        return "sha256=" + hex.EncodeToString(mac.Sum(nil))
+}</span>
+
+// GenerateHMACSignatureForPayload generates signature for a map payload
+func GenerateHMACSignatureForPayload(payload map[string]interface{}, secret string) (string, error) <span class="cov3" title="2">{
+        payloadBytes, err := json.Marshal(payload)
+        if err != nil </span><span class="cov1" title="1">{
+                return "", err
+        }</span>
+        <span class="cov1" title="1">return GenerateHMACSignature(payloadBytes, secret), nil</span>
+}
+
+// Minimal source code templates
+
+const javaMainClass = `package com.example;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello from OCI Build System Test!");
+    }
+}
+`
+
+const dotnetProgram = `using System;
+
+namespace TestProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello from OCI Build System Test!");
+        }
+    }
+}
+`
+
+const goMain = `package main
+
+import "fmt"
+
+func main() {
+        fmt.Println("Hello from OCI Build System Test!")
+}
+`
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package testutil
+
+import (
+        "context"
+        "fmt"
+        "time"
+
+        "github.com/nats-io/nats.go"
+        "github.com/oci-build-system/libs/shared"
+)
+
+// MockMessage representa uma mensagem publicada no mock NATS
+type MockMessage struct {
+        Subject string
+        Data    []byte
+}
+
+// MockNATSClient simula cliente NATS para testes
+type MockNATSClient struct {
+        PublishedMessages []MockMessage
+        Subscriptions     map[string]nats.MsgHandler
+        Connected         bool
+        PublishFunc       func(subject string, data []byte) error
+        SubscribeFunc     func(subject string, handler nats.MsgHandler) (*nats.Subscription, error)
+        RequestFunc       func(subject string, data []byte, timeout time.Duration) (*nats.Msg, error)
+}
+
+// NewMockNATSClient cria uma nova instância de MockNATSClient
+func NewMockNATSClient() *MockNATSClient <span class="cov7" title="4">{
+        return &amp;MockNATSClient{
+                PublishedMessages: make([]MockMessage, 0),
+                Subscriptions:     make(map[string]nats.MsgHandler),
+                Connected:         true,
+        }
+}</span>
+
+// Connect simula conexão ao NATS
+func (m *MockNATSClient) Connect(url string) error <span class="cov0" title="0">{
+        if !m.Connected </span><span class="cov0" title="0">{
+                return fmt.Errorf("connection failed")
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+// Publish simula publicação de mensagem
+func (m *MockNATSClient) Publish(subject string, data []byte) error <span class="cov10" title="6">{
+        if m.PublishFunc != nil </span><span class="cov0" title="0">{
+                return m.PublishFunc(subject, data)
+        }</span>
+        
+        <span class="cov10" title="6">if !m.Connected </span><span class="cov1" title="1">{
+                return fmt.Errorf("not connected")
+        }</span>
+        
+        <span class="cov9" title="5">m.PublishedMessages = append(m.PublishedMessages, MockMessage{
+                Subject: subject,
+                Data:    data,
+        })
+        return nil</span>
+}
+
+// Subscribe simula subscrição a um subject
+func (m *MockNATSClient) Subscribe(subject string, handler nats.MsgHandler) (*nats.Subscription, error) <span class="cov0" title="0">{
+        if m.SubscribeFunc != nil </span><span class="cov0" title="0">{
+                return m.SubscribeFunc(subject, handler)
+        }</span>
+        
+        <span class="cov0" title="0">if !m.Connected </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("not connected")
+        }</span>
+        
+        <span class="cov0" title="0">m.Subscriptions[subject] = handler
+        return &amp;nats.Subscription{}, nil</span>
+}
+
+// Request simula requisição com resposta
+func (m *MockNATSClient) Request(subject string, data []byte, timeout time.Duration) (*nats.Msg, error) <span class="cov0" title="0">{
+        if m.RequestFunc != nil </span><span class="cov0" title="0">{
+                return m.RequestFunc(subject, data, timeout)
+        }</span>
+        
+        <span class="cov0" title="0">if !m.Connected </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("not connected")
+        }</span>
+        
+        // Simular resposta
+        <span class="cov0" title="0">return &amp;nats.Msg{
+                Subject: subject,
+                Data:    []byte(`{"status":"ok"}`),
+        }, nil</span>
+}
+
+// Close simula fechamento da conexão
+func (m *MockNATSClient) Close() <span class="cov0" title="0">{
+        m.Connected = false
+}</span>
+
+// IsConnected retorna o status da conexão
+func (m *MockNATSClient) IsConnected() bool <span class="cov0" title="0">{
+        return m.Connected
+}</span>
+
+// GetPublishedMessage retorna uma mensagem publicada por índice
+func (m *MockNATSClient) GetPublishedMessage(index int) *MockMessage <span class="cov0" title="0">{
+        if index &lt; 0 || index &gt;= len(m.PublishedMessages) </span><span class="cov0" title="0">{
+                return nil
+        }</span>
+        <span class="cov0" title="0">return &amp;m.PublishedMessages[index]</span>
+}
+
+// GetPublishedMessagesBySubject retorna todas as mensagens publicadas em um subject
+func (m *MockNATSClient) GetPublishedMessagesBySubject(subject string) []MockMessage <span class="cov1" title="1">{
+        messages := make([]MockMessage, 0)
+        for _, msg := range m.PublishedMessages </span><span class="cov6" title="3">{
+                if msg.Subject == subject </span><span class="cov4" title="2">{
+                        messages = append(messages, msg)
+                }</span>
+        }
+        <span class="cov1" title="1">return messages</span>
+}
+
+// ClearPublishedMessages limpa todas as mensagens publicadas
+func (m *MockNATSClient) ClearPublishedMessages() <span class="cov1" title="1">{
+        m.PublishedMessages = make([]MockMessage, 0)
+}</span>
+
+// MockGitService simula operações Git para testes
+type MockGitService struct {
+        SyncRepositoryFunc   func(ctx context.Context, repo shared.RepositoryInfo, commitHash string) (string, error)
+        RepositoryExistsFunc func(repoURL string) bool
+        GetLocalPathFunc     func(repoURL string) string
+}
+
+// NewMockGitService cria uma nova instância de MockGitService
+func NewMockGitService() *MockGitService <span class="cov4" title="2">{
+        return &amp;MockGitService{}
+}</span>
+
+// SyncRepository simula sincronização de repositório
+func (m *MockGitService) SyncRepository(ctx context.Context, repo shared.RepositoryInfo, commitHash string) (string, error) <span class="cov4" title="2">{
+        if m.SyncRepositoryFunc != nil </span><span class="cov1" title="1">{
+                return m.SyncRepositoryFunc(ctx, repo, commitHash)
+        }</span>
+        <span class="cov1" title="1">return "/tmp/test-repo", nil</span>
+}
+
+// RepositoryExists simula verificação de existência de repositório
+func (m *MockGitService) RepositoryExists(repoURL string) bool <span class="cov0" title="0">{
+        if m.RepositoryExistsFunc != nil </span><span class="cov0" title="0">{
+                return m.RepositoryExistsFunc(repoURL)
+        }</span>
+        <span class="cov0" title="0">return false</span>
+}
+
+// GetLocalPath simula obtenção do path local
+func (m *MockGitService) GetLocalPath(repoURL string) string <span class="cov0" title="0">{
+        if m.GetLocalPathFunc != nil </span><span class="cov0" title="0">{
+                return m.GetLocalPathFunc(repoURL)
+        }</span>
+        <span class="cov0" title="0">return "/tmp/test-repo"</span>
+}
+
+// MockNXService simula builds NX para testes
+type MockNXService struct {
+        BuildFunc          func(ctx context.Context, repoPath string, config interface{}) (interface{}, error)
+        DetectProjectsFunc func(repoPath string) ([]string, error)
+}
+
+// NewMockNXService cria uma nova instância de MockNXService
+func NewMockNXService() *MockNXService <span class="cov1" title="1">{
+        return &amp;MockNXService{}
+}</span>
+
+// Build simula execução de build NX
+func (m *MockNXService) Build(ctx context.Context, repoPath string, config interface{}) (interface{}, error) <span class="cov1" title="1">{
+        if m.BuildFunc != nil </span><span class="cov0" title="0">{
+                return m.BuildFunc(ctx, repoPath, config)
+        }</span>
+        
+        // Retornar resultado de sucesso padrão
+        <span class="cov1" title="1">return &amp;struct {
+                Success      bool
+                Duration     time.Duration
+                Output       string
+                ErrorOutput  string
+                ArtifactPath string
+        }{
+                Success:      true,
+                Duration:     5 * time.Second,
+                Output:       "Build successful",
+                ErrorOutput:  "",
+                ArtifactPath: "/tmp/test-repo/dist",
+        }, nil</span>
+}
+
+// DetectProjects simula detecção de projetos NX
+func (m *MockNXService) DetectProjects(repoPath string) ([]string, error) <span class="cov0" title="0">{
+        if m.DetectProjectsFunc != nil </span><span class="cov0" title="0">{
+                return m.DetectProjectsFunc(repoPath)
+        }</span>
+        <span class="cov0" title="0">return []string{"project1", "project2"}, nil</span>
+}
+
+// MockImageService simula builds de imagem para testes
+type MockImageService struct {
+        BuildImageFunc func(ctx context.Context, config interface{}) (interface{}, error)
+        TagImageFunc   func(imageID string, tags []string) error
+}
+
+// NewMockImageService cria uma nova instância de MockImageService
+func NewMockImageService() *MockImageService <span class="cov4" title="2">{
+        return &amp;MockImageService{}
+}</span>
+
+// BuildImage simula construção de imagem OCI
+func (m *MockImageService) BuildImage(ctx context.Context, config interface{}) (interface{}, error) <span class="cov1" title="1">{
+        if m.BuildImageFunc != nil </span><span class="cov0" title="0">{
+                return m.BuildImageFunc(ctx, config)
+        }</span>
+        
+        // Retornar resultado de sucesso padrão
+        <span class="cov1" title="1">return &amp;struct {
+                ImageID  string
+                Tags     []string
+                Size     int64
+                Duration time.Duration
+        }{
+                ImageID:  "sha256:abc123def456",
+                Tags:     []string{"test:latest"},
+                Size:     100 * 1024 * 1024, // 100MB
+                Duration: 30 * time.Second,
+        }, nil</span>
+}
+
+// TagImage simula aplicação de tags a uma imagem
+func (m *MockImageService) TagImage(imageID string, tags []string) error <span class="cov1" title="1">{
+        if m.TagImageFunc != nil </span><span class="cov0" title="0">{
+                return m.TagImageFunc(imageID, tags)
+        }</span>
+        <span class="cov1" title="1">return nil</span>
+}
+
+// MockCacheService simula gerenciamento de cache para testes
+type MockCacheService struct {
+        GetCachePathFunc    func(language shared.Language) string
+        InitializeCacheFunc func(language shared.Language) error
+        CleanCacheFunc      func(language shared.Language, olderThan time.Duration) error
+        GetCacheSizeFunc    func(language shared.Language) (int64, error)
+}
+
+// NewMockCacheService cria uma nova instância de MockCacheService
+func NewMockCacheService() *MockCacheService <span class="cov9" title="5">{
+        return &amp;MockCacheService{}
+}</span>
+
+// GetCachePath simula obtenção do path de cache
+func (m *MockCacheService) GetCachePath(language shared.Language) string <span class="cov1" title="1">{
+        if m.GetCachePathFunc != nil </span><span class="cov0" title="0">{
+                return m.GetCachePathFunc(language)
+        }</span>
+        <span class="cov1" title="1">return fmt.Sprintf("/tmp/cache/%s", language)</span>
+}
+
+// InitializeCache simula inicialização de cache
+func (m *MockCacheService) InitializeCache(language shared.Language) error <span class="cov1" title="1">{
+        if m.InitializeCacheFunc != nil </span><span class="cov0" title="0">{
+                return m.InitializeCacheFunc(language)
+        }</span>
+        <span class="cov1" title="1">return nil</span>
+}
+
+// CleanCache simula limpeza de cache
+func (m *MockCacheService) CleanCache(language shared.Language, olderThan time.Duration) error <span class="cov1" title="1">{
+        if m.CleanCacheFunc != nil </span><span class="cov0" title="0">{
+                return m.CleanCacheFunc(language, olderThan)
+        }</span>
+        <span class="cov1" title="1">return nil</span>
+}
+
+// GetCacheSize simula obtenção do tamanho do cache
+func (m *MockCacheService) GetCacheSize(language shared.Language) (int64, error) <span class="cov4" title="2">{
+        if m.GetCacheSizeFunc != nil </span><span class="cov1" title="1">{
+                return m.GetCacheSizeFunc(language)
+        }</span>
+        <span class="cov1" title="1">return 1024 * 1024 * 100, nil</span> // 100MB padrão
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
