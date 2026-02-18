@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oci-build-system/libs/shared"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
@@ -61,10 +61,10 @@ func TestGetLocalPath(t *testing.T) {
 // TestRepositoryExists testa a detecção de repositório em cache
 func TestRepositoryExists(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
-	
+
 	// Criar diretório temporário para testes
 	tempDir := t.TempDir()
-	
+
 	config := Config{
 		CodeCachePath: tempDir,
 		MaxRetries:    3,
@@ -146,7 +146,7 @@ func TestNewGitService(t *testing.T) {
 func TestSyncRepository_Validation(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
 	tempDir := t.TempDir()
-	
+
 	config := Config{
 		CodeCachePath: tempDir,
 		MaxRetries:    1,
@@ -157,9 +157,9 @@ func TestSyncRepository_Validation(t *testing.T) {
 
 	t.Run("invalid repository info - empty URL", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "",
-			Name:  "repo",
-			Owner: "owner",
+			URL:    "",
+			Name:   "repo",
+			Owner:  "owner",
 			Branch: "main",
 		}
 		_, err := svc.SyncRepository(ctx, repo, "abc123")
@@ -173,9 +173,9 @@ func TestSyncRepository_Validation(t *testing.T) {
 
 	t.Run("invalid repository info - empty name", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/owner/repo.git",
-			Name:  "",
-			Owner: "owner",
+			URL:    "https://github.com/owner/repo.git",
+			Name:   "",
+			Owner:  "owner",
 			Branch: "main",
 		}
 		_, err := svc.SyncRepository(ctx, repo, "abc123")
@@ -186,9 +186,9 @@ func TestSyncRepository_Validation(t *testing.T) {
 
 	t.Run("invalid repository info - empty owner", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/owner/repo.git",
-			Name:  "repo",
-			Owner: "",
+			URL:    "https://github.com/owner/repo.git",
+			Name:   "repo",
+			Owner:  "",
 			Branch: "main",
 		}
 		_, err := svc.SyncRepository(ctx, repo, "abc123")
@@ -199,9 +199,9 @@ func TestSyncRepository_Validation(t *testing.T) {
 
 	t.Run("empty commit hash", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/owner/repo.git",
-			Name:  "repo",
-			Owner: "owner",
+			URL:    "https://github.com/owner/repo.git",
+			Name:   "repo",
+			Owner:  "owner",
 			Branch: "main",
 		}
 		_, err := svc.SyncRepository(ctx, repo, "")
@@ -218,7 +218,7 @@ func TestSyncRepository_Validation(t *testing.T) {
 func TestSyncRepository_ContextCancellation(t *testing.T) {
 	logger, _ := zap.NewDevelopment()
 	tempDir := t.TempDir()
-	
+
 	config := Config{
 		CodeCachePath: tempDir,
 		MaxRetries:    3,
@@ -231,9 +231,9 @@ func TestSyncRepository_ContextCancellation(t *testing.T) {
 		cancel() // Cancelar imediatamente
 
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/invalid/nonexistent.git",
-			Name:  "nonexistent",
-			Owner: "invalid",
+			URL:    "https://github.com/invalid/nonexistent.git",
+			Name:   "nonexistent",
+			Owner:  "invalid",
 			Branch: "main",
 		}
 
@@ -248,9 +248,9 @@ func TestSyncRepository_ContextCancellation(t *testing.T) {
 		defer cancel()
 
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/invalid/nonexistent.git",
-			Name:  "nonexistent",
-			Owner: "invalid",
+			URL:    "https://github.com/invalid/nonexistent.git",
+			Name:   "nonexistent",
+			Owner:  "invalid",
 			Branch: "main",
 		}
 
@@ -303,9 +303,9 @@ func TestGetLocalPath_EdgeCases(t *testing.T) {
 func TestRepositoryInfo_Integration(t *testing.T) {
 	t.Run("valid repository info", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "https://github.com/owner/repo.git",
-			Name:  "repo",
-			Owner: "owner",
+			URL:    "https://github.com/owner/repo.git",
+			Name:   "repo",
+			Owner:  "owner",
 			Branch: "main",
 		}
 
@@ -321,9 +321,9 @@ func TestRepositoryInfo_Integration(t *testing.T) {
 
 	t.Run("invalid repository info", func(t *testing.T) {
 		repo := shared.RepositoryInfo{
-			URL:   "",
-			Name:  "repo",
-			Owner: "owner",
+			URL:    "",
+			Name:   "repo",
+			Owner:  "owner",
 			Branch: "main",
 		}
 

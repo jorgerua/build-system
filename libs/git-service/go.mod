@@ -1,10 +1,11 @@
-module github.com/oci-build-system/libs/git-service
+module github.com/jorgerua/build-system/libs/git-service
 
-go 1.21
+go 1.25
 
 require (
 	github.com/go-git/go-git/v5 v5.11.0
-	github.com/oci-build-system/libs/shared v0.0.0
+	github.com/jorgerua/build-system/libs/shared v0.0.1
+	github.com/leanovate/gopter v0.2.11
 	go.uber.org/zap v1.27.1
 )
 
@@ -22,7 +23,6 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
-	github.com/leanovate/gopter v0.2.11 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect

@@ -9,10 +9,10 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/jorgerua/build-system/libs/shared"
 	"github.com/leanovate/gopter"
 	"github.com/leanovate/gopter/gen"
 	"github.com/leanovate/gopter/prop"
-	"github.com/oci-build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
@@ -29,7 +29,7 @@ func TestProperty_RepositorySynchronization(t *testing.T) {
 			// Gerar nomes válidos a partir dos sufixos
 			repoName := "test-repo-" + string(rune('a'+repoSuffix%26))
 			ownerName := "test-owner-" + string(rune('a'+ownerSuffix%26))
-			
+
 			// Limitar commitCount
 			if commitCount == 0 {
 				commitCount = 1
@@ -264,7 +264,7 @@ func TestProperty_NetworkFailureFallbackToCache(t *testing.T) {
 			// Gerar nomes válidos a partir dos sufixos
 			repoName := "test-repo-" + string(rune('a'+repoSuffix%26))
 			ownerName := "test-owner-" + string(rune('a'+ownerSuffix%26))
-			
+
 			// Limitar commitCount
 			if commitCount == 0 {
 				commitCount = 1
@@ -399,7 +399,7 @@ func TestProperty_NetworkFailureFallbackToCache(t *testing.T) {
 			// 6. Tentar sincronizar novamente (pull deve falhar, mas deve usar cache)
 			// Usar o mesmo commit inicial já que o pull vai falhar
 			localPath2, err := svc.SyncRepository(ctx, repoInfo, initialCommitHash)
-			
+
 			// A operação NÃO deve retornar erro - deve usar cache
 			if err != nil {
 				t.Logf("Sync with network failure should not return error (should use cache): %v", err)

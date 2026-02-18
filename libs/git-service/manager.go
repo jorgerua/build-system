@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/oci-build-system/libs/shared"
+	"github.com/jorgerua/build-system/libs/shared"
 	"go.uber.org/zap"
 )
 
@@ -107,7 +107,7 @@ func (g *gitServiceImpl) SyncRepository(ctx context.Context, repo shared.Reposit
 // RepositoryExists verifica se um repositório existe no cache local
 func (g *gitServiceImpl) RepositoryExists(repoURL string) bool {
 	localPath := g.GetLocalPath(repoURL)
-	
+
 	// Verificar se o diretório existe
 	if _, err := os.Stat(localPath); os.IsNotExist(err) {
 		return false
@@ -123,7 +123,7 @@ func (g *gitServiceImpl) GetLocalPath(repoURL string) string {
 	// Extrair owner e name da URL
 	// Exemplo: https://github.com/owner/repo.git -> owner/repo
 	parts := strings.Split(strings.TrimSuffix(repoURL, ".git"), "/")
-	
+
 	if len(parts) < 2 {
 		// Fallback: usar hash da URL
 		return filepath.Join(g.codeCachePath, fmt.Sprintf("repo-%x", repoURL))
