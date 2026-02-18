@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/oci-build-system/libs/shared v0.0.0
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.1
 )
 
 require (

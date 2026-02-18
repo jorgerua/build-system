@@ -43,12 +43,12 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
   - [x] 5.4 Implementar endpoint /liveness
   - [x] 5.5 Registrar endpoints no router
 
-- [ ] 6. Adicionar testes para health handlers
-  - [ ] 6.1 Testar /health quando NATS está conectado
-  - [ ] 6.2 Testar /health quando NATS está desconectado
-  - [ ] 6.3 Testar /readiness quando serviço está pronto
-  - [ ] 6.4 Testar /readiness quando serviço não está pronto
-  - [ ] 6.5 Testar /liveness sempre retorna 200
+- [x] 6. Adicionar testes para health handlers
+  - [x] 6.1 Testar /health quando NATS está conectado
+  - [x] 6.2 Testar /health quando NATS está desconectado
+  - [x] 6.3 Testar /readiness quando serviço está pronto
+  - [x] 6.4 Testar /readiness quando serviço não está pronto
+  - [x] 6.5 Testar /liveness sempre retorna 200
 
 - [ ] 7. Criar script wait-for-services.sh
   - [ ] 7.1 Implementar função check_service
