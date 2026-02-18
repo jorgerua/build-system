@@ -13,12 +13,12 @@ Este documento contém as tarefas para implementar melhorias nos testes unitári
   - [x] 1.2 Adicionar comentários explicativos para cada variável
   - [x] 1.3 Incluir valores de exemplo para desenvolvimento
 
-- [-] 2. Atualizar docker-compose.yml com validação de variáveis
+- [x] 2. Atualizar docker-compose.yml com validação de variáveis
   - [x] 2.1 Adicionar sintaxe ${VAR:?message} para variáveis obrigatórias
   - [x] 2.2 Adicionar health checks para NATS
   - [x] 2.3 Adicionar health checks para api-service
   - [x] 2.4 Configurar depends_on com condition: service_healthy
-  - [ ] 2.5 Testar que compose falha se variáveis obrigatórias não estão definidas
+  - [x] 2.5 Testar que compose falha se variáveis obrigatórias não estão definidas
 
 - [ ] 3. Implementar função LoadConfig com validação
   - [ ] 3.1 Criar função expandEnvVars para expandir ${VAR_NAME}

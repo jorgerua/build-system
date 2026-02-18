@@ -90,6 +90,12 @@ test-coverage: ## Executa testes com cobertura de código
 	$(NX) run-many --target=test --all --parallel=3 --coverage
 	@echo "$(GREEN)Testes com cobertura concluídos!$(NC)"
 
+# Validação
+validate-env: ## Valida que docker-compose falha sem variáveis obrigatórias
+	@echo "$(GREEN)Validando configuração de variáveis de ambiente...$(NC)"
+	@bash tests/validate-compose-env.sh
+	@echo "$(GREEN)Validação concluída com sucesso!$(NC)"
+
 # Execução
 run: ## Inicia todos os serviços usando docker-compose
 	@echo "$(GREEN)Iniciando todos os serviços...$(NC)"
