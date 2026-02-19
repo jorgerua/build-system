@@ -15,7 +15,7 @@ Query Status Of Existing Build
     ${commit_hash}=    Generate Random Commit Hash
     ${payload}=    Create Webhook Payload    ${TEST_REPO_JAVA}    ${commit_hash}    main
     ${signature}=    Generate HMAC Signature    ${payload}    ${GITHUB_SECRET}
-    
+
     ${response}=    Send Webhook    ${payload}    ${signature}
     Verify Response Status    ${response}    ${HTTP_ACCEPTED}
     ${job_id}=    Get From Dictionary    ${response.json()}    id

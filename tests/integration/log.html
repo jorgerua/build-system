@@ -5,60 +5,16 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 7.4.1 (Python 3.9.6 on darwin)" name="Generator">
+<meta content="Robot Framework 6.1.1 (Python 3.13.5 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
-<style media="all">
-:root {
-    --text-color: black;
-    --background-color: white;
-    --primary-color: #ddd;
-    --secondary-color: #ccc;
-    --link-color: #15c;
-    --link-hover-color: #61c;
-    --highlight-color: #eee;
-    --target-color: #f9f9f9;
-    --pass-color: #97bd61;
-    --fail-color: #ce3e01;
-    --warn-color: #fed84f;
-    --pass-link-color: #098a09;
-    --warn-link-color: #927201;
-    --fail-link-color: #ce3e01;
-    --ascending-icon: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlBWnFr3cnIr0WQOyBmvzp13CpxQAOw==);
-    --descending-icon: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlAWnBr3cnIr0WROyDmvzp13CpxQAOw==);
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-    }
-}
-[data-theme="dark"] {
-    --text-color: #e2e1d7;
-    --background-color: #1c2227;
-    --primary-color: #26373b;
-    --secondary-color: #424f5a;
-    --link-color: #8cc4ff;
-    --link-hover-color: #bb86fc;
-    --highlight-color: #002b36;
-    --target-color: #1a252e;
-    --pass-link-color: #97bd61;
-    --warn-link-color: #fed84f;
-    --fail-link-color: #ff9b8f;
-    --ascending-icon: url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJAgMAAACZCj6+AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAAfn5+////f/cqYgAAAAN0Uk5TAP//RFDWIQAAACdJREFUeJxjYHBgYGAMYGBgDWFgEA1lAAOtVQwMXCsYGJgWADkNDAA78QP9oKr7vwAAAABJRU5ErkJggg==);
-    --descending-icon: url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJAgMAAACZCj6+AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAlQTFRFAAAA////fn5+K6jOaAAAAAN0Uk5TAP//RFDWIQAAACdJREFUeJxjYHBgYGAMYGBgDWFgEA1lAAOtVQwMXCsYGJgWADkNDAA78QP9oKr7vwAAAABJRU5ErkJggg==);
-}
+<style media="all" type="text/css">
 /* Generic and misc styles */
 body {
     font-family: Helvetica, sans-serif;
     font-size: 0.8em;
-    color: black; /* Fallback value */
-    color: var(--text-color);
+    color: black;
     padding: 6px;
-    background: white; /* Fallback value */
-    background: var(--background-color);
-    margin-left: 15px;
-}
-body[theme-toggled] {
-    transition: background 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
+    background: white;
 }
 table {
     table-layout: fixed;
@@ -73,37 +29,20 @@ br {
     mso-data-placement: same-cell; /* maintain line breaks in Excel */
 }
 hr {
-    background: #ccc; /* Fallback value */
-    background: var(--secondary-color);
+    background: #ccc;
     height: 1px;
     border: 0;
 }
 a, a:link, a:visited {
     text-decoration: none;
-    color: #15c; /* Fallback value */
-    color: var(--link-color);
+    color: #15c;
 }
 a > img {
-    border-width: 1px !important;
-    border-style: solid !important;
-    border-color: #15c !important; /* Fallback value */
-    border-color: var(--link-color) !important;
+    border: 1px solid #15c !important;
 }
 a:hover, a:active {
     text-decoration: underline;
-    color: #61c; /* Fallback value */
-    color: var(--link-hover-color);
-}
-select {
-    background-color: white; /* Fallback value */
-    background-color: var(--background-color);
-    color: black; /* Fallback value */
-    color: var(--text-color);
-    border-width: 2px;
-    border-style: solid;
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
-    border-radius: 4px;
+    color: #61c;
 }
 .parent-name {
     font-size: 0.7em;
@@ -116,16 +55,15 @@ select {
 #header {
     width: 65em;
     height: 3em;
-    margin: 1em 0 0 0;
+    margin: 6px 0;
 }
 h1 {
     float: left;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     width: 75%;
 }
 h2 {
     clear: left;
-    margin: 1.5em 0 0.5em 0;
 }
 #generated {
     float: right;
@@ -145,17 +83,14 @@ h2 {
 }
 /* Status text colors -- !important allows using them in links */
 .fail {
-    color: #ce3e01 !important; /* Fallback value */
-    color: var(--fail-link-color) !important;
+    color: #ce3e01 !important;
     font-weight: bold;
 }
 .pass {
-    color: #098a09 !important; /* Fallback value */
-    color: var(--pass-link-color) !important;
+    color: #098a09 !important;
 }
 .skip {
-    color: #927201 !important; /* Fallback value */
-    color: var(--warn-link-color) !important;
+    color: #927201 !important;
     font-weight: bold;
 }
 .label {
@@ -163,37 +98,26 @@ h2 {
     font-size: 0.75em;
     letter-spacing: 1px;
     white-space: nowrap;
-    color: black; /* Fallback value */
-    color: var(--text-color);
-    background-color: #ddd; /* Fallback value */
-    background-color: var(--primary-color);
+    color: black;
+    background-color: #ddd;
     border-radius: 3px;
 }
-/* https://stackoverflow.com/questions/75238633 */
-@supports (-moz-appearance: none) {
-    .label {
-        padding-top: 4px;
-    }
-}
-.label.debug, .label.trace, .label.error {
+.label.debug, .label.trace, .label.error, .label.keyword {
     letter-spacing: 0;
 }
 .label.pass, .label.fail, .label.error, .label.skip, .label.warn {
     font-weight: bold;
 }
 .label.pass {
-    background-color: #97bd61; /* Fallback value */
-    background-color: var(--pass-color);
+    background-color: #97bd61;
     color: #000 !important;
 }
 .label.fail, .label.error {
-    background-color: #ce3e01; /* Fallback value */
-    background-color: var(--fail-color);
+    background-color: #ce3e01;
     color: #fff !important;
 }
 .label.skip, .label.warn {
-    background-color: #fed84f; /* Fallback value */
-    background-color: var(--warn-color);
+    background-color: #fed84f;
     color: #000 !important;
 }
 /* Top right header */
@@ -222,8 +146,7 @@ h2 {
     padding: 0.3em 0;
     font-size: 0.9em;
     border-bottom-left-radius: 4px;
-    background: #ddd; /* Fallback value */
-    background: var(--primary-color);
+    background: #ddd;
 }
 /* Statistics table */
 .statistics {
@@ -233,20 +156,15 @@ h2 {
     margin-bottom: 1em;
 }
 .statistics tr:hover {
-    background: #eee; /* Fallback value */
-    background: var(--highlight-color);
+    background: #f4f4f4;
     cursor: pointer;
 }
 .statistics th, .statistics td {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
+    border: 1px solid #ccc;
     padding: 0.1em 0.3em;
 }
 .statistics th {
-    background-color: #ddd; /* Fallback value */
-    background-color: var(--primary-color);
+    background-color: #ddd;
     padding: 0.2em 0.3em;
 }
 .statistics td {
@@ -282,33 +200,27 @@ th.stats-col-graph:hover {
 }
 /* Statistics graph */
 .graph, .empty-graph {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
+    border: 1px solid #ccc;
     width: auto;
     height: 7px;
     padding: 0;
+    background: #aaa;
 }
 .empty-graph {
-    background: #eee; /* Fallback value */
-    background: var(--highlight-color);
+    background: #eee;
 }
 .pass-bar, .fail-bar, .skip-bar {
     float: left;
     height: 100%;
 }
 .fail-bar {
-    background: #ce3e01; /* Fallback value */
-    background: var(--fail-color);
+    background: #ce3e01;
 }
 .pass-bar {
-    background: #97bd61; /* Fallback value */
-    background: var(--pass-color);
+    background: #97bd61;
 }
 .skip-bar {
-    background: #fed84f; /* Fallback value */
-    background: var(--warn-color);
+    background: #fed84f;
 }
 /* Tablesorter - adapted from provided Blue Skin */
 .tablesorter-header {
@@ -318,185 +230,129 @@ th.stats-col-graph:hover {
     cursor: pointer;
 }
 .tablesorter-header:hover {
-    background-color: #ccc; /* Fallback value */
-    background-color: var(--secondary-color);
+    background-color: #ccc;
 }
 .tablesorter-headerAsc {
-    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlBWnFr3cnIr0WQOyBmvzp13CpxQAOw==); /* Fallback value */
-    background-image: var(--ascending-icon);
-    background-color: #ccc !important; /* Fallback value */
-    background-color: var(--secondary-color) !important;
+    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlBWnFr3cnIr0WQOyBmvzp13CpxQAOw==);
+    background-color: #ccc !important;
 }
 .tablesorter-headerDesc {
-    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlAWnBr3cnIr0WROyDmvzp13CpxQAOw==); /* Fallback value */
-    background-image: var(--descending-icon);
-    background-color: #ccc !important; /* Fallback value */
-    background-color: var(--secondary-color) !important;
+    background-image: url(data:image/gif;base64,R0lGODlhCwAJAKEAAAAAAH9/fwAAAAAAACH5BAEAAAIALAAAAAALAAkAAAIUlAWnBr3cnIr0WROyDmvzp13CpxQAOw==);
+    background-color: #ccc !important;
 }
 .sorter-false {
     background-image: none;
     cursor: default;
 }
 .sorter-false:hover {
-    background-color: #ddd; /* Fallback value */
-    background-color: var(--primary-color);
-}
-#theme-toggle {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 28px;
-    height: 28px;
-    border: none;
-    padding: 4px;
-    z-index: 1000;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    background: var(--highlight-color);
-}
-[data-theme="dark"] .dark-mode-icon,
-[data-theme="light"] .light-mode-icon {
-    display: none;
-}
-[data-theme="dark"] .light-mode-icon,
-[data-theme="light"] .dark-mode-icon {
-    display: block;
+    background-color: #ddd;
 }
 </style>
-<style media="all">
+<style media="all" type="text/css">
 /* Icons are from Open Iconic <https://useiconic.com/open/>.
    Licensed under the MIT License. */
-:root {
-    --icon-filter: invert(0);
-    --icon-highlight: var(--secondary-color);
-    --elapsed-color: #666;
-}
-/* @media (prefers-color-scheme: dark) { */
-[data-theme="dark"] {
-    --icon-filter: invert(1);
-    --icon-highlight: #a39990;
-    --elapsed-color: #999;
-}
 /* Containers */
-.suite, .test, #errors, #errors .messages {
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
-    border-width: 1px;
-    border-style: solid;
-    padding: 5px;
-    margin-top: 5px;
+.suite, .test, #errors {
+    border: 1px solid #ccc;
+    padding: 0.3em 0.2em;
+    margin: 0.2em 0;
 }
 .test {
     border-style: dashed;
 }
-.messages {
+#errors, .messages {
     width: 100%;
     border-spacing: 0;
-    padding: 0 5px;
 }
 .children {
     display: none;
-    margin-left: 18px;
-    margin-top: 2px;
+    margin-left: 1.4em;
 }
-#errors .children {
-    margin-left: 22px;
+.suite, .test, .keyword {
+    margin-left: -0.2em;
 }
-.suite, .test {
-    margin-left: -5px;
-}
-#s1, #errors {
-    margin: 0;
+#s1, .suite > .children > .keyword {
+    margin-left: 0;
 }
 /* Suite, test and kw headers */
 .element-header {
-    display: flex;
-    align-items: center;
-    padding: 2px;
     border: 1px solid transparent;
     border-radius: 2px;
+    position: relative;
 }
 .element-header:hover {
     cursor: pointer;
-    background-color: #eee; /* Fallback value */
-    background-color: var(--highlight-color);
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
+    background-color: #eee;
+    border-color: #ccc;
 }
 .element-header-toggle {
-    margin: 0 4px 0 2px;
-    height: 11px;
-    width: 11px;
-    min-width: 11px;
-    background-size: 6px 6px;
+    position: absolute;
+    left: 3px;
+    top: 5px;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAQAAABKxSfDAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0JChSkZz20AAAAGklEQVQI12NgQAKMDKzInP8IDhOqMk4G7AAANQwBE427PYUAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0wIDB2Mmg4di0yaC04eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAzKSIgLz4KPC9zdmc+), none;
-    filter: var(--icon-filter);
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--icon-highlight);
-    border-width: 1px;
-    border-style: solid;
+    height: 10px;
+    width: 10px;
+    background-size: 6px 6px;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .closed > .element-header-toggle {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAQAAABKxSfDAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0JCDHdVYtxAAAAM0lEQVQI103MMQqAMBQFwVHyITaB3P+W1sKzSBC3mW6hRFw0pUB5DvF1bu9FN0RM3X/wAk98CUnvFTakAAAAAElFTkSuQmCC);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0zIDB2M2gtM3YyaDN2M2gydi0zaDN2LTJoLTN2LTNoLTJ6IiAvPgo8L3N2Zz4=), none;
 }
 .element-header:hover > .element-header-toggle {
-    background-color: #ccc; /* Fallback value */
-    background-color: var(--icon-highlight);
+    background-color: #ccc;
 }
-.element-header-menu:hover ~ .element-header-toggle {
+.element-header-right:hover ~ .element-header-toggle {
     background-color: transparent;
 }
-.element-header-menu {
-    margin: 0 2px 0 4px;
+.element-header-left {
+    padding: 3px 80px 3px 20px;
+}
+.element-header-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 3px;
     cursor: default;
 }
-.name, .arg, .assign {
-    margin-left: 7px;
-    white-space: pre-wrap;
+.element-header .label {
+    margin-right: 0.5em;
 }
 .name {
     font-weight: bold;
 }
 .elapsed {
-    margin-left: auto;
-    padding-left: 0.5em;
-    color: #666; /* Fallback value */
-    color: var(--elapsed-color);
-    font-size: 0.9em;
-}
-/* https://stackoverflow.com/questions/75238633 */
-@supports (-moz-appearance: none) {
-    .name, .arg, .assign, .elapsed {
-        padding-top: 3px;
-    }
+    float: right;
+    color: #666;
+    padding-left: 1em;
 }
 .link {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAHlJREFUGJVtzrEJwmAQBtCn6ASuIKTIBhY2gmghBiJYB1udwk10B8FJbKMBcQFbtbkfJHrVwfu+4/idJR64Y9H7E3higj5O3S8Y44ApLnjhnXCNGhV2yNGggDJwiC02gavUbpDFvscRo4QdXOMKDHBufz3HLYKzNn4AbSkV3fncGQYAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01Ljg4LjAzYy0uMTguMDEtLjM2LjAzLS41My4wOS0uMjcuMS0uNTMuMjUtLjc1LjQ3YS41LjUgMCAxIDAgLjY5LjY5Yy4xMS0uMTEuMjQtLjE3LjM4LS4yMi4zNS0uMTIuNzgtLjA3IDEuMDYuMjIuMzkuMzkuMzkgMS4wNCAwIDEuNDRsLTEuNSAxLjVjLS40NC40NC0uOC40OC0xLjA2LjQ3LS4yNi0uMDEtLjQxLS4xMy0uNDEtLjEzYS41LjUgMCAxIDAtLjUuODhzLjM0LjIyLjg0LjI1Yy41LjAzIDEuMi0uMTYgMS44MS0uNzhsMS41LTEuNWMuNzgtLjc4Ljc4LTIuMDQgMC0yLjgxLS4yOC0uMjgtLjYxLS40NS0uOTctLjUzLS4xOC0uMDQtLjM4LS4wNC0uNTYtLjAzem0tMiAyLjMxYy0uNS0uMDItMS4xOS4xNS0xLjc4Ljc1bC0xLjUgMS41Yy0uNzguNzgtLjc4IDIuMDQgMCAyLjgxLjU2LjU2IDEuMzYuNzIgMi4wNi40Ny4yNy0uMS41My0uMjUuNzUtLjQ3YS41LjUgMCAxIDAtLjY5LS42OWMtLjExLjExLS4yNC4xNy0uMzguMjItLjM1LjEyLS43OC4wNy0xLjA2LS4yMi0uMzktLjM5LS4zOS0xLjA0IDAtMS40NGwxLjUtMS41Yy40LS40Ljc1LS40NSAxLjAzLS40NC4yOC4wMS40Ny4wOS40Ny4wOWEuNS41IDAgMSAwIC40NC0uODhzLS4zNC0uMi0uODQtLjIyeiIKICAvPgo8L3N2Zz4=), none;
 }
 .expand {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAADtJREFUGJVjYCACKDAwMByA0ljFDjAwMPxnYGB4ABVQgLL/Q+VQBB6gseGmIivCkERXhFUSWRFOSawAAEl7E3uv1iMcAAAAAElFTkSuQmCC);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0xLjUgMGwtMS41IDEuNSA0IDQgNC00LTEuNS0xLjUtMi41IDIuNS0yLjUtMi41eiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxKSIgLz4KPC9zdmc+), none;
 }
 .collapse {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAC5JREFUGJVjYCARNEAxTsn/UIyhCFkSQxG6ThQ+C5IpjWhG1yNb4YDFTdjEMAEACi8Q++9Y9TAAAAAASUVORK5CYII=);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik00IDBsLTQgNCAxLjUgMS41IDIuNS0yLjUgMi41IDIuNSAxLjUtMS41LTQtNHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMSkiIC8+Cjwvc3ZnPg==), none;
 }
 .expand, .collapse, .link {
     float: left;
     display: block;
     visibility: hidden;
-    margin: 0 3px;
+    margin: 0 4px;
     height: 14px;
     width: 14px;
     background-size: 8px 8px;
     background-repeat: no-repeat;
     background-position: center;
-    filter: var(--icon-filter);
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--icon-highlight);
-    border-width: 1px;
-    border-style: solid;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .link {
@@ -506,22 +362,26 @@ th.stats-col-graph:hover {
     visibility: visible;
 }
 .expand:hover, .collapse:hover, .link:hover {
-    background-color: #ccc; /* Fallback value */
-    background-color: var(--icon-highlight);
+    background-color: #ccc;
 }
 /* Messages and errors */
-.message-row {
-    height: 20px;
-}
 .messages .time, .messages .message {
     font-family: monospace;
     font-size: 1.1em;
 }
-.messages .time {
+#errors .message {
+    font-family: monospace;
+    font-size: 1.2em;
+}
+.message-row {
+    height: 20px;
+}
+.time {
     width: 7.5em;
 }
-#errors .time {
-    width: 12.5em;
+.error-time {
+    width: 11em;
+    font-size: 0.9em;
     white-space: nowrap;
 }
 .level {
@@ -541,17 +401,13 @@ th.stats-col-graph:hover {
     background-position: center;
 }
 .message-row:hover .select-message div {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfeCR0MOzhWKZQOAAAASUlEQVQY032PsRHAIAwDX9BkicD+W8UMEqegAQJWKZ/+3sLZJhFGQEZzNaIa4ibh66En867VNaIeoP5WppNuIGoAlOm3g5VC1AdYeQv1BZPRSgAAAABJRU5ErkJggg==);
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik0wIDB2MWg4di0xaC04em0wIDJ2MWg2di0xaC02em0wIDJ2MWg4di0xaC04em0wIDJ2MWg2di0xaC02eiIgLz4KPC9zdmc+), none;
-    filter: var(--icon-filter);
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--icon-highlight);
-    border-width: 1px;
-    border-style: solid;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .select-message:hover div {
-    background-color: #ccc; /* Fallback value */
-    background-color: var(--icon-highlight);
+    background-color: #ccc;
     cursor: pointer;
 }
 /* Message tables - these MUST NOT be combined together because otherwise
@@ -562,6 +418,7 @@ th.stats-col-graph:hover {
 .debug-message {
     display: table;
 }
+/* Metadata */
 .metadata {
     width: 100%;
     border-spacing: 0.2em;
@@ -581,22 +438,8 @@ th.stats-col-graph:hover {
 #total-stats tr:hover, #tag-stats tr:hover {
     cursor: default;
 }
-/* Target highlight */
-@keyframes highlight {
-    0% {
-        background: var(--primary-color)
-    }
-    100% {
-        background: var(--target-color);
-    }
-}
-:target {
-    background: var(--target-color);
-    transition: background 0.3s;
-    animation: highlight 4s;
-}
 </style>
-<style media="print">
+<style media="print" type="text/css">
 body {
     background: white !important;
     padding: 0;
@@ -636,7 +479,7 @@ a:link, a:visited {
     background: #ddd !important;
 }
 </style>
-<style media="all">
+<style media="all" type="text/css">
 #javascript-disabled {
     width: 600px;
     margin: 100px auto 0 auto;
@@ -659,7 +502,7 @@ a:link, a:visited {
     font-style: italic;
 }
 </style>
-<style media="all">
+<style media="all" type="text/css">
 .doc > * {
     margin: 0.7em 1em 0.1em 1em;
     padding: 0;
@@ -671,12 +514,14 @@ a:link, a:visited {
     margin-top: 0.1em;
 }
 .doc table {
+    border: 1px solid #ccc;
     background: transparent;
     border-collapse: collapse;
     empty-cells: show;
     font-size: 0.9em;
 }
 .doc table th, .doc table td {
+    border: 1px solid #ccc;
     background: transparent;
     padding: 0.1em 0.3em;
     height: 1.2em;
@@ -686,32 +531,24 @@ a:link, a:visited {
     letter-spacing: 0.1em;
 }
 .doc pre {
-    border-radius: 2px;
     font-size: 1.1em;
     letter-spacing: 0.05em;
-    background: #eee; /* Fallback value */
-    background: var(--highlight-color);
+    background: #f4f4f4;
 }
 .doc code {
-    border-radius: 2px;
     padding: 0 0.2em;
     letter-spacing: 0.05em;
-    background: #eee; /* Fallback value */
-    background: var(--highlight-color);
+    background: #eee;
 }
 .doc li {
     list-style-position: inside;
     list-style-type: square;
 }
-.doc img, .doc table, .doc table th, .doc table td {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ccc; /* Fallback value */
-    border-color: var(--secondary-color);
+.doc img {
+    border: 1px solid #ccc;
 }
 .doc hr {
-    background: #ccc; /* Fallback value */
-    background: var(--secondary-color);
+    background: #ccc;
     height: 1px;
     border: 0;
 }
@@ -722,13 +559,10 @@ function toggleSuite(suiteId) {
     toggleElement(suiteId, ['keyword', 'suite', 'test']);
 }
 function toggleTest(testId) {
+    toggleElement(testId, ['keyword']);
     var test = window.testdata.findLoaded(testId);
-    var autoExpand = test.status == "FAIL" || test.status == "SKIP";
-    var closed = $('#' + testId).children('.element-header').hasClass('closed');
-    if (autoExpand && closed)
+    if (test.status == "FAIL" || test.status == "SKIP")
         expandFailed(test);
-    else
-        toggleElement(testId, ['keyword']);
 }
 function toggleKeyword(kwId) {
     toggleElement(kwId, ['keyword']);
@@ -739,8 +573,7 @@ function toggleElement(elementId, childrenNames) {
     children.toggle(100, '', function () {
         element.children('.element-header').toggleClass('closed');
     });
-    if (childrenNames)
-        populateChildren(elementId, children, childrenNames);
+    populateChildren(elementId, children, childrenNames);
 }
 function populateChildren(elementId, childElement, childrenNames) {
     if (!childElement.hasClass('populated')) {
@@ -1017,6 +850,7 @@ window.model = (function () {
         suite.populateSuites = createIterablePopulator('Suite');
         suite.childrenNames = ['keyword', 'suite', 'test'];
         suite.callWhenChildrenReady = function (callable) { callable(); };
+        suite.message = data.message;
         suite.children = function () {
             return suite.keywords().concat(suite.tests()).concat(suite.suites());
         };
@@ -1107,7 +941,6 @@ window.model = (function () {
             name: data.name,
             doc: data.doc,
             status: data.status,
-            message: data.message,
             times: data.times,
             id: data.parent ? data.parent.id + '-' + data.id : data.id
         };
@@ -1128,6 +961,7 @@ window.model = (function () {
                 return test.keywords();
         };
         test.tags = data.tags;
+        test.message = data.message;
         test.matchesTagPattern = function (pattern) {
             return containsTagPattern(test.tags, pattern);
         };
@@ -1138,12 +972,13 @@ window.model = (function () {
     }
     function Keyword(data) {
         var kw = createModelObject(data);
+        var flatTypes = ['RETURN', 'BREAK', 'CONTINUE'];
         kw.libname = data.libname;
         kw.fullName = (kw.libname ? kw.libname + '.' : '') + kw.name;
         kw.type = data.type;
         kw.template = 'keywordTemplate';
         kw.arguments = data.args;
-        kw.assign = data.assign;
+        kw.assign = data.assign + (data.assign ? ' =' : '');
         kw.tags = data.tags;
         kw.timeout = data.timeout;
         kw.populateKeywords = createIterablePopulator('Keyword');
@@ -1254,48 +1089,58 @@ window.stats = (function () {
             });
     }
     function calculatePercents(total, passed, failed, skipped) {
-        if (total == 0)
+        if (total == 0) {
             return [0.0, 0.0, 0.0];
+        }
         var pass = 100.0 * passed / total;
         var skip = 100.0 * skipped / total;
         var fail = 100.0 * failed / total;
         if (pass > 0 && pass < 0.1)
-            pass = 0.1;
+            pass = 0.1
         if (fail > 0 && fail < 0.1)
-            fail = 0.1;
+            fail = 0.1
         if (skip > 0 && skip < 0.1)
-            skip = 0.1;
+            skip = 0.1
         if (pass > 99.95 && pass < 100)
-            pass = 99.9;
+            pass = 99.9
         if (fail > 99.95 && fail < 100)
-            fail = 99.9;
+            fail = 99.9
         if (skip > 99.95 && skip < 100)
-            skip = 99.9;
-        return [round1(pass), round1(skip), round1(fail)];
+            skip = 99.9
+        return [Math.round(pass*10)/10, Math.round(skip*10)/10, Math.round(fail*10)/10];
     }
     function calculateWidths(num1, num2, num3) {
         if (num1 + num2 + num3 === 0)
             return [0.0, 0.0, 0.0];
         // Make small percentages better visible
         if (num1 > 0 && num1 < 1)
-            num1 = 1.0;
+            num1 = 1
         if (num2 > 0 && num2 < 1)
-            num2 = 1.0;
+            num2 = 1
         if (num3 > 0 && num3 < 1)
-            num3 = 1.0;
+            num3 = 1
         // Handle situation where some are rounded up
         while (num1 + num2 + num3 > 100) {
-            if (num1 >= num2 && num1 >= num3)
-                num1 = round1(num1 - 0.1);
-            else if (num2 >= num1 && num2 >= num3)
-                num2 = round1(num2 - 0.1);
-            else
-                num3 = round1(num3 - 0.1);
+            if (num1 > num2 && num1 > num3)
+                num1 -= 0.1;
+            else if (num2 > num1 && num2 > num3)
+                num2 -= 0.1;
+            else if (num3 > num1 && num3 > num2)
+                num3 -= 0.1;
+            else if (num1 > num3 && num1 == num2) {
+                num1 -= 0.1;
+                num2 -= 0.1;
+            }
+            else if (num1 > num2 && num1 == num3) {
+                num1 -= 0.1;
+                num3 -= 0.1;
+            }
+            else if (num2 > num1 && num2 == num3) {
+                num2 -= 0.1;
+                num3 -= 0.1;
+            }
         }
-        return [num1, num2, num3];
-    }
-    function round1(num) {
-        return Math.round(num*10) / 10;
+        return [Math.ceil(num1*10)/10, Math.ceil(num2*10)/10, Math.ceil(num3*10)/10];
     }
     return {
         Statistics: Statistics
@@ -1512,9 +1357,8 @@ window.testdata = function () {
     var _statistics = null;
     var LEVELS = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FAIL', 'SKIP'];
     var STATUSES = ['FAIL', 'PASS', 'SKIP', 'NOT RUN'];
-    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'ITERATION', 'IF',
-                         'ELSE IF', 'ELSE', 'RETURN', 'VAR', 'TRY', 'EXCEPT', 'FINALLY',
-                         'WHILE', 'GROUP', 'CONTINUE', 'BREAK', 'ERROR'];
+    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'ITERATION', 'IF', 'ELSE IF', 'ELSE', 'RETURN',
+                         'TRY', 'EXCEPT', 'FINALLY', 'WHILE', 'CONTINUE', 'BREAK', 'ERROR'];
     function addElement(elem) {
         if (!elem.id)
             elem.id = uniqueId();
@@ -1557,7 +1401,6 @@ window.testdata = function () {
         return createKeyword(parent, element, strings, index - messages.length);
     }
     function createKeyword(parent, element, strings, index) {
-        var status = element[8];
         var kw = model.Keyword({
             parent: parent,
             type: KEYWORD_TYPES[element[0]],
@@ -1573,12 +1416,7 @@ window.testdata = function () {
                 this.doc = function () { return doc; };
                 return doc;
             },
-            status: parseStatus(status),
-            message: function () {
-                var msg = status.length == 4 ? strings.get(status[3]) : '';
-                this.message = function () { return msg; };
-                return msg;
-            },
+            status: parseStatus(element[8], strings),
             times: model.Times(times(element[8])),
             isChildrenLoaded: typeof(element[9]) !== 'number'
         });
@@ -1789,20 +1627,6 @@ window.testdata = function () {
 }();
 </script>
 <script type="text/javascript">
-const lightModeIcon = `
-<svg class="light-mode-icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
-    viewBox="0 0 24 24" fill="var(--text-color)">
-    <rect fill="none" height="24" width="24" />
-    <path
-        d="M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0 c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2 c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1 C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06 c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41 l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41 c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36 c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z" />
-</svg>`
-const darkModeIcon = `
-<svg class="dark-mode-icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
-    viewBox="0 0 24 24" fill="var(--text-color)">
-    <rect fill="none" height="24" width="24" />
-    <path
-        d="M11.01,3.05C6.51,3.54,3,7.36,3,12c0,4.97,4.03,9,9,9c4.63,0,8.45-3.5,8.95-8c0.09-0.79-0.78-1.42-1.54-0.95 c-0.84,0.54-1.84,0.85-2.91,0.85c-2.98,0-5.4-2.42-5.4-5.4c0-1.06,0.31-2.06,0.84-2.89C12.39,3.94,11.9,2.98,11.01,3.05z" />
-</svg>`
 function removeJavaScriptDisabledWarning() {
     // Not using jQuery here for maximum speed
     document.getElementById('javascript-disabled').style.display = 'none';
@@ -1838,10 +1662,6 @@ function setTitle(suiteName, type) {
 function addHeader() {
     var generated = util.timestamp(window.output.generated);
     $.tmpl('<h1>${title}</h1>' +
-           '<button id=theme-toggle>' +
-             lightModeIcon +
-             darkModeIcon +
-           '</button>' +
            '<div id="generated">' +
              '<span>Generated<br>${generated}</span><br>' +
              '<span id="generated-ago">${ago} ago</span>' +
@@ -1853,7 +1673,6 @@ function addHeader() {
         ago: util.createGeneratedAgoString(generated),
         title: document.title
     }).appendTo($('#header'));
-    document.getElementById('theme-toggle')?.addEventListener('click', theme.onClick);
 }
 function addReportOrLogLink(myType) {
     var url;
@@ -1882,7 +1701,7 @@ function addStatistics() {
         '<th class="stats-col-elapsed">Elapsed</th>' +
         '<th class="stats-col-graph">Pass / Fail / Skip</th>';
     var statTable =
-        '<h2>Statistics</h2>' +
+        '<h2>{Test} Statistics</h2>' +
         '<table class="statistics" id="total-stats"><thead><tr>' +
         '<th class="stats-col-name">Total Statistics</th>' + statHeaders +
         '</tr></thead></table>' +
@@ -1892,7 +1711,7 @@ function addStatistics() {
         '<table class="statistics" id="suite-stats"><thead><tr>' +
         '<th class="stats-col-name">Statistics by Suite</th>' + statHeaders +
         '</tr></thead></table>';
-    $(statTable).appendTo('#statistics-container');
+    $(testOrTask(statTable)).appendTo('#statistics-container');
     util.map(['total', 'tag', 'suite'], addStatTable);
     addTooltipsToElapsedTimes();
     enableStatisticsSorter();
@@ -1982,126 +1801,40 @@ function stopPropagation(event) {
     if (event.stopPropagation)
         event.stopPropagation();
 }
-const theme = function () {
-    const storageKey = 'theme-preference';
-    const urlParams = new URLSearchParams(window.location.search);
-    var storage;
-    var theme;
-    function init(givenStorage) {
-        storage = givenStorage;
-        theme = { value: getPreference() };
-        document.body.setAttribute('data-theme', theme.value);
-        reflectPreference();
-        window.matchMedia('(prefers-color-scheme: dark)')
-            .addEventListener('change', ({matches:isDark}) => {
-                theme.value = isDark ? 'dark' : 'light';
-                setPreference();
-            });
-        window.addEventListener('storage', ({key, newValue}) => {
-            if (key === storage.fullKey(storageKey)) {
-                theme.value = newValue === 'dark' ? 'dark' : 'light';
-                setPreference();
-            }
-        });
-    }
-    function getPreference() {
-        if (urlParams.has('theme')) {
-            var urlTheme = urlParams.get('theme') === 'dark' ? 'dark' : 'light';
-            storage.set(storageKey, urlTheme);
-            urlParams.delete('theme');
-            return urlTheme;
-        }
-        if (storage.get(storageKey))
-            return storage.get(storageKey) === 'dark' ? 'dark' : 'light';
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    function setPreference() {
-        storage.set(storageKey, theme.value);
-        reflectPreference();
-    }
-    function reflectPreference() {
-        document.body.setAttribute('data-theme', theme.value);
-        document.querySelector('#theme-toggle')?.setAttribute('aria-label', theme.value);
-        const event = new Event('theme-change', {value: theme.value});
-        document.dispatchEvent(event);
-    }
-    function onClick() {
-        theme.value = theme.value === 'light' ? 'dark' : 'light';
-        document.body.setAttribute('theme-toggled', "");
-        setPreference();
-    }
-    return {init: init, getPreference: getPreference, setPreference: setPreference,
-        reflectPreference: reflectPreference, onClick: onClick};
-}();
-</script>
-<script type="text/javascript">
-storage = function () {
-    var prefix = 'robot-framework-';
-    var storage;
-    function init(user) {
-        if (user)
-            prefix += user + '-';
-        storage = getStorage();
-    }
-    function getStorage() {
-        // Use localStorage if it's accessible, normal object otherwise.
-        // Inspired by https://stackoverflow.com/questions/11214404
-        try {
-            localStorage.setItem(prefix, prefix);
-            localStorage.removeItem(prefix);
-            return localStorage;
-        } catch (exception) {
-            return {};
-        }
-    }
-    function get(key, defaultValue) {
-        var value = storage[fullKey(key)];
-        if (typeof value === 'undefined')
-            return defaultValue;
-        return value;
-    }
-    function set(key, value) {
-        storage[fullKey(key)] = value;
-    }
-    function fullKey(key) {
-        return prefix + key;
-    }
-    return {init: init, get: get, set: set, fullKey: fullKey};
-}();
 </script>
 <script type="text/javascript">
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,4,[],[0,0,664],[],[[5,0,6,[7,8,9],[0,570,26,10],[[0,11,12,0,13,0,14,0,[1,570,2],[[0,15,16,0,17,18,19,0,[1,570,2],[[572,2,20]]],[8,0,0,0,0,19,0,0,[1,572,0],[]],[572,2,21]]],[0,22,12,0,23,24,25,0,[1,572,1],[[0,26,16,0,27,28,25,0,[1,573,0],[[573,2,29]]],[8,0,0,0,0,25,0,0,[1,573,0],[]],[573,2,29]]],[0,30,12,0,31,32,33,0,[1,573,1],[[0,15,16,0,17,34,33,0,[1,573,0],[[574,2,35]]],[8,0,0,0,0,36,0,0,[1,574,0],[]],[574,2,37]]],[0,38,12,0,39,40,41,0,[1,574,20],[[0,42,16,0,43,44,45,0,[1,574,0],[[574,2,46]]],[0,47,48,0,49,50,41,0,[1,574,19],[[593,2,51],[593,2,52],[593,2,53]]],[8,0,0,0,0,41,0,0,[1,594,0],[]],[594,2,53]]],[0,54,12,0,55,56,0,0,[0,594,1],[[0,57,16,0,58,59,0,0,[0,594,1],[[595,2,60],[595,5,10]]]]],[0,61,62,0,63,64,65,0,[3,595,0],[]],[0,66,16,0,67,68,0,0,[3,595,0],[]],[0,69,12,0,70,65,71,0,[3,595,0],[]],[0,54,12,0,55,72,0,0,[3,595,0],[]],[0,73,12,0,74,71,0,0,[3,596,0],[]],[0,75,16,0,76,77,78,0,[3,596,0],[]],[0,79,62,0,80,81,0,0,[3,596,0],[]],[0,79,62,0,80,82,0,0,[3,596,0],[]],[0,79,62,0,80,83,0,0,[3,596,0],[]],[0,79,62,0,80,84,0,0,[3,596,0],[]],[0,79,62,0,80,85,0,0,[3,596,0],[]],[0,61,62,0,63,81,86,0,[3,596,0],[]],[0,87,16,0,88,89,0,0,[3,596,0],[]]]],[90,0,91,[7,92,9],[0,596,5,93],[[0,75,16,0,76,94,95,0,[1,597,0],[[597,2,96]]],[0,69,12,0,70,95,41,0,[1,597,3],[[0,42,16,0,43,97,45,0,[1,597,0],[[597,2,98]]],[0,99,48,0,100,101,41,0,[1,597,3],[[600,2,102],[600,2,103],[600,2,53]]],[8,0,0,0,0,41,0,0,[1,600,0],[]],[600,2,53]]],[0,54,12,0,55,104,0,0,[0,600,1],[[0,57,16,0,58,59,0,0,[0,601,1],[[601,2,60],[601,5,93]]]]]]],[105,0,106,[7,107],[0,602,12,108],[[0,11,12,0,13,0,109,0,[1,602,0],[[0,15,16,0,17,18,19,0,[1,602,0],[[602,2,110]]],[8,0,0,0,0,19,0,0,[1,602,0],[]],[602,2,111]]],[0,11,12,0,13,0,112,0,[1,602,0],[[0,15,16,0,17,18,19,0,[1,603,0],[[603,2,113]]],[8,0,0,0,0,19,0,0,[1,603,0],[]],[603,2,114]]],[0,22,12,0,23,115,116,0,[1,603,1],[[0,26,16,0,27,28,25,0,[1,603,0],[[604,2,117]]],[8,0,0,0,0,25,0,0,[1,604,0],[]],[604,2,118]]],[0,22,12,0,23,119,120,0,[1,604,1],[[0,26,16,0,27,28,25,0,[1,604,0],[[604,2,121]]],[8,0,0,0,0,25,0,0,[1,604,0],[]],[605,2,122]]],[0,30,12,0,31,123,124,0,[1,605,1],[[0,15,16,0,17,34,33,0,[1,605,0],[[605,2,125]]],[8,0,0,0,0,36,0,0,[1,605,0],[]],[605,2,126]]],[0,30,12,0,31,127,128,0,[1,605,1],[[0,15,16,0,17,34,33,0,[1,605,0],[[606,2,129]]],[8,0,0,0,0,36,0,0,[1,606,0],[]],[606,2,130]]],[0,38,12,0,39,131,132,0,[1,606,3],[[0,42,16,0,43,44,45,0,[1,606,0],[[606,2,133]]],[0,47,48,0,49,50,41,0,[1,607,2],[[609,2,134],[609,2,52],[609,2,53]]],[8,0,0,0,0,41,0,0,[1,609,0],[]],[609,2,135]]],[0,38,12,0,39,136,137,0,[1,609,3],[[0,42,16,0,43,44,45,0,[1,609,0],[[609,2,138]]],[0,47,48,0,49,50,41,0,[1,610,2],[[611,2,139],[612,2,52],[612,2,53]]],[8,0,0,0,0,41,0,0,[1,612,0],[]],[612,2,140]]],[0,61,62,0,63,141,142,0,[0,612,0],[[612,5,108]]],[0,61,62,0,63,143,144,0,[3,612,0],[]],[0,66,16,0,67,145,0,0,[3,612,0],[]],[0,146,12,0,147,0,148,0,[3,613,0],[]],[0,54,12,0,55,149,0,0,[3,613,0],[]],[0,73,12,0,74,148,0,0,[3,613,0],[]],[0,75,16,0,76,150,151,0,[3,613,0],[]],[0,15,16,0,17,152,153,0,[3,613,0],[]],[0,87,16,0,88,154,0,0,[3,613,0],[]],[0,155,16,0,156,0,157,0,[3,613,0],[]],[3,158,0,0,0,0,0,0,[3,613,0],[[4,159,0,0,0,0,0,0,[3,613,0],[[0,61,62,0,63,160,161,0,[3,613,0],[]],[0,162,62,0,163,164,0,0,[3,613,0],[]]]]]],[0,165,16,0,166,167,0,0,[3,613,0],[]],[0,165,16,0,166,168,0,0,[3,614,0],[]]]],[169,0,170,[7,171],[1,614,7],[[0,172,12,0,173,0,41,0,[1,614,3],[[0,99,48,0,100,174,41,0,[1,614,2],[[616,2,175],[616,2,176],[616,2,177]]],[8,0,0,0,0,41,0,0,[1,617,0],[]],[617,2,177]]],[0,54,12,0,55,178,0,0,[1,617,1],[[0,57,16,0,58,59,0,0,[1,617,1],[[618,2,60]]]]],[0,73,12,0,74,41,0,0,[1,618,2],[[0,61,62,0,63,179,180,0,[1,618,0],[[618,2,181]]],[0,165,16,0,166,182,0,0,[1,618,0],[]],[0,75,16,0,76,183,184,0,[1,619,0],[[619,2,185]]],[0,186,16,0,187,184,0,0,[1,619,0],[[619,2,188]]]]],[0,75,16,0,76,183,189,0,[1,619,0],[[620,2,190]]],[0,79,62,0,80,191,0,0,[1,620,0],[]],[0,61,62,0,63,191,192,0,[1,620,0],[[620,2,193]]],[0,87,16,0,88,194,0,0,[1,620,0],[]]]],[195,0,196,[7,197,198],[0,621,7,108],[[0,11,12,0,13,0,14,0,[1,621,0],[[0,15,16,0,17,18,19,0,[1,621,0],[[621,2,199]]],[8,0,0,0,0,19,0,0,[1,621,0],[]],[621,2,200]]],[0,22,12,0,23,24,25,0,[1,621,1],[[0,26,16,0,27,28,25,0,[1,622,0],[[622,2,201]]],[8,0,0,0,0,25,0,0,[1,622,0],[]],[622,2,201]]],[0,30,12,0,31,32,33,0,[1,622,0],[[0,15,16,0,17,34,33,0,[1,622,0],[[623,2,202]]],[8,0,0,0,0,36,0,0,[1,623,0],[]],[623,2,203]]],[0,38,12,0,39,40,41,0,[1,623,3],[[0,42,16,0,43,44,45,0,[1,623,0],[[623,2,204]]],[0,47,48,0,49,50,41,0,[1,623,3],[[626,2,205],[626,2,52],[626,2,53]]],[8,0,0,0,0,41,0,0,[1,626,0],[]],[626,2,53]]],[0,61,62,0,63,64,65,0,[0,626,0],[[627,5,108]]],[0,66,16,0,67,206,0,0,[3,627,0],[]],[0,69,12,0,70,65,71,0,[3,627,0],[]],[0,54,12,0,55,72,0,0,[3,627,0],[]]]],[207,0,208,[7,197,92,198],[0,627,7,108],[[0,11,12,0,13,0,14,0,[1,628,0],[[0,15,16,0,17,18,19,0,[1,628,0],[[628,2,209]]],[8,0,0,0,0,19,0,0,[1,628,0],[]],[628,2,210]]],[0,22,12,0,23,24,25,0,[1,628,1],[[0,26,16,0,27,28,25,0,[1,628,0],[[629,2,211]]],[8,0,0,0,0,25,0,0,[1,629,0],[]],[629,2,211]]],[0,30,12,0,31,32,33,0,[1,629,1],[[0,15,16,0,17,34,33,0,[1,629,0],[[629,2,212]]],[8,0,0,0,0,36,0,0,[1,629,0],[]],[629,2,213]]],[0,38,12,0,39,40,41,0,[1,630,4],[[0,42,16,0,43,44,45,0,[1,630,0],[[630,2,214]]],[0,47,48,0,49,50,41,0,[1,630,3],[[633,2,215],[633,2,52],[633,2,53]]],[8,0,0,0,0,41,0,0,[1,633,0],[]],[634,2,53]]],[0,61,62,0,63,64,65,0,[0,634,1],[[634,5,108]]],[0,66,16,0,67,206,0,0,[3,634,0],[]],[0,216,12,0,217,65,71,0,[3,635,0],[]],[0,54,12,0,55,218,0,0,[3,635,0],[]]]],[219,0,220,[7,197,92,198],[1,635,3],[[0,42,16,0,43,221,45,0,[1,635,0],[[635,2,222]]],[0,99,48,0,100,223,41,0,[1,635,2],[[637,2,224],[637,2,225],[637,2,53]]],[0,54,12,0,55,226,0,0,[1,638,1],[[0,57,16,0,58,59,0,0,[1,638,0],[[638,2,60]]]]]]],[227,0,228,[7,229],[0,638,6,108],[[0,11,12,0,13,0,14,0,[1,639,0],[[0,15,16,0,17,18,19,0,[1,639,0],[[639,2,230]]],[8,0,0,0,0,19,0,0,[1,639,0],[]],[639,2,231]]],[0,22,12,0,23,24,25,0,[1,639,1],[[0,26,16,0,27,28,25,0,[1,639,0],[[640,2,232]]],[8,0,0,0,0,25,0,0,[1,640,0],[]],[640,2,232]]],[0,30,12,0,31,32,33,0,[1,640,1],[[0,15,16,0,17,34,33,0,[1,640,0],[[641,2,233]]],[8,0,0,0,0,36,0,0,[1,641,0],[]],[641,2,234]]],[0,38,12,0,39,40,41,0,[1,641,3],[[0,42,16,0,43,44,45,0,[1,641,0],[[641,2,235]]],[0,47,48,0,49,50,41,0,[1,641,2],[[643,2,236],[643,2,52],[643,2,53]]],[8,0,0,0,0,41,0,0,[1,643,0],[]],[643,2,53]]],[0,61,62,0,63,64,65,0,[0,643,0],[[644,5,108]]],[0,66,16,0,67,206,0,0,[3,644,0],[]],[0,69,12,0,70,65,71,0,[3,644,0],[]],[0,61,62,0,63,237,180,0,[3,644,0],[]],[0,165,16,0,166,182,0,0,[3,644,0],[]]]],[238,0,239,[7,240],[0,644,7,10],[[0,11,12,0,13,0,14,0,[1,645,0],[[0,15,16,0,17,18,19,0,[1,645,0],[[645,2,241]]],[8,0,0,0,0,19,0,0,[1,645,0],[]],[645,2,242]]],[0,22,12,0,23,24,25,0,[1,645,1],[[0,26,16,0,27,28,25,0,[1,645,0],[[646,2,243]]],[8,0,0,0,0,25,0,0,[1,646,0],[]],[646,2,243]]],[0,30,12,0,31,32,33,0,[1,646,1],[[0,15,16,0,17,34,33,0,[1,646,0],[[646,2,244]]],[8,0,0,0,0,36,0,0,[1,646,0],[]],[646,2,245]]],[0,38,12,0,39,40,246,0,[1,647,3],[[0,42,16,0,43,44,45,0,[1,647,0],[[647,2,247]]],[0,47,48,0,49,50,41,0,[1,647,2],[[649,2,248],[649,2,52],[649,2,53]]],[8,0,0,0,0,41,0,0,[1,649,0],[]],[649,2,249]]],[0,54,12,0,55,250,0,0,[0,649,1],[[0,57,16,0,58,59,0,0,[0,650,1],[[650,2,60],[650,5,10]]]]],[0,61,62,0,63,251,65,0,[3,650,0],[]],[0,66,16,0,67,206,0,0,[3,650,0],[]],[0,69,12,0,70,65,71,0,[3,651,0],[]],[0,54,12,0,55,72,0,0,[3,651,0],[]],[0,69,12,0,70,252,253,0,[3,651,0],[]],[0,54,12,0,55,254,0,0,[3,651,0],[]],[0,216,12,0,217,65,255,0,[3,651,0],[]],[0,54,12,0,55,256,0,0,[3,651,0],[]]]],[257,0,258,[7,259,9],[0,651,7,108],[[0,11,12,0,13,0,14,0,[1,652,0],[[0,15,16,0,17,18,19,0,[1,652,0],[[652,2,260]]],[8,0,0,0,0,19,0,0,[1,652,0],[]],[652,2,261]]],[0,22,12,0,23,24,25,0,[1,652,1],[[0,26,16,0,27,28,25,0,[1,652,0],[[653,2,262]]],[8,0,0,0,0,25,0,0,[1,653,0],[]],[653,2,262]]],[0,30,12,0,31,32,33,0,[1,653,1],[[0,15,16,0,17,34,33,0,[1,653,0],[[654,2,263]]],[8,0,0,0,0,36,0,0,[1,654,0],[]],[654,2,264]]],[0,38,12,0,39,40,41,0,[1,654,3],[[0,42,16,0,43,44,45,0,[1,654,0],[[654,2,265]]],[0,47,48,0,49,50,41,0,[1,654,2],[[656,2,266],[656,2,52],[656,2,53]]],[8,0,0,0,0,41,0,0,[1,656,0],[]],[656,2,53]]],[0,61,62,0,63,64,65,0,[0,657,1],[[657,5,108]]],[0,66,16,0,67,267,0,0,[3,657,0],[]],[0,69,12,0,70,65,71,0,[3,657,0],[]],[0,75,16,0,76,77,78,0,[3,657,0],[]],[0,79,62,0,80,81,0,0,[3,658,0],[]],[0,79,62,0,80,82,0,0,[3,658,0],[]],[0,79,62,0,80,85,0,0,[3,658,0],[]],[0,79,62,0,80,83,0,0,[3,658,0],[]],[0,61,62,0,63,83,268,0,[3,658,0],[]],[0,79,62,0,80,269,0,0,[3,658,0],[]],[0,79,62,0,80,270,0,0,[3,658,0],[]],[0,79,62,0,80,271,0,0,[3,658,0],[]],[0,79,62,0,80,84,0,0,[3,658,0],[]],[0,79,62,0,80,272,0,0,[3,658,0],[]],[0,61,62,0,63,82,192,0,[3,658,0],[]],[0,273,16,0,274,275,0,0,[3,658,0],[]],[0,273,16,0,274,276,0,0,[3,658,0],[]],[0,273,16,0,274,277,0,0,[3,659,0],[]]]],[278,0,279,[7,280],[1,659,4],[[0,281,16,0,282,283,284,0,[1,659,0],[[659,2,285]]],[0,172,12,0,173,0,41,0,[1,659,2],[[0,99,48,0,100,174,41,0,[1,660,2],[[661,2,175],[661,2,286],[661,2,177]]],[8,0,0,0,0,41,0,0,[1,662,0],[]],[662,2,177]]],[0,281,16,0,282,283,287,0,[1,662,0],[[662,2,288]]],[0,15,16,0,17,289,290,0,[1,662,0],[[662,2,291]]],[0,292,16,0,293,294,0,0,[1,662,0],[]],[0,54,12,0,55,178,0,0,[1,663,1],[[0,57,16,0,58,59,0,0,[1,663,0],[[663,2,60]]]]]]]],[[1,295,12,0,296,0,0,0,[1,569,1],[[0,297,48,0,298,299,0,0,[1,569,0],[[570,2,300]]]]],[2,301,12,0,302,0,0,0,[1,664,0],[[0,303,48,0,304,0,0,0,[1,664,0],[[664,2,305]]]]]],[11,3,8,0]];
+window.output["suite"] = [1,2,3,4,[],[0,0,17483],[],[[5,0,6,[7,8,9],[0,83,2019,10],[[0,11,12,0,13,0,14,0,[1,83,2],[[83,0,15],[0,16,17,0,18,19,20,0,[1,83,2],[[83,0,21],[85,0,22],[85,2,23]]],[85,0,22],[85,2,24]]],[0,25,12,0,26,27,28,0,[1,85,0],[[85,0,29],[0,30,17,0,31,32,28,0,[1,85,0],[[85,0,33],[85,0,34],[85,2,35]]],[85,0,34],[85,2,35]]],[0,36,12,0,37,38,39,0,[1,86,0],[[86,0,40],[0,16,17,0,18,41,39,0,[1,86,0],[[86,0,42],[86,0,43],[86,2,44]]],[86,0,45],[86,2,46]]],[0,47,12,0,48,49,50,0,[1,86,8],[[87,0,51],[0,52,17,0,53,54,55,0,[1,87,0],[[87,0,56],[87,0,57],[87,2,58]]],[0,59,60,0,61,62,50,0,[1,87,7],[[87,0,63],[88,1,64],[94,1,65],[94,2,66],[94,2,67],[94,0,68],[94,2,69]]],[94,0,68],[94,2,69]]],[0,70,12,0,71,72,0,0,[1,94,1],[[95,0,73],[0,74,17,0,75,76,0,0,[1,95,0],[[95,0,77],[95,2,78],[95,0,79]]],[95,0,79]]],[0,80,81,0,82,83,84,0,[1,95,1],[[96,0,85],[96,0,86],[96,2,87]]],[0,88,17,0,89,90,0,0,[1,96,2000],[[96,0,91],[2096,2,92],[2096,2,93],[2096,0,79]]],[0,94,12,0,95,84,96,0,[1,2097,2],[[2097,0,97],[0,52,17,0,53,98,55,0,[1,2097,0],[[2097,0,99],[2097,0,100],[2097,2,101]]],[0,102,60,0,103,104,50,0,[1,2097,2],[[2097,0,105],[2099,1,106],[2099,2,107],[2099,2,108],[2099,0,109],[2099,2,110]]],[2099,0,109],[2099,2,111]]],[0,70,12,0,71,112,0,0,[0,2100,0],[[2100,0,113],[0,74,17,0,75,76,0,0,[0,2100,0],[[2100,0,114],[2100,2,78],[2100,5,10],[2100,1,115]]]]],[0,116,12,0,117,96,0,0,[3,2101,0],[]],[0,118,17,0,119,120,121,0,[3,2101,0],[]],[0,122,81,0,123,124,0,0,[3,2101,0],[]],[0,122,81,0,123,125,0,0,[3,2101,0],[]],[0,122,81,0,123,126,0,0,[3,2101,0],[]],[0,122,81,0,123,127,0,0,[3,2102,0],[]],[0,122,81,0,123,128,0,0,[3,2102,0],[]],[0,80,81,0,82,124,129,0,[3,2102,0],[]],[0,130,17,0,131,132,0,0,[3,2102,0],[]]]],[133,0,134,[7,135,9],[0,2103,4,136],[[0,118,17,0,119,137,138,0,[1,2103,0],[[2103,0,139],[2103,0,140],[2103,2,141]]],[0,94,12,0,95,138,50,0,[1,2103,3],[[2104,0,142],[0,52,17,0,53,98,55,0,[1,2104,0],[[2104,0,99],[2104,0,100],[2104,2,101]]],[0,102,60,0,103,104,50,0,[1,2104,2],[[2104,0,143],[2105,1,144],[2106,2,145],[2106,2,146],[2106,0,109],[2106,2,110]]],[2106,0,109],[2106,2,110]]],[0,70,12,0,71,147,0,0,[0,2106,1],[[2106,0,148],[0,74,17,0,75,76,0,0,[0,2106,1],[[2107,0,149],[2107,2,78],[2107,5,136],[2107,1,150]]]]]]],[151,0,152,[7,153],[0,2107,2101,10],[[0,11,12,0,13,0,154,0,[1,2108,0],[[2108,0,15],[0,16,17,0,18,19,20,0,[1,2108,0],[[2108,0,21],[2108,0,155],[2108,2,156]]],[2108,0,155],[2108,2,157]]],[0,11,12,0,13,0,158,0,[1,2108,1],[[2108,0,15],[0,16,17,0,18,19,20,0,[1,2108,0],[[2108,0,21],[2108,0,159],[2108,2,160]]],[2109,0,159],[2109,2,161]]],[0,25,12,0,26,162,163,0,[1,2109,0],[[2109,0,164],[0,30,17,0,31,32,28,0,[1,2109,0],[[2109,0,165],[2109,0,166],[2109,2,167]]],[2109,0,166],[2109,2,168]]],[0,25,12,0,26,169,170,0,[1,2109,1],[[2110,0,171],[0,30,17,0,31,32,28,0,[1,2110,0],[[2110,0,172],[2110,0,173],[2110,2,174]]],[2110,0,173],[2110,2,175]]],[0,36,12,0,37,176,177,0,[1,2110,1],[[2110,0,178],[0,16,17,0,18,41,39,0,[1,2110,1],[[2110,0,42],[2111,0,179],[2111,2,180]]],[2111,0,181],[2111,2,182]]],[0,36,12,0,37,183,184,0,[1,2111,0],[[2111,0,185],[0,16,17,0,18,41,39,0,[1,2111,0],[[2111,0,42],[2111,0,186],[2111,2,187]]],[2111,0,188],[2111,2,189]]],[0,47,12,0,48,190,191,0,[1,2111,44],[[2111,0,192],[0,52,17,0,53,54,55,0,[1,2112,0],[[2112,0,56],[2112,0,193],[2112,2,194]]],[0,59,60,0,61,62,50,0,[1,2112,43],[[2112,0,195],[2154,1,65],[2155,2,196],[2155,2,197],[2155,0,68],[2155,2,69]]],[2155,0,68],[2155,2,198]]],[0,47,12,0,48,199,200,0,[1,2155,46],[[2155,0,201],[0,52,17,0,53,54,55,0,[1,2155,1],[[2155,0,56],[2156,0,202],[2156,2,203]]],[0,59,60,0,61,62,50,0,[1,2156,45],[[2156,0,204],[2200,1,65],[2200,2,205],[2201,2,206],[2201,0,68],[2201,2,69]]],[2201,0,68],[2201,2,207]]],[0,80,81,0,82,208,209,0,[1,2201,1],[[2201,0,210],[2202,0,211],[2202,2,212]]],[0,80,81,0,82,213,214,0,[1,2202,0],[[2202,0,215],[2202,0,216],[2202,2,217]]],[0,88,17,0,89,218,0,0,[1,2202,2001],[[2202,0,219],[4203,2,92],[4203,2,220],[4203,0,79]]],[0,221,12,0,222,0,223,0,[1,4203,3],[[4203,0,15],[0,52,17,0,53,98,55,0,[1,4203,1],[[4203,0,99],[4204,0,100],[4204,2,101]]],[0,102,60,0,103,224,50,0,[1,4204,2],[[4204,0,225],[4205,1,226],[4205,2,227],[4206,2,228],[4206,0,109],[4206,2,110]]],[4206,0,109],[4206,2,229]]],[0,70,12,0,71,230,0,0,[0,4206,1],[[4206,0,113],[0,74,17,0,75,76,0,0,[0,4206,1],[[4206,0,114],[4206,2,78],[4207,5,10],[4207,1,115]]]]],[0,116,12,0,117,223,0,0,[3,4207,0],[]],[0,118,17,0,119,231,232,0,[3,4207,0],[]],[0,16,17,0,18,233,234,0,[3,4207,0],[]],[0,130,17,0,131,235,0,0,[3,4207,0],[]],[0,236,17,0,237,0,238,0,[3,4208,0],[]],[3,239,0,0,0,0,0,0,[3,4208,0],[[4,240,0,0,0,0,0,0,[3,4208,0],[[0,80,81,0,82,241,242,0,[3,4208,0],[]],[0,243,81,0,244,245,0,0,[3,4208,0],[]]]]]],[0,246,17,0,247,248,0,0,[3,4208,0],[]],[0,246,17,0,247,249,0,0,[3,4208,0],[]]]],[250,0,251,[7,252],[1,4209,5],[[0,253,12,0,254,0,50,0,[1,4209,2],[[4209,0,15],[0,102,60,0,103,255,50,0,[1,4209,1],[[4209,0,256],[4210,1,257],[4210,2,258],[4210,2,259],[4210,0,260],[4210,2,261]]],[4210,0,260],[4211,2,261]]],[0,70,12,0,71,262,0,0,[1,4211,0],[[4211,0,263],[0,74,17,0,75,76,0,0,[1,4211,0],[[4211,0,264],[4211,2,78],[4211,0,79]]],[4211,0,79]]],[0,116,12,0,117,50,0,0,[1,4211,1],[[4211,0,265],[0,80,81,0,82,266,267,0,[1,4211,1],[[4212,0,268],[4212,0,269],[4212,2,270]]],[0,246,17,0,247,271,0,0,[1,4212,0],[[4212,0,272],[4212,0,79]]],[0,118,17,0,119,273,274,0,[1,4212,0],[[4212,0,275],[4212,0,276],[4212,2,277]]],[0,278,17,0,279,274,0,0,[1,4212,0],[[4212,0,275],[4212,2,280],[4212,0,79]]],[4212,0,79]]],[0,118,17,0,119,273,281,0,[1,4212,1],[[4213,0,275],[4213,0,276],[4213,2,282]]],[0,122,81,0,123,283,0,0,[1,4213,0],[[4213,0,284],[4213,0,79]]],[0,80,81,0,82,283,285,0,[1,4213,0],[[4213,0,284],[4213,0,286],[4213,2,287]]],[0,130,17,0,131,288,0,0,[1,4214,0],[[4214,0,289],[4214,1,290],[4214,0,79]]]]],[291,0,292,[7,293,294],[0,4214,2050,10],[[0,11,12,0,13,0,14,0,[1,4215,0],[[4215,0,15],[0,16,17,0,18,19,20,0,[1,4215,0],[[4215,0,21],[4215,0,295],[4215,2,296]]],[4215,0,295],[4215,2,297]]],[0,25,12,0,26,27,28,0,[1,4215,0],[[4215,0,298],[0,30,17,0,31,32,28,0,[1,4215,0],[[4215,0,299],[4215,0,300],[4215,2,301]]],[4215,0,300],[4215,2,301]]],[0,36,12,0,37,38,39,0,[1,4216,0],[[4216,0,302],[0,16,17,0,18,41,39,0,[1,4216,0],[[4216,0,42],[4216,0,303],[4216,2,304]]],[4216,0,305],[4216,2,306]]],[0,47,12,0,48,49,50,0,[1,4216,42],[[4216,0,307],[0,52,17,0,53,54,55,0,[1,4216,0],[[4216,0,56],[4216,0,308],[4216,2,309]]],[0,59,60,0,61,62,50,0,[1,4216,42],[[4217,0,310],[4258,1,65],[4258,2,311],[4258,2,312],[4258,0,68],[4258,2,69]]],[4258,0,68],[4258,2,69]]],[0,80,81,0,82,83,84,0,[1,4259,0],[[4259,0,313],[4259,0,314],[4259,2,315]]],[0,88,17,0,89,316,0,0,[1,4259,2001],[[4259,0,317],[6260,2,92],[6260,0,79]]],[0,94,12,0,95,84,96,0,[1,6260,3],[[6260,0,318],[0,52,17,0,53,98,55,0,[1,6261,0],[[6261,0,99],[6261,0,100],[6261,2,101]]],[0,102,60,0,103,104,50,0,[1,6261,2],[[6261,0,319],[6262,1,320],[6263,2,321],[6263,2,322],[6263,0,109],[6263,2,110]]],[6263,0,109],[6263,2,111]]],[0,70,12,0,71,112,0,0,[0,6263,1],[[6263,0,113],[0,74,17,0,75,76,0,0,[0,6263,0],[[6263,0,114],[6263,2,78],[6263,5,10],[6263,1,115]]]]]]],[323,0,324,[7,293,135,294],[1,6264,2053],[[0,11,12,0,13,0,14,0,[1,6264,1],[[6264,0,15],[0,16,17,0,18,19,20,0,[1,6264,1],[[6264,0,21],[6265,0,325],[6265,2,326]]],[6265,0,325],[6265,2,327]]],[0,25,12,0,26,27,28,0,[1,6265,0],[[6265,0,328],[0,30,17,0,31,32,28,0,[1,6265,0],[[6265,0,329],[6265,0,330],[6265,2,331]]],[6265,0,330],[6265,2,331]]],[0,36,12,0,37,38,39,0,[1,6266,0],[[6266,0,332],[0,16,17,0,18,41,39,0,[1,6266,0],[[6266,0,42],[6266,0,333],[6266,2,334]]],[6266,0,335],[6266,2,336]]],[0,47,12,0,48,49,50,0,[1,6266,46],[[6266,0,337],[0,52,17,0,53,54,55,0,[1,6267,0],[[6267,0,56],[6267,0,338],[6267,2,339]]],[0,59,60,0,61,62,50,0,[1,6267,45],[[6267,0,340],[6311,1,65],[6312,2,341],[6312,2,342],[6312,0,68],[6312,2,69]]],[6312,0,68],[6312,2,69]]],[0,80,81,0,82,83,84,0,[1,6312,1],[[6313,0,343],[6313,0,344],[6313,2,345]]],[0,88,17,0,89,316,0,0,[1,6313,2001],[[6313,0,317],[8313,2,92],[8314,0,79]]],[0,346,12,0,347,84,96,0,[1,8314,2],[[8314,0,348],[0,102,60,0,103,349,50,0,[1,8314,2],[[8314,0,350],[8316,1,351],[8316,2,352],[8316,2,353],[8316,0,109],[8316,2,110]]],[8316,0,109],[8316,2,111]]],[0,70,12,0,71,354,0,0,[1,8316,1],[[8317,0,355],[0,74,17,0,75,76,0,0,[1,8317,0],[[8317,0,356],[8317,2,78],[8317,0,79]]],[8317,0,79]]]]],[357,0,358,[7,293,135,294],[1,8317,3],[[0,52,17,0,53,359,55,0,[1,8318,0],[[8318,0,360],[8318,0,361],[8318,2,362]]],[0,102,60,0,103,224,50,0,[1,8318,1],[[8318,0,363],[8319,1,364],[8319,2,365],[8319,2,366],[8319,0,109],[8319,2,110]]],[0,70,12,0,71,367,0,0,[1,8319,1],[[8320,0,355],[0,74,17,0,75,76,0,0,[1,8320,0],[[8320,0,356],[8320,2,78],[8320,0,79]]],[8320,0,79]]]]],[368,0,369,[7,370],[1,8321,2052],[[0,11,12,0,13,0,14,0,[1,8321,0],[[8321,0,15],[0,16,17,0,18,19,20,0,[1,8321,0],[[8321,0,21],[8321,0,371],[8321,2,372]]],[8321,0,371],[8321,2,373]]],[0,25,12,0,26,27,28,0,[1,8321,1],[[8321,0,374],[0,30,17,0,31,32,28,0,[1,8321,1],[[8322,0,375],[8322,0,376],[8322,2,377]]],[8322,0,376],[8322,2,377]]],[0,36,12,0,37,38,39,0,[1,8322,0],[[8322,0,378],[0,16,17,0,18,41,39,0,[1,8322,0],[[8322,0,42],[8322,0,379],[8322,2,380]]],[8322,0,381],[8322,2,382]]],[0,47,12,0,48,49,50,0,[1,8322,45],[[8322,0,383],[0,52,17,0,53,54,55,0,[1,8323,0],[[8323,0,56],[8323,0,384],[8323,2,385]]],[0,59,60,0,61,62,50,0,[1,8323,44],[[8323,0,386],[8367,1,65],[8367,2,387],[8367,2,388],[8367,0,68],[8367,2,69]]],[8367,0,68],[8367,2,69]]],[0,80,81,0,82,83,84,0,[1,8368,0],[[8368,0,389],[8368,0,390],[8368,2,391]]],[0,88,17,0,89,316,0,0,[1,8368,2001],[[8368,0,317],[10369,2,92],[10369,0,79]]],[0,94,12,0,95,84,96,0,[1,10369,3],[[10369,0,392],[0,52,17,0,53,98,55,0,[1,10370,0],[[10370,0,99],[10370,0,100],[10370,2,101]]],[0,102,60,0,103,104,50,0,[1,10370,2],[[10370,0,393],[10372,1,394],[10372,2,395],[10372,2,396],[10372,0,109],[10372,2,110]]],[10372,0,109],[10372,2,111]]],[0,80,81,0,82,397,267,0,[1,10372,1],[[10372,0,398],[10372,0,269],[10373,2,270]]],[0,246,17,0,247,271,0,0,[1,10373,0],[[10373,0,272],[10373,0,79]]]]],[399,0,400,[7,401],[0,10373,2053,10],[[0,11,12,0,13,0,14,0,[1,10374,0],[[10374,0,15],[0,16,17,0,18,19,20,0,[1,10374,0],[[10374,0,21],[10374,0,402],[10374,2,403]]],[10374,0,402],[10374,2,404]]],[0,25,12,0,26,27,28,0,[1,10374,1],[[10374,0,405],[0,30,17,0,31,32,28,0,[1,10374,1],[[10374,0,406],[10375,0,407],[10375,2,408]]],[10375,0,407],[10375,2,408]]],[0,36,12,0,37,38,39,0,[1,10375,0],[[10375,0,409],[0,16,17,0,18,41,39,0,[1,10375,0],[[10375,0,42],[10375,0,410],[10375,2,411]]],[10375,0,412],[10375,2,413]]],[0,47,12,0,48,49,414,0,[1,10376,43],[[10376,0,415],[0,52,17,0,53,54,55,0,[1,10376,0],[[10376,0,56],[10376,0,416],[10376,2,417]]],[0,59,60,0,61,62,50,0,[1,10376,43],[[10376,0,418],[10419,1,65],[10419,2,419],[10419,2,420],[10419,0,68],[10419,2,69]]],[10419,0,68],[10419,2,421]]],[0,70,12,0,71,422,0,0,[1,10420,0],[[10420,0,73],[0,74,17,0,75,76,0,0,[1,10420,0],[[10420,0,77],[10420,2,78],[10420,0,79]]],[10420,0,79]]],[0,80,81,0,82,423,84,0,[1,10421,0],[[10421,0,424],[10421,0,425],[10421,2,426]]],[0,88,17,0,89,316,0,0,[1,10421,2001],[[10421,0,317],[12421,2,92],[12422,0,79]]],[0,94,12,0,95,84,96,0,[1,12422,2],[[12422,0,427],[0,52,17,0,53,98,55,0,[1,12422,0],[[12422,0,99],[12422,0,100],[12422,2,101]]],[0,102,60,0,103,104,50,0,[1,12422,2],[[12422,0,428],[12424,1,429],[12424,2,430],[12424,2,431],[12424,0,109],[12424,2,110]]],[12424,0,109],[12424,2,111]]],[0,70,12,0,71,112,0,0,[0,12424,1],[[12425,0,113],[0,74,17,0,75,76,0,0,[0,12425,0],[[12425,0,114],[12425,2,78],[12425,5,10],[12425,1,115]]]]],[0,94,12,0,95,432,433,0,[3,12426,0],[]],[0,70,12,0,71,434,0,0,[3,12426,0],[]],[0,346,12,0,347,84,435,0,[3,12426,0],[]],[0,70,12,0,71,436,0,0,[3,12426,0],[]]]],[437,0,438,[7,439,9],[0,12427,5052,440],[[0,11,12,0,13,0,14,0,[1,12427,0],[[12427,0,15],[0,16,17,0,18,19,20,0,[1,12427,0],[[12427,0,21],[12427,0,441],[12427,2,442]]],[12427,0,441],[12427,2,443]]],[0,25,12,0,26,27,28,0,[1,12427,1],[[12427,0,444],[0,30,17,0,31,32,28,0,[1,12427,1],[[12428,0,445],[12428,0,446],[12428,2,447]]],[12428,0,446],[12428,2,447]]],[0,36,12,0,37,38,39,0,[1,12428,1],[[12428,0,448],[0,16,17,0,18,41,39,0,[1,12428,1],[[12428,0,42],[12428,0,449],[12429,2,450]]],[12429,0,451],[12429,2,452]]],[0,47,12,0,48,49,50,0,[1,12429,43],[[12429,0,453],[0,52,17,0,53,54,55,0,[1,12429,0],[[12429,0,56],[12429,0,454],[12429,2,455]]],[0,59,60,0,61,62,50,0,[1,12429,43],[[12429,0,456],[12471,1,65],[12471,2,457],[12472,2,458],[12472,0,68],[12472,2,69]]],[12472,0,68],[12472,2,69]]],[0,80,81,0,82,83,84,0,[1,12472,0],[[12472,0,459],[12472,0,460],[12472,2,461]]],[0,88,17,0,89,462,0,0,[1,12473,5000],[[12473,0,463],[17473,2,464],[17473,0,79]]],[0,94,12,0,95,84,96,0,[1,17474,2],[[17474,0,465],[0,52,17,0,53,98,55,0,[1,17474,0],[[17474,0,99],[17474,0,100],[17474,2,101]]],[0,102,60,0,103,104,50,0,[1,17474,2],[[17474,0,466],[17475,1,467],[17476,2,468],[17476,2,469],[17476,0,109],[17476,2,110]]],[17476,0,109],[17476,2,111]]],[0,118,17,0,119,120,121,0,[1,17476,0],[[17476,0,470],[17476,0,471],[17476,2,472]]],[0,122,81,0,123,124,0,0,[0,17476,1],[[17476,0,473],[17477,5,440],[17477,1,474]]],[0,122,81,0,123,125,0,0,[3,17477,0],[]],[0,122,81,0,123,128,0,0,[3,17477,0],[]],[0,122,81,0,123,126,0,0,[3,17477,0],[]],[0,80,81,0,82,126,475,0,[3,17477,0],[]],[0,122,81,0,123,476,0,0,[3,17477,0],[]],[0,122,81,0,123,477,0,0,[3,17478,0],[]],[0,122,81,0,123,478,0,0,[3,17478,0],[]],[0,122,81,0,123,127,0,0,[3,17478,0],[]],[0,122,81,0,123,479,0,0,[3,17478,0],[]],[0,80,81,0,82,125,285,0,[3,17478,0],[]],[0,480,17,0,481,482,0,0,[3,17478,0],[]],[0,480,17,0,481,483,0,0,[3,17478,0],[]],[0,480,17,0,481,484,0,0,[3,17479,0],[]]]],[485,0,486,[7,487],[1,17479,3],[[0,488,17,0,489,490,491,0,[1,17479,0],[[17479,0,492],[17479,0,493],[17479,2,494]]],[0,253,12,0,254,0,50,0,[1,17479,2],[[17480,0,15],[0,102,60,0,103,255,50,0,[1,17480,1],[[17480,0,256],[17481,1,495],[17481,2,258],[17481,2,496],[17481,0,260],[17481,2,261]]],[17481,0,260],[17481,2,261]]],[0,488,17,0,489,490,497,0,[1,17481,0],[[17481,0,492],[17481,0,493],[17481,2,498]]],[0,16,17,0,18,499,500,0,[1,17481,0],[[17481,0,501],[17481,0,502],[17481,2,503]]],[0,504,17,0,505,506,0,0,[1,17481,1],[[17482,0,507],[17482,0,79]]],[0,70,12,0,71,262,0,0,[1,17482,0],[[17482,0,263],[0,74,17,0,75,76,0,0,[1,17482,0],[[17482,0,264],[17482,2,78],[17482,0,79]]],[17482,0,79]]]]]],[[1,508,12,0,509,0,0,0,[1,82,1],[[82,0,15],[0,510,60,0,511,512,0,0,[1,82,1],[[83,0,513],[83,2,514],[83,1,515],[83,0,516]]],[83,0,79]]],[2,517,12,0,518,0,0,0,[1,17483,0],[[17483,0,15],[0,519,60,0,520,0,0,0,[1,17483,0],[[17483,0,15],[17483,2,521],[17483,0,79]]],[17483,0,79]]]],[11,5,6,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Api","*/Users/rua/sources/build-system/tests/integration/api.robot","*api.robot","*<p>Integration tests for API endpoints\x3c/p>","*Query Status Of Existing Build","*<p>Test querying status of an existing build Validates: Requirements 8.1, 8.2\x3c/p>","*api","*happy-path","*status","*401.0 != 202.0","*Generate Random Commit Hash","*keywords","*<p>Generate a random 40-character hex string (like git commit hash)\x3c/p>","*${commit_hash}","*Evaluate","*BuiltIn","*<p>Evaluates the given expression in Python and returns the result.\x3c/p>","*__import__('secrets').token_hex(20)","*${hash}","*${hash} = ddee43f93a516e5be08fa62c54a161585fa50e8b","*${commit_hash} = ddee43f93a516e5be08fa62c54a161585fa50e8b","*Create Webhook Payload","*<p>Create a valid GitHub webhook payload\x3c/p>","*${TEST_REPO_JAVA}    ${commit_hash}    main","*${payload}","*Catenate","*<p>Catenates the given items together and returns the resulted string.\x3c/p>","eNqVkE1vwjAMhv9KFXEEckeA1sPOQ8A9MsVtIuWjSlyxqep/Jx8t0qRxWA6OEj+2X7+Xz1N9rq9f50MVz5gC89iyXb4Clwj3wFfjzYNt5MTWmYCW0CdmNTbOGEVCQnhlPfYuKHL+JyKlpQWDhU9JkZ4L3Q5aiyVPGGjjHhY9/wNttLMoBq8TuodKRokHJon6sOO8UySH2zYK4m/abCPCjv/j9xyO8/gMpJWYdp2yv/WyKTFTIZNrojjzskDd3xpmMATosgHX2LCaK2evB5KujF1cylBd/tcVQwNKL2o+8BtMrzHtNWvK4Qn1C5qL","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"ddee43f93a516e5be08fa62c54a161585fa50e8b\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*Generate HMAC Signature","*<p>Generate HMAC-SHA256 signature for webhook payload\x3c/p>","*${payload}    ${GITHUB_SECRET}","*${signature}","*__import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()","*${signature} = 4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2","*sha256=${signature}","*${signature} = sha256=4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2","*Send Webhook","*<p>Send webhook POST request to API\x3c/p>","*${payload}    ${signature}","*${response}","*Create Dictionary","*<p>Creates and returns a dictionary based on the given <code>items\x3c/code>.\x3c/p>","*Content-Type=application/json    X-Hub-Signature-256=${signature}","*${headers}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=4e67e467cb760b8b8786ada247438b773b9ec4ae1962ea2049c5204eba1eaef2'}","*POST On Session","*RequestsLibrary","*<p>Sends a POST request on a previously created HTTP Session.\x3c/p>","*api    /webhook    data=${payload}    headers=${headers}    expected_status=any","eNqVk0tr3DAQx+/9FMaHGoK9fqxfu82GLqXQQ6Gl2UJvy0gePxJZUiQ56WbZ717Jm9AESiEXy8z8ZjTzn9H3b9c77wfeTaiNt/YmxTa9MXIdx0xQYL3QZl0ndRI/IOmFuPXeeRJMv3fgC1uP0KDSm2PwU6OKth1yE6y9QB5ML3ikzhfoOFsss0URhF6wpRSliT5zKpqBdw7uHgcZeg22DAz+ZZzrIr5whk+Cc6RmENwZbxFlBGy4xyefsbdGu4NE5wUp2UDBwfGNthGW+RV9mUh0PXQczKQwyorSoboH+7fJsawwLytKqjIhNamruoQGsrzKlzWpqiVZIc0B01WZIWRJvqKF/SKBFAHb7GUVX5F3pnfJ87QKTlYiIprD5ugrbP215w4dO9V0PMLA/dCH1qByrqZBzJftaglFWmJBMKlbKDNa5JCWaVEXLRQJ1sTGKJRCD0aogw08+hxGdBk0jJJhdAP3EDnEku3E2P7Zb+wsIvHAUcX/QCkTHN2AHXoJXm9r3fhuK7Rdi24w/UQWVIzxf9IsLPb+bhLmQ3g+Zsy/ensWW9DsvIzham6Sic7q9aoL/3QKfSfm3iYcbYzjhuaNYo6oNXSzQDv3Gp5y2clMdonVK4VnYHu2h56PdobsuaaP+Hvuw3VnK3Oz/wPPXRi8","*POST Response : url=http://localhost:8080/webhook \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '29'} \n body={\"error\":\"invalid signature\"} \n ","*${response} = &lt;Response [401]&gt;","*Verify Response Status","*<p>Verify HTTP response status code\x3c/p>","*${response}    ${HTTP_ACCEPTED}","*Should Be Equal As Numbers","*<p>Fails if objects are unequal after converting them to real numbers.\x3c/p>","*${response.status_code}    ${expected_status}","*Argument types are:\n&lt;class 'int'&gt;\n&lt;class 'str'&gt;","*Get From Dictionary","*Collections","*<p>Returns a value from the given <code>dictionary\x3c/code> based on the given <code>key\x3c/code>.\x3c/p>","*${response.json()}    id","*${job_id}","*Sleep","*<p>Pauses the test executed for the given time.\x3c/p>","*2s    Wait for job to be processed","*Get Build Status","*<p>Query build status by ID\x3c/p>","*${status_response}","*${status_response}    ${HTTP_OK}","*Verify JSON Response","*<p>Verify response contains valid JSON\x3c/p>","*Set Variable","*<p>Returns the given values which can then be assigned to a variables.\x3c/p>","*${status_response.json()}","*${job_data}","*Dictionary Should Contain Key","*<p>Fails if <code>key\x3c/code> is not found from <code>dictionary\x3c/code>.\x3c/p>","*${job_data}    id","*${job_data}    status","*${job_data}    repository","*${job_data}    commit_hash","*${job_data}    created_at","*${returned_id}","*Should Be Equal","*<p>Fails if the given objects are unequal.\x3c/p>","*${returned_id}    ${job_id}","*Query Status Of Non-Existent Build","*<p>Test querying status of a build that doesn't exist Validates: Requirements 8.1, 8.5\x3c/p>","*negative","*401.0 != 404.0","*non-existent-job-id-12345","*${fake_job_id}","*${fake_job_id} = non-existent-job-id-12345","*Authorization=Bearer ${AUTH_TOKEN}","*${headers} = {'Authorization': 'Bearer test-auth-token'}","*GET On Session","*<p>Sends a GET request on a previously created HTTP Session.\x3c/p>","*api    /builds/${build_id}    headers=${headers}    expected_status=any","*GET Request : url=http://localhost:8080/builds/non-existent-job-id-12345 \n path_url=/builds/non-existent-job-id-12345 \n headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/non-existent-job-id-12345 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*${response}    ${HTTP_NOT_FOUND}","*List Build History","*<p>Test listing all builds Validates: Requirements 8.2, 8.3\x3c/p>","*list","*Dictionary does not contain key 'id'.","*${commit_hash_1}","*${hash} = 17038ac885ed4dc6b32fa0c83ef895a17a60ea62","*${commit_hash_1} = 17038ac885ed4dc6b32fa0c83ef895a17a60ea62","*${commit_hash_2}","*${hash} = c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","*${commit_hash_2} = c2c88f7d30cea1bcefaebd42bbe96ca071713f8e","*${TEST_REPO_JAVA}    ${commit_hash_1}    main","*${payload_1}","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"17038ac885ed4dc6b32fa0c83ef895a17a60ea62\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${payload_1} = {\"ref\": \"refs/heads/main\",\"after\": \"17038ac885ed4dc6b32fa0c83ef895a17a60ea62\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${TEST_REPO_GO}    ${commit_hash_2}    develop","*${payload_2}","*${payload} = {\"ref\": \"refs/heads/develop\",\"after\": \"c2c88f7d30cea1bcefaebd42bbe96ca071713f8e\",\"repository\": {\"name\": \"sample-go-repo\",\"full_name\": \"test-owner/sample-go-repo\",\"clone_url\": \"<a href=\"https://github.com/test-\">https://github.com/test-\x3c/a>...","*${payload_2} = {\"ref\": \"refs/heads/develop\",\"after\": \"c2c88f7d30cea1bcefaebd42bbe96ca071713f8e\",\"repository\": {\"name\": \"sample-go-repo\",\"full_name\": \"test-owner/sample-go-repo\",\"clone_url\": \"<a href=\"https://github.com/test-\">https://github.com/test-\x3c/a>...","*${payload_1}    ${GITHUB_SECRET}","*${signature_1}","*${signature} = a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316","*${signature_1} = sha256=a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316","*${payload_2}    ${GITHUB_SECRET}","*${signature_2}","*${signature} = 7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2","*${signature_2} = sha256=7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2","*${payload_1}    ${signature_1}","*${response_1}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a8b5f4e7f69b07a855d18dd9632179a09ed72027b0d1089c48d785f8ea998316'}","eNqVk01r3DAQhu/9FcaHGoK9/lrbspsNXUqhh0JLs4XelrE0/khkybHkpJtl/3slb0ITKIWcZOZ9ZjTzjvz92/XO+YF3MyrtVM488U2n9ViFIZcUeCeVrkhEovAB607KW+edM4Lu9hZ8EesQGE5qc/R+KpyCbYtCe5XjjQfdSRFM5wtUmKzSZJV5vuNtKcVRB58FlawXrYXbx370HYYNB41/GStdhBc28EkKgVT3UtjgLeIYAO/v8UnT5tZgdxjRqjCOvKdg4fBGmQzD/Aq+zHVw3bcC9DxhkGS5RVUH5msDpM6aNRZNXtZRASTLWEwYK/M0iYsSohJZkURJUUcsjkhJ14QVJGsIQlmSNM5fdvEVRas7W3wdF97JWFRLdtgc3Qkbt3LsoULrmgoH6IXru9BonKwUF1FKgBKSIVszmtdp0kBESYoNKTOIC8gjhDwxOROOUvVaTgeTeHQFDGgrKBhGjsEN3ENgEUM2M+f7Z12bXQTyQeAU/gOlXAq0C7boJTid6XXj2lehzLNoe93N9YrKIfxPmZXB3t/NUn/wz8eCuVdvr2IaWsTLEK6WIblsjV+vpnBPJ9+1Zu5NwcHkWK5nbzRzQKWgXQza2b/hqZbZzGwe8fTK4QXYnuO+46LZIX/u6SP+Xuaw05nO7O7/AKR2F40=","*${response_1} = &lt;Response [401]&gt;","*${payload_2}    ${signature_2}","*${response_2}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=7381007e0d2ac471e77c95d04b5a52fd05a114066e70bafe2d7377d5ca9641f2'}","eNqVk01v2zAMhu/7FYYPM1DY8UfsyMmaYsUwYIcBG9YM2C2gJdrWKkuqJbfLgvz3SU6LtRh26EkG34cU+VL++uVmF3zDuwmNDTbBNIptb63epKlQFESvjN3UWZ2lD9j0St0GbwINtt978FmsR2A4mu0x+m5wTK47lDbaBJE+2F7JZDxfYNJisSwWVRQH0TWlqG3yUVLFuOw83P3mOg4YtgIs/mW8dJFe+MAHJSVSy5X0wVtEnYDg9/ioWXdrsjto9CpoLTgFD6c/jctwzI/k09QkN7yTYKcRk6JaedT04L62ZFnnWUYwYwXQkuRICF1XLCubCqqiZVkFeV5mqxWSrIEWC0aWhLCKwnpV5m3xvIvPKDvb++JlXkYnZ1Gj2GF7DEdsw03gD5N610zK8B6F0mEcQmtx9CotaF23hC0zipA3FFvAhpVF0+B6RSEjOcmXbY0uZ0StDLdqPLjEYyhhQF/BwKAFJp1KPOC4dhJi/6Rat4xEPUgc039AKpREv18PXkLQu1a3oX8Uxr2Kjtt+ahZUDel/iywc9PZuUvZdfD5mKLx6bQ3XzCxdpnA1DydUx+XL/sPTKQ69j3tXbnA5nuPslSYOaAx0szU7/yM81nIbmdz7HV84OwPX53gchDgAF089vcdf8xR+NteZX/sfv3MX/A==","*${response_2} = &lt;Response [401]&gt;","*${response_1.json()}    id","*${job_id_1}","*${response_2.json()}    id","*${job_id_2}","*2s    Wait for jobs to be processed","*List Builds","*<p>List all builds\x3c/p>","*${list_response}","*${list_response}    ${HTTP_OK}","*${list_response.json()}","*${builds}","*type($builds).__name__","*${builds_type}","*${builds_type}    list","*Create List","*<p>Returns a list containing given items.\x3c/p>","*${build_ids}","*${build}    IN    @{builds}","*${build} = ","*${build}    id","*${build_id}","*Append To List","*<p>Adds <code>values\x3c/code> to the end of <code>list\x3c/code>.\x3c/p>","*${build_ids}    ${build_id}","*Should Contain","*<p>Fails if <code>container\x3c/code> does not contain <code>item\x3c/code> one or more times.\x3c/p>","*${build_ids}    ${job_id_1}","*${build_ids}    ${job_id_2}","*Health Check Endpoint","*<p>Test health check endpoint Validates: Requirements 8.1\x3c/p>","*health","*Check Health","*<p>Check API health endpoint\x3c/p>","*api    /health    expected_status=any","*GET Request : url=http://localhost:8080/health \n path_url=/health \n headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} \n body=None \n ","*GET Response : url=http://localhost:8080/health \n status=200, reason=OK \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '123'} \n body={\"status\":\"healthy\",\"timestamp\":\"2026-02-17T20:08:46.462174762Z\",\"uptime\":\"53m29.477273506s\",\"checks\":{\"nats\":\"connected\"}} \n ","*${response} = &lt;Response [200]&gt;","*${response}    ${HTTP_OK}","*${response.headers}    Content-Type","*${content_type}","*${content_type} = application/json; charset=utf-8","*${content_type}    application/json","*${response.json()}","*${json}","*${json} = {'status': 'healthy', 'timestamp': '2026-02-17T20:08:46.462174762Z', 'uptime': '53m29.477273506s', 'checks': {'nats': 'connected'}}","*Should Not Be Empty","*<p>Verifies that the given item is not empty.\x3c/p>","*Length is 4.","*${health_data}","*${health_data} = {'status': 'healthy', 'timestamp': '2026-02-17T20:08:46.462174762Z', 'uptime': '53m29.477273506s', 'checks': {'nats': 'connected'}}","*${health_data}    status","*${status}","*${status} = healthy","*${status}    healthy","*Authentication With Valid Token","*<p>Test API authentication with valid token Validates: Requirements 8.4\x3c/p>","*auth","*security","*${hash} = 35696986adc84c712ac98e9a58720dc27ead682b","*${commit_hash} = 35696986adc84c712ac98e9a58720dc27ead682b","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"35696986adc84c712ac98e9a58720dc27ead682b\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${signature} = f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851","*${signature} = sha256=f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=f78fe807385468313d98cce3eb41c592b9e57c7c846569886a3e1c00e9367851'}","eNqVk01r3DAQhu/9FcaHGoK1/lrbspsNXUqhh0JLs4XeFlkefySy5Fhy0s2y/70jb0ITKIWcZGaeeTXzjvz92/XO+QF3M2jjlM48iU1nzFgGgVCciU5pU9KQhsEDVJ1St847Z2Sm21vwRawDVsOkN0fvp4aJbFuQxisdbzyYTkkynS/QQbxK4lXq+Y635RxGQz5LrupethZuH/vRd2poBDPwl7Gpi+DCBj4pKYGbXkkbvAUYCRP9PTzlDN5KdocRbJaNo+g5s3Bwo7ECmV/ky1yR676VzMwTkDjNLKo7hl+bJqcN0DBPaLrOaBIldUGxgwSqdcTTIq4KSHOec7rO0qygNGMJRDwMoUiynKbRyy6+gmxNZ8XXUe6d0KJK1YfN0Z2gcUvHHjqwrulgYL10fZc1BiabSlAc5TNW4008j2LGCwoFS2kehzWPc6zKaFxhzQSj0r1R0wELj65kA1gFzYZRALlh94xYBMlmFmL/nDe4C6IeJEzBP1AulAS7YIteMqfDXjeufRUan0Xbm26uVlwNwX9kVoi9v5uV+eCfjwVzr96ugg0tycuAXS1DCtWiX6+mcE8n37Vm7lFwwBrL9fUbzRxAa9YuBu3s3/CkhZuZ8RFPrxxegO057jsu4A7Fc08f4fcyh50OO7O7/wM+Xhas","*2s","*Authentication With Invalid Token","*<p>Test API authentication with invalid token Validates: Requirements 8.4\x3c/p>","*${hash} = cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","*${commit_hash} = cff24ee3f892110b92f8cfafa7c68f1c1d3244dd","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"cff24ee3f892110b92f8cfafa7c68f1c1d3244dd\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${signature} = 33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb","*${signature} = sha256=33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=33095e1a7e05a261180121ab6d96f452686d1b1e6ebdccc06db7a719522b44eb'}","eNqVk1Fr2zAQx9/3KYwfZihxbCm242RNWRiDPQw21gz2Fs7SyXYrS64lt0tDvvskp2UtjEGfZO7/u9Pd/+Tv3653wQ+8G9HYYB2Mg9w01vbrJJGagWy0sesyLdPkAatG69vgXdCDbfYefBFrEDgOZnOMfhoc4m2NykbrIOoPttEqHs4XmITOF3SeR7Mg2jKGvY0/K6Z5q2oP149tPws4CgkW/zJeukgufOCTVgqZbbXywVvEPgbZ3uOTZt2t8e7Qo1eh72XLwMPJjXEZjvkVfxmr+LqtFdhxwJjmhUdNA+5rs1ikqxwJLDHNgRaElCmhBKqCrwqR5bQoC04qggVWnDGWFrxawpKsckqrLMPqZRdfUdW28cUzsoxOzqJK88PmGA4ownXgD5N410zSQavCWQjC4uAlJgTNEBeiXFFC0mpFRckECFiyohSEEb6gWca5yxmw16a1eji4xGOooENfwUDXS4xv4B5ijzhSjFLun3XrdhHrB4VD8g+USa3QL9ijlxA0rtdN6F+Fcc+ibm0zVnOmu+Q/ZeYOe383avthdj4mLLx6exXX0CReJnA1DSl17fx6NUV4Os1Cb+beFexcjuda/kYzOzQG6smgnf8bnmq5zYzuEQ+vHJ6A7Tk+C0J0O5TPPX3E39McfjrXmd/9H3kiGQI=","*Get Build Status Without Auth","*<p>Query build status without authentication\x3c/p>","*${status_response}    ${HTTP_UNAUTHORIZED}","*Authentication Required For List Endpoint","*<p>Test that list endpoint requires authentication Validates: Requirements 8.4\x3c/p>","*Content-Type=application/json","*${headers} = {'Content-Type': 'application/json'}","*api    /builds    headers=${headers}    expected_status=any","*GET Request : url=http://localhost:8080/builds \n path_url=/builds \n headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '44'} \n body={\"error\":\"authorization header is required\"} \n ","*${response}    ${HTTP_UNAUTHORIZED}","*Verify JSON Content Type In Responses","*<p>Test that API responses have correct Content-Type Validates: Requirements 8.3\x3c/p>","*content-type","*${hash} = fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","*${commit_hash} = fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"fa3bda0584614d668d1cfe7c4d02940d7f4fb4c4\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${signature} = 17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604","*${signature} = sha256=17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=17e218001b693db67dec43946985c6913bfbaa06307ebb74869602b7d999c604'}","eNqVk9tq3DAQhu/7FMYXNQR7fdLKh2ZDl1LoRaGl2ULvFh3Gh0SWHEtOuln23St5E5pAKeRKZv5vRjP/yN+/Xe+8H3A3gzZe7c2T2HTGjHUcC8WI6JQ2dZmUSfwAtFPq1nvnjcR0ewe+iHVAOEx6cwx+apiibQvSBLUXjAfTKRlN5wt0nK3ybLUOQi/YMgajiT5LpngvWwe3j/0YehwaQQz8ZZx0EV+4wCclJTDTK+mCtwBjRER/D0+asbdGu8MITiXjKHpGHBzfaJthmV/Rl5lG130riZkniLI1dqjuiP3apAVkaZkkKcVVzikuODCUVwhX5ZrhKs1pQwlJcJ4UQGmBSlzhJKMFr6qK4QS97OIryNZ0rjhKi+BkLaKKHzZHf4LGrz136Ni5puOB9NIPfdIYmJzUkJxykqxLhFPEMS55yhooGOJJVqGEFw1qKGLI5kwwKt0bNR1s4tGXZABXQZNhFBDdkHsSOcSSzSzE/lk3dheRepAwxf9AmVAS3IIdekm8zva68d2r0PZZtL3pZrpiaoj/U2Zlsfd3szIfwvOxYP7V26vYhhbxMiZXy5BCtdavV1P4p1PoOzP3tuBgcxzX8zeaOYDWpF0M2rm/4amW3cxsH/H0yuEF2J7joeeD3aF47ukj/F7mcNPZztzu/wBlsRem","*${status_response.headers}    Content-Type","*Verify HTTP Status Codes","*<p>Test that API returns appropriate HTTP status codes Validates: Requirements 8.5\x3c/p>","*status-codes","*${hash} = 9d0e04ee5e2e2de11b50183ca95cad797598cd62","*${commit_hash} = 9d0e04ee5e2e2de11b50183ca95cad797598cd62","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"9d0e04ee5e2e2de11b50183ca95cad797598cd62\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${signature} = a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5","*${signature} = sha256=a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5","*${webhook_response}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=a31e585a6550b78b6baa1d7cd230b562ad56ea336c417667f7c0fce47d6616a5'}","eNqVk01r3DAQhu/9FcaHGoK9/lrJ3m02dCmFHgotzRZ6W8bS+CORJceSk26W/e+VvAlNoBRykpn3mdHMO/L3b9c77wfeTaiNt/amUWxaY4Z1HAvFQLRKm3WZlEn8gFWr1K33zhvAtHsHvoi1CBxHvTkGPzWO0bZBaYK1FwwH0yoZjecLdJwt8mxBgtALtozhYKLPkineycbBzWM3hB7HWoDBv4yTLuILF/ikpERmOiVd8BZxiEB09/ikGXtrtDsM6FQYBtExcHB8o22GZX5FX6Yquu4aCWYaMcoIdahuwX5tIE+RlAQoIUlVlBWtAFJeMJ7lSUVoBpxQhDynbJkWlBZ1wZKa4bLglKYUyMsuvqJsTOuKWzY4WYsqxQ+boz9i7a89d+jYuabjHjrphz7UBkcnrXiCyRKRYIYZxzStSJKWOYMVYcCLVUFWJeM0szkjDkp3Ro0Hm3j0JfToKmjoB4HRDdxD5BBL1pMQ+2fd2F1E6kHiGP8DZUJJdAt26CV4re1147tXoe2zaDrTTtWCqT7+T5mFxd7fTcp8CM/HjPlXb69iG5rFyxiu5iGFaqxfr6bwT6fQd2bubcHe5jiu4280s0etoZkN2rm/4amW3cxkH/H4yuEZ2J7joeej3aF47ukj/p7ncNPZztzu/wDsqhgn","*${webhook_response} = &lt;Response [401]&gt;","*${webhook_response}    ${HTTP_ACCEPTED}","*${webhook_response.json()}    id","*fake-id-12345","*${not_found_response}","*${not_found_response}    ${HTTP_NOT_FOUND}","*${unauth_response}","*${unauth_response}    ${HTTP_UNAUTHORIZED}","*Query Build With Complete Information","*<p>Test that build status includes all required information Validates: Requirements 8.2, 8.3\x3c/p>","*detailed","*${hash} = 9294a569dbb8b8a660d737d9744f412319c9146d","*${commit_hash} = 9294a569dbb8b8a660d737d9744f412319c9146d","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"9294a569dbb8b8a660d737d9744f412319c9146d\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${signature} = 54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2","*${signature} = sha256=54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=54e290db138d5daea7469fd216c16d4fe039d1a2c8476e8d58e5941ee23730d2'}","eNqVk9tq3DAQhu/7FMIXNQRrfT5ts6FLKfSi0NJsoXfL2BofEllyLDnpZtl3r+RNaAKlkCuZ+b8Zzfwjf/92vSM/8G5GpcmazBPfdFqPa9/nsgbeSaXXRVAE/gNWnZS35B0ZQXd7C76IdQgMJ7U5uj8VTnTbotDumrjjQXdS0Ol8gfKjVRytUtcj7raucdT0s6gl60Vr4faxHz3CsOGg8S9jpQv/wgY+SSGw1r0UNniLOFLg/T0+adrcSneHEa0K48j7Gizs3yiTYZhf9Mtc0eu+FaDnCWmUZhZVHZivTZpgVAasCuOCpQwQ8iQrGxaFWR1mLGkwiEsWQlQXSZ6hYQpMyyREjOI8Dlj0souvKFrd2eJJmLsnY1El2WFzdCZsnDWxh/Kta8ofoBeO50CjcbJSGZUJpFnJqqqoCsiygOVxzso8SZokjOKwrMswyZjJmXCUqtdyOpjEoyNgQFtBwTBypDdwD9QihmxmzvfPuja7oPJB4OT/A625FGgXbNFLIJ3pdePYV6HMs2h73c3VqpaD/58yK4O9v5ul/uCdjwVzrt5exTS0iJc+XC1Dctkav15N4ZxOnmPN3JuCg8mxXM/eaOaASkG7GLSzf8NTLbOZ2Tzi6ZXDC7A9xz3ioNkhf+7pI/5e5rDTmc7s7v8AzkAWUA==","*5s","*${repo_info}","*${repo_info}    name","*${repo_info}    owner","*${repo_info}    url","*${job_data}    branch","*Run Keyword If","*<p>Runs the given keyword with the given arguments, if <code>condition\x3c/code> is true.\x3c/p>","*'${status}' in ['running', 'completed', 'failed']    Dictionary Should Contain Key    ${job_data}    started_at","*'${status}' in ['completed', 'failed']    Dictionary Should Contain Key    ${job_data}    completed_at","*'${status}' in ['completed', 'failed']    Dictionary Should Contain Key    ${job_data}    duration","*Verify API Response Time","*<p>Test that API responds within acceptable time Validates: Requirements 8.1\x3c/p>","*performance","*Get Time","*<p>Returns the given time in the requested format.\x3c/p>","*epoch","*${start_time}","*${start_time} = 1771358926","*GET Response : url=http://localhost:8080/health \n status=200, reason=OK \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Tue, 17 Feb 2026 20:08:46 GMT', 'Content-Length': '123'} \n body={\"status\":\"healthy\",\"timestamp\":\"2026-02-17T20:08:46.507100637Z\",\"uptime\":\"53m29.522199381s\",\"checks\":{\"nats\":\"connected\"}} \n ","*${end_time}","*${end_time} = 1771358926","*${end_time} - ${start_time}","*${response_time}","*${response_time} = 0","*Should Be True","*<p>Fails if the given condition is not true.\x3c/p>","*${response_time} &lt; 5","*Setup Test Environment","*<p>Initialize test environment and create HTTP session\x3c/p>","*Create Session","*<p>Create Session: create a HTTP session to a server\x3c/p>","*api    ${API_BASE_URL}    verify=False","*Creating Session using : alias=api, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 ","*Teardown Test Environment","*<p>Clean up test environment\x3c/p>","*Delete All Sessions","*<p>Removes all the session objects\x3c/p>","*Deleting All Sessions","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 26: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 47: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 56: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 63: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 70: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 76: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 82: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.","*Error in file '/Users/rua/sources/build-system/tests/integration/resources/keywords.robot' on line 117: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead."]);
+window.output["strings"] = window.output["strings"].concat(["*","*Api","*C:\\sources\\build-system\\tests\\integration\\api.robot","*api.robot","*<p>Integration tests for API endpoints\x3c/p>","*Query Status Of Existing Build","*<p>Test querying status of an existing build Validates: Requirements 8.1, 8.2\x3c/p>","*api","*happy-path","*status","*401.0 != 200.0","*Generate Random Commit Hash","*keywords","*<p>Generate a random 40-character hex string (like git commit hash)\x3c/p>","*${commit_hash}","*Arguments: [  ]","*Evaluate","*BuiltIn","*<p>Evaluates the given expression in Python and returns the result.\x3c/p>","*__import__('secrets').token_hex(20)","*${hash}","*Arguments: [ \"__import__('secrets').token_hex(20)\" ]","*Return: '673aab60d746ec646294f6abb633a495ae4c15cc'","*${hash} = 673aab60d746ec646294f6abb633a495ae4c15cc","*${commit_hash} = 673aab60d746ec646294f6abb633a495ae4c15cc","*Create Webhook Payload","*<p>Create a valid GitHub webhook payload\x3c/p>","*${TEST_REPO_JAVA}, ${commit_hash}, main","*${payload}","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='673aab60d746ec646294f6abb633a495ae4c15cc' | ${branch}='main' ]","*Catenate","*<p>Catenates the given items together and returns the resulted string.\x3c/p>","eNqVkEtrwzAQhP+KEDm60T0koT703JDmLjbO2hLoYaQ1bTH+79XDPpSSQ09Cmk+7M/Pxdmmv7e39emrY3DAesOeHckShEB5R7OZ7ANephTdJh54wZGI3d95aTVJBXLWAo4+afPhOQB7mwGJlsyTztZL9ZIzcVMJIL/7TYRB/wM54h3IKJoNHYCoZO3FFNMaDEIMmNd33yYh4MmSfEH7+H38UcC7Li5yjcOMH7X575UvDlkzllmTtYo2tH08KshgjDCX0LQ1i66/S60TK12VbLwVp63si0II2m4dX/AI7GsxZqhO2/AAtUpd/","eNqdkU1PwzAMhv9KlEsv6wK0y7Rpm+iBM2jshtDktu4HSpoqSfkQ7L+TdA0SB5Dg4kjxY/v160zXg8TOmjV5INH9zV22zw63+21EPkj0PkaqsaJr4h/DGoTSMAltR2fnLFQWtc/zZQKQ84tymXIseMqvVmnFIc95kkC6WgCmxeWiKEKhxl6Z1ir95qqnUR1I9L0MyF5g/ATPEHsu1FSDEMcAWTQ2Vi8davYTXwjV4XHQwvMbII1bYksba3uzZqxubTPk80JJ9kuvucPo7u81Gwa7oGOk/JpUqNp59009PY3QaWK9xUfXX7qxX8a05X8slmgM1KNZBzeOTF3D5QbbqLOqYOlIZef/GaHoDi2C2Gt8Hbf0uwfJIT5+ApWAtog=","eNqVkctOwzAQRX8l8oJukhpI6qqhVPALiH00cSYPZMfBDx6q8u+MU7qohJC6suQ5c3XvnRf0wY5lsjoyiy0rk/g43iM0jmsYRpYyaD3aOBLbHKAWt822EChFIe53RSugrkWeQ7HbABbybiMl7VicjBu8sd+0eGQjaIwKDvSkMHuDD8giQmQblKrOc4/OZ+ZzRMv/QKUyI1bBqojuIenJ6yPrvZ9cyXk3+D7Ua2k0/0dmTdjNezD+IT09C8YO16uQoWW453BYQirTUV8XKdg8pyyWWZGgpp3IDc2VZWp0DrqloFeSTn616DLB98ZeNLwAz6f/NGFIN1RnT0/4teSI6cjZvPoBJISogQ==","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"673aab60d746ec646294f6abb633a495ae4c15cc\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*Generate HMAC Signature","*<p>Generate HMAC-SHA256 signature for webhook payload\x3c/p>","*${payload}, ${GITHUB_SECRET}","*${signature}","eNqVUstOwzAQ/BXLQvSS1ECDq5a2ov/ADaFq42weYMfBdoCq5N9Zp/RQCSH1tLJ3djQzu1tX9Qbb4JfsmV0dOthrC8Wwnhy4w5IvWSxe1AiFFwaaliccyoAutuR8BpDLm2KeSVQyk3eLrJSQ53I2g2xxD5ip23ulaMZhZ30TrNvT4IG3YDAyeDCdxvQVPiCNEEKWvda7Uz+gD6n9bNGJP6BK2xZ3vdMRugJWk9Y1r0Po/FKIqgl1n0+VNeIfminBrt97Gx6SYxlhfHM5CwkamysBm9GkthXldeaCD0PCY5g7IjQ0E3FNcWGYBr2HagzoiajZLxdtpg+1dWcJj4Dt8T9hHGmH+qTpEb9GH9EdKRsm7JtuwKNyGOgERtnHV/qG+wl7+QG8C7nE","*__import__('hmac').new($secret.encode(), $payload.encode(), __import__('hashlib').sha256).hexdigest()","*Arguments: [ \"__import__('hmac').new($secret.encode(), $payload.encode(), __import__('hashlib').sha256).hexdigest()\" ]","*Return: '6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1'","*${signature} = 6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1","*Return: 'sha256=6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1'","*${signature} = sha256=6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1","*Send Webhook","*<p>Send webhook POST request to API\x3c/p>","*${payload}, ${signature}","*${response}","eNqVkstOwzAQRX/FshDdpM3TTlLaiv4DO4SqiTN5oCQOtgNUpf+OHeiiEkLqypLnzNWdO7NX9dTjYPSaPJO70wjHTkJ53i5OVGFF18Q92m8QSu330A7Uo1AZVK7E0xig4EGZJhwFT3iUJxWHouBxDEnOABMRMiFsj8JR6tZIdbSNJzpAj05BQz92uHyFd1g6xJLV1HWHS92gNkv5MaDy/0BFJwc8TKpz6AZIY71uaWPMqNe+X7emmYqVkL3/j8zKYvdvkzQP3s8zY3R3u4o1NBc3PuzmITtZ27yupqDns0ddmAcr2Nsex7XljWH2qDXUc0BPVpr8atnNTKaR6irhGdj//HuEot1hd/H0iJ/zHG466+y8IF/2BnRbD2AmhfYKdAMR41suWMgqwQMBqYiDCKwxYFkpyiwH4FGW8qgoyyBnScbjKKoQRZBxxjALKwHhgrx8A0NXySE=","*Create Dictionary","*<p>Creates and returns a dictionary based on the given <code>items\x3c/code>.\x3c/p>","*Content-Type=application/json, X-Hub-Signature-256=${signature}, Authorization=Bearer ${AUTH_TOKEN}","*${headers}","*Arguments: [ 'Content-Type=application/json' | 'X-Hub-Signature-256=${signature}' | 'Authorization=Bearer ${AUTH_TOKEN}' ]","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=6c515fc60ca7c302af6aa58dcd89aa628762bdd095486322feec08655e81fca1', 'Authorization': 'Bearer test-auth-token'}","*POST On Session","*RequestsLibrary","*<p>Sends a POST request on a previously created HTTP Session.\x3c/p>","*api, /webhook, data=${payload}, headers=${headers}, expected_status=any","eNqVkk1v1DAQhu/8CssHfEmabD682aWpKFy40wMSQquJPfloEzvYDu2y7H+vnaWHSgipJyeZZ16/70xuTbdMqJzdk++EwTww8oew5BGbXuuH8CLBQc1O1GBL9yQcNukRpE0mGBSNKLQOTSjxbQ7Q8FRuC46CFzzbFS2HpuF5DsWuBCzEphTC9xictR2cNkffeKIKJgwKFqZ5xPgefkEcEE+2yzgeXuoOrYv1o0KT/AMVo1Z4WMwY0Gsgvfda09652e6TpBtcvzRXQk/Jf2SuPPb+56Ldh+hyrBi9ebuKN7QWrxO4WUOOuvPzepWCns8RDcM8eMHJ9wRukG8c5oTWQrcO6M5Lk79afjOL67V5NeEVuL18jwhFv8PxxdNHfFpzhHTe2TlsP5hDY+sTuzQNv8ENWrE9YZ8QDBqypgk3xU4/oGLRO8I+a+X8TxXfHWcMKMzzOIi1M7m3+gJ9i78sTfx16BS4xWCclTywtgf/VHNRbspW8FTAVuRpBj48lJUUstoB8Kza8qyRMt2VRcXzLGsRRVrxssRq0wrYsLN3j08zCofyYJ2/w9YM1JGRH89F1fdu","*Starting new HTTP connection (1): localhost:8080","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"POST /webhook HTTP/1.1\" 202 109","eNqVk11r2zAUhu/3K4wvZihR/K04WVPWjcEuBhtrBrsLx/LxRyNLriS3TUP++ySnYS2MQa9k9D7n6D0f/vH9ZuP9xLsRtfFW3qj4ujVmWIUhlwx4K7VZFVERhQ9YtlLuvHfeAKbdOvDFXYtQodLrQ/BLoyLXDQoTrLxg2JtWCqJOD+gwmafxPApmXnDNGA6GfBFMVp1oHNw8dcPMq7DmYPAv46SL8MJdfJZCIDOdFO5yhzgQ4N09PmvGvko2+wGdCsPAOwYODm+1jbDMb/J1LMlN1wgwo0KS5NShugX7taYsj/Oa0YjBgqVRAjUFyIuKVcUSgCbFgiZlVUXLPCtomiQ1IosKmudYxDWDeLI82oJV9wRnk58QFCrP2PIJWJEYuUPx0vA3FI1pHZvFi+Bou1nKar8++Aprf+W5Q4euwTrsoRP+zIfaoHISXaQAJY2qRUaR0Ywmy8yaLkuappAtc8CMxTljNkbhIHVnpNrbwIMvoEeXQUM/cCS3cA/EIZasR863Z33yLR8EqvAfKONSoNsFh16C11qva98tkLYb1HSmHcs5k334nzRzi72/G6X5MDsdE+ZfvT2LNTSJlyFcTUVy2dh+varCPx5nvmvm1ibsbYzjuuqNzexRa2imBm3cj/Ocy05mGv+rDk/AaS38meejnSE/e/qIj1MdrjrrzM3+Dx/DJ4s=","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:50 GMT', 'Content-Length': '109'} \n body={\"id\":\"9604a826-8df4-4aa6-937f-92a50f156bc4\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*Return: &lt;Response [202]&gt;","*${response} = &lt;Response [202]&gt;","*Verify Response Status","*<p>Verify HTTP response status code\x3c/p>","*${response}, ${HTTP_ACCEPTED}","*Arguments: [ ${response}=&lt;Response [202]&gt; | ${expected_status}='202' ]","*Should Be Equal As Numbers","*<p>Fails if objects are unequal after converting them to real numbers.\x3c/p>","*${response.status_code}, ${expected_status}","*Arguments: [ 202 | '202' ]","*Argument types are:\n&lt;class 'int'&gt;\n&lt;class 'str'&gt;","*Return: None","*Get From Dictionary","*Collections","*<p>Returns a value from the given <code>dictionary\x3c/code> based on the given <code>key\x3c/code>.\x3c/p>","*${response.json()}, id","*${job_id}","*Arguments: [ {'id': '9604a826-8df4-4aa6-937f-92a50f156bc4',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '9604a826-8df4-4aa6-937f-92a50f156bc4'","*${job_id} = 9604a826-8df4-4aa6-937f-92a50f156bc4","*Sleep","*<p>Pauses the test executed for the given time.\x3c/p>","*2s, Wait for job to be processed","*Arguments: [ '2s' | 'Wait for job to be processed' ]","*Slept 2 seconds","*Wait for job to be processed","*Get Build Status","*<p>Query build status by ID\x3c/p>","*${status_response}","*Arguments: [ ${build_id}='9604a826-8df4-4aa6-937f-92a50f156bc4' ]","*Authorization=Bearer ${AUTH_TOKEN}","*Arguments: [ 'Authorization=Bearer ${AUTH_TOKEN}' ]","*Return: {'Authorization': 'Bearer test-auth-token'}","*${headers} = {'Authorization': 'Bearer test-auth-token'}","*GET On Session","*<p>Sends a GET request on a previously created HTTP Session.\x3c/p>","*api, /builds/${build_id}, headers=${headers}, expected_status=any","*Arguments: [ 'api' | '/builds/9604a826-8df4-4aa6-937f-92a50f156bc4' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/9604a826-8df4-4aa6-937f-92a50f156bc4 HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/9604a826-8df4-4aa6-937f-92a50f156bc4 \n path_url=/builds/9604a826-8df4-4aa6-937f-92a50f156bc4 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/9604a826-8df4-4aa6-937f-92a50f156bc4 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:53 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*Return: &lt;Response [401]&gt;","*${response} = &lt;Response [401]&gt;","*${status_response} = &lt;Response [401]&gt;","*${status_response}, ${HTTP_OK}","*Arguments: [ ${response}=&lt;Response [401]&gt; | ${expected_status}='200' ]","*Arguments: [ 401 | '200' ]","*Traceback (most recent call last):\n  None\nAssertionError: 401.0 != 200.0","*Verify JSON Response","*<p>Verify response contains valid JSON\x3c/p>","*Set Variable","*<p>Returns the given values which can then be assigned to a variables.\x3c/p>","*${status_response.json()}","*${job_data}","*Dictionary Should Contain Key","*<p>Fails if <code>key\x3c/code> is not found from <code>dictionary\x3c/code>.\x3c/p>","*${job_data}, id","*${job_data}, status","*${job_data}, repository","*${job_data}, commit_hash","*${job_data}, created_at","*${returned_id}","*Should Be Equal","*<p>Fails if the given objects are unequal.\x3c/p>","*${returned_id}, ${job_id}","*Query Status Of Non-Existent Build","*<p>Test querying status of a build that doesn't exist Validates: Requirements 8.1, 8.5\x3c/p>","*negative","*401.0 != 404.0","*non-existent-job-id-12345","*${fake_job_id}","*Arguments: [ 'non-existent-job-id-12345' ]","*Return: 'non-existent-job-id-12345'","*${fake_job_id} = non-existent-job-id-12345","*Arguments: [ ${build_id}='non-existent-job-id-12345' ]","*Arguments: [ 'api' | '/builds/non-existent-job-id-12345' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/non-existent-job-id-12345 HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/non-existent-job-id-12345 \n path_url=/builds/non-existent-job-id-12345 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/non-existent-job-id-12345 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:53 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*${response}, ${HTTP_NOT_FOUND}","*Arguments: [ ${response}=&lt;Response [401]&gt; | ${expected_status}='404' ]","*Arguments: [ 401 | '404' ]","*Traceback (most recent call last):\n  None\nAssertionError: 401.0 != 404.0","*List Build History","*<p>Test listing all builds Validates: Requirements 8.2, 8.3\x3c/p>","*list","*${commit_hash_1}","*Return: '5e3698a7d0cb018d2a7343f186811cc607094a38'","*${hash} = 5e3698a7d0cb018d2a7343f186811cc607094a38","*${commit_hash_1} = 5e3698a7d0cb018d2a7343f186811cc607094a38","*${commit_hash_2}","*Return: 'c7d30033a7b20de6345f9c1ae944ab2f59d180e0'","*${hash} = c7d30033a7b20de6345f9c1ae944ab2f59d180e0","*${commit_hash_2} = c7d30033a7b20de6345f9c1ae944ab2f59d180e0","*${TEST_REPO_JAVA}, ${commit_hash_1}, main","*${payload_1}","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='5e3698a7d0cb018d2a7343f186811cc607094a38' | ${branch}='main' ]","eNqdkU1PwzAMhv9KlMsu29LS0XbTNtEDZ9DYDaHKa90PlDRTkvIh2H8naZdJHECCiyPFj+3XrzNV9wI7o1fkkUwebu+zXba/220m5JNMPoZIFVZ0RdyjWYNQaiag7eh0zEJlULn8NUbxMoWkDIpDEKblFSTRIqrCNE7DsCjiIAmWC4hSX6jwKHVrpHq31edRHQh0vTSII8fZM7zAzHG+puo5zz1kUJuZfO1QsZ/4gssO815xx6+BNHaJDW2MOeoVY3Vrmv4wL6Rgv/SaW4xu/16zZrD1OgbKrUm5rK1339TT0wCdzqyzOLf9hR17MaYt/2OxQK2hHsza23Hk3NVfrjeNHFV5SwcqG/+nhKI9NPdib/Bt2NLt7iX7+PQFZdC0rA==","eNqVkctugzAQRX8FedFsIIaSAqFp1P5C1T2awPCobEz96EMR/94xaRaRqkhZWfKcubr3zitap8cyWB2ZxpaVgX8M7xEawyUMIwsZtBa1Hz1gmm0LyJu4PsRJ0dxDnm7SNimyIknqOovzeLuBtKAdjZMyg1X6hxaPbASJXsGAnARG7/AJkUeIbJ0Q1Xlu0dhIfY2o+T9oLdSIldPCozsIevL6xHprJ1Ny3g22d4d1rSS/IrMm7O7DKfsYnp4FY/vbVcjQMtxx2C8hheqor4sUbJ5D5susSFDSjueG5sYyJRoD3VLQG0kHf1p0GWd7pS8aXoCX038YMKQbirOnZ/xecvh05Gxe/QIyMKal","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"5e3698a7d0cb018d2a7343f186811cc607094a38\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${payload_1} = {\"ref\": \"refs/heads/main\",\"after\": \"5e3698a7d0cb018d2a7343f186811cc607094a38\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","*${TEST_REPO_GO}, ${commit_hash_2}, develop","*${payload_2}","*Arguments: [ ${repo_name}='sample-go-repo' | ${commit_hash}='c7d30033a7b20de6345f9c1ae944ab2f59d180e0' | ${branch}='develop' ]","eNqdkctOwzAURH/F8qabpk6blJKorciCNah0h1DkxDcPyY4j2+Eh6L8TOzESEixgY0vWmXtnxpmqBwGd0Sl6RIuH2/vslJ3vTocF+kCLd3diBRVOkb00aYAyTRg8A5c9Xk4ArQwoi5Q7FoVhFNFdsQkZXEXxtkrKNYUkjmmxqbYJW1+HEHqhgl7q1kj1NqrnbR0VYGdpKnoOQS0DS3lFNXCee8SANoF86UCRn+mSyw7yQXFL7ylqxgwH3BjT65SQujXNUKxKKcivk1YjhI9/VewJPXoPjrHxMJd12333jS8OusysbTcfp4tx6VchLftPtQK0prWr6TyuQ/NU/2ODaeTkypfpqGx6XyIMgrbcm72BV5fRJveW/fn0CVIrtCo=","eNqVkctOwzAQRX/F8oJukjptUkpCqeAXEPvIiScPyY6DHzxU5d8Zu3RRIRZdjeQ5c3Xv9Ss4b6aKrE7UQEcrEoZlA3BhmYAPkHqmCeWdAxO27V7kWZbnfN9sMwH3ebHrynbDoSwK3my7XSk2DxlkeGNg1nZ02nzj4YlOXEFQsFzNEtJepwFArvNS1petA+tS/TmBYX/AVuoJam9kAA+cDGj1iQ7OzbZirB/d4Jt1qxX7V2SN0N271+4xOY8I0eOtGmgmrg6MH2M4qftxuvZPlyWhocca5RTeBG4UN5aowFrex2reUJr8auGPeDdoc9VsBF7O7wmhoPgoL56e4SumCNnQ2bL6AU/GpiM=","*${payload} = {\"ref\": \"refs/heads/develop\",\"after\": \"c7d30033a7b20de6345f9c1ae944ab2f59d180e0\",\"repository\": {\"name\": \"sample-go-repo\",\"full_name\": \"test-owner/sample-go-repo\",\"clone_url\": \"<a href=\"https://github.com/test-\">https://github.com/test-\x3c/a>...","*${payload_2} = {\"ref\": \"refs/heads/develop\",\"after\": \"c7d30033a7b20de6345f9c1ae944ab2f59d180e0\",\"repository\": {\"name\": \"sample-go-repo\",\"full_name\": \"test-owner/sample-go-repo\",\"clone_url\": \"<a href=\"https://github.com/test-\">https://github.com/test-\x3c/a>...","*${payload_1}, ${GITHUB_SECRET}","*${signature_1}","eNqVUstOwzAQ/BXLQvSS1AkpbVraiv4DN4SqbbJ5gBMH2wGqkH9n7dJDJYTU08re2dHM7O502TfYWrNiz+xm6OAoFeTjZjJwjQVfMVeMqBByIxqoWx5wKCxq17rHZL5MYZFH2SGK0/wOFsksKeJ0nsZxls2jRbScQZLSjMZOmdoqfaTBgbfQoGMw0HQSw1f4gNBBCFn0Uu7PfYvGhuqzRS3+gGZStbjvtXTQNbCKtG54ZW1nVkKUta36wzRTjfiHZkqw2/de2YfgVDyMb69nIUG+uRaw9SalKimvCxd8HAPuwtwTYUMzDlfnV4bZoDFQ+oCeiJr9ctFmelspfZGwB+xO/wHjSDuUZ02P+OV9OHekbJywb7oBg5lGSyfgZZ9e4RseJ+zlB443t+g=","*Return: '53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3'","*${signature} = 53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3","*Return: 'sha256=53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3'","*${signature_1} = sha256=53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3","*${payload_2}, ${GITHUB_SECRET}","*${signature_2}","eNqVkd1OAjEQhV+laYzc7NKFRREEIu/gnTFk2M7+xHa7tl2V4L670yIXxHjB1aSdb07OnNnaqtfYerdkL+zm2MFBGZDDenTkFku+ZKE4USNIJyR+oDIdTziUHm3oFnOZZ1mew3w/zSTe57O7clFMABezGeyn5d1CTh4yzGjGYmdc44090OCRt6AxKDjQncK0MmkAiCt7pXbnrkfnU/PZohV/wEKZFne9VQFcAavJ6prX3nduKUTV+Lrfjwujxb8iY4Ju33vjH5NTiRDfXKtBZmJrJWATl1OmatpL/3wYEh5y3JGcppnANfLKEDU6B1WM5pmk2a8WXaT3tbEXyUZge/pPGEcNjTp7esKvuEXYjZwNI/ZN53dYWPR0/Wj79Erf8DBirz99ybdm","*Return: '2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654'","*${signature} = 2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654","*Return: 'sha256=2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654'","*${signature_2} = sha256=2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654","*${payload_1}, ${signature_1}","*${response_1}","eNqVUstugzAQ/BVkVc2FhIdjHmkSNf/QW1VFC6yBCjC1Tdso5d+70OYQqaqU00qe2dHMrA+6HFrsrNk4z87duYdTo6AYd4sz0yjZxpmG8SqEwngt1B1zGUiLeoIE8ihNIC78PPODpAgh5msugyRKgiDPIz/20zXwhHY09srUVukTLZ5ZBy1OCgbavsHlK7zDcqIQUw5Nc7zgFo1dqo8OtfcHNW9Uh8dBNxN1C05FXnessrY3G88ra1sN2SpXrfePzIpo92+Dsg/uz5hpbH+7Chmawa0H+zlko0rq6yoFG0eXTWUeSbClnYlXFzeW2aIxUM4FPZG086tFlxlspfRVwzPh8PPuOgzphs3F0yN+zjmmdORsXDhf9AdMXXZgB430C0wFoYh2ggNPwzTOAwmJiIN1mMVB7KMQWcx9TpP7MiE8C4tIZpDkIaKIBEgfpAS+cF6+AXXwxuY=","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=53a39297c1fa857142b7170e55b7303e5530f897cb2d6fba8c2ee565af0affa3', 'Authorization': 'Bearer test-auth-token'}","eNqVkk1vnDAQhu/9FZYP9QXCh5eP3YaoaS65N4dIUbUaYAwkYFPbNNlu97/HZptDpKpSToOZZ16/M+Nr3S0TSmt25IEwmAdG/hAWPWPdK/XkDy1YqNiRahR0R3wwUY/QmmiCQdKAgrCofSpDnm9LKNq4qeOkbFMo+IaLpMzLJGmaPC7i7QZ46Wo0zsoMVumDKzxSCRN6BQPTPGL4CL8g9IgjxTKO+7e8RWND9SxRR/9Am1FJ3C969OglkN55rWhv7Wx2UdQNtl/qi0ZN0X9kLhz2+eei7JfgHFaMXn1cxRlak5cRXK1Njqpz83rXBT2dAuqHuXeCk6vx3NB+cJgTGgPdOqA7J03+arnNLLZX+t2EV+D6/D8gFN0OxzdPX/Fl7cN355yd/Pa9OdSmOrJz0fAb7KAk2xH2DUGjJms3/qbQqieULPhE2I2S1j2q8O4wo0dhnsehWSujR6PO0H14u9Th96GTYBeNYZrlnjU9uK8q48C36bZoEgFlViSbtC6SIsYsqwsecxd5LEqXr9M2FzWUTYqY5RmIGIQAzk7OPb7M2Fhs98a6O0zFQB4Y+fEKhqz1Mw==","eNqVk1tr2zAUx9/3KYQfZihRfIsvyZqybgz2MNhYM9hbOJaPL40suZLcNg357pOchrUwBn2S0f93jv7n4h/fbzbkJ96NqA1ZkVHxdWvMsAoCLhnwVmqzKsIiDB6wbKXckXdkANNuHfjirkWoUOn1wf+lUdHrBoXxV8Qf9qaVgqrTAzqI50k0D/0Z8a8Zw8HQL4LJqhONg5unbpiRCmsOBv8yTroILtzFZykEMtNJ4S53iAMF3t3js2bsq3SzH9CpMAy8Y+Dg4FbbCMv8pl/Hkt50jQAzKqRxmjlUt2C/1mkCyTJe5iyqoUjzaBGXeZSHmKZlnoSJPZOwLqxexlVWl1CwGDHNUqhDqGtIJsujLVh1T3A2+QlBoSLGlk/BitTIHYqXhr+haEzr2EWU+0fbzVJW+/XBU1h7K+IOHbgG66CHTngzD2qDykkpJtmygLwKWRlGRRVDniySOiqyIooYy8I8XC4gKWyMwkHqzki1t4EHT0CPLoOGfuBIb+EeqEMsWY+cb8/65Fs+CFTBP1DGpUC3Cw69BNJar2vPLZC2G9R0ph3LOZN98J80c4u9vxul+TA7HRPmXb09izU0iZcBXE1FctnYfr2qwjseZ55r5tYm7G2M47rqjc3sUWtopgZt3I/znMtOZhr/qw5PwGktvBnx0M6Qnz19xMepDleddeZm/wchWiVQ","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:53 GMT', 'Content-Length': '109'} \n body={\"id\":\"75680f69-9668-4326-97a4-4799d1322135\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*${response_1} = &lt;Response [202]&gt;","*${payload_2}, ${signature_2}","*${response_2}","eNqVkkFugzAQRa9iWVWzIQFjIJAmUXOH7qoqMvYYkAymtmkbpdy9hjSLqOoiq5E8b77+/PHBVEMLnbMb9Ioezj07Kc3EuFucsQGJN2gqNqyBCRsK+AClexxgJh2YqcvXgkYRpWxdxpGAjCapLDhhUCQJK2OZFoLkEUR+xkCvbeO0OfnBM+5YC5OCZW2vYFnp5QR4Tg5KHa9dB9Yt9WcHJvwDcqU7OA5GTeCWodpb3eHaud5uwrBqXD2UK67b8F+RlYce3wftnoJLmSG8v1fDm5lb25Dt5+WUrpru1j8exwBPOR69XOtnJq4Rd4bYgrWsmqN58dLoV8tfZHC1NjfJzsDh8h4gDC1r1NXTM3zNW0y7eWfjAn3789um6pgbDPgPYGsWp9kuZpDFPI+LUopYUsEpWWd5LnIREU4iGhUZl4ITmhOS8iLNZQqkjLNSZFJkabJAbz9sC8Zn","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=2ae62c829bfd2f3dc317688d8d01c103096cfdc138115c958f5e1b26bd6fd654', 'Authorization': 'Bearer test-auth-token'}","eNqVkj9v2zAQxfd+CoJDuFjRP0uW3Cho2qV7MxQoCuNEHiU2kqiSVBPX9XcvKTdDUGTIRFH3e4/vjrwz3TLi5OyefCMMZsXIH8LiR2x7rR/CRoCDhp2oQUn3JCw27hGEjQX+wkHPdENBOjShynciT5I8h12bJQLLfFvImqeA9XYLbSaLWqRVgonXGJy1VU6boxee6AQjBgcL4zxg1OkoAJ6TyzAcnqsOrYv044Qm/g/kg57wsJghgDdAeh+1ob1zs93Hcadcv7TXXI/xqybXHrr6uWj3fnNZVojevtXDh1lLNzHcrs0NulPTy/z0fN7QMMeDtxu9JnBKvHGII1oL3Tqae29N/nn5G1lcr82Lya7A3eX/hlAcQQ3PmT7g09pF6M0nO4eLD+HQ2ObELiL1G5zSE9sT9hHBoCFrN+GkyOkHnNjmHWGf9OT8e4rujzMGFOZ5UHxVxj+svkBfo89LG31R3QRuMRhlRRlY24P/ajLAMuNVVrdSZDIXPE93ZVWJSiQpT5M8qUsuBU/zKk0LXheVLDBts7IVpRRlsWVnnx6fZuQOxcE6f4ZtGExHRr7/BSmY9LQ=","eNqVk11v0zAUhu/5FVYuiDTFzVeTJmWdGAiJCyQQGxJ3lWOfJKaOndnORlf1v2Onq9iEuNiVI7/POX7PR759vblF3+FuAmPRGk1abHprx3UcC0WJ6JWx6yqpkvgBml6pHXqDRmL7rQef3fVAGGizOYQ/DGh83YG04RqF4972SmJ9esDE2SJPF0kYofCaUhgt/iSpYlx2Hu4e+RghBq0gFv4yXrqIL/zFRyUlUMuV9Jc7gBETwe/hSbPuVXy7H8GrZBwFp8TD8S/jIhzzE3+eGnzDO0nspAFnRelR0xP3tckIlBmtsrppWdbmjObpqqwqVrEkpWmSJ3VJW0bTvErTgtZF1RaQNlnZsLJlZbGcLU+uYM0fydnkByAaNLKufEyciK3agXxu+AvIzvaeXabL8Oi62Si23xwCDW2wRv4wsW+wiRncg1BjEAWktaC9SlcsT5I8J6smSxiU+bJoa5oSqJdL0mRtUbO0SiBxMRpGZbhVeu8CD4EkA/gMhgyjANwp7AHHtZMQ27M6G1cPEnT8D0iFkuBXwYOXBPXO6ibw+2PcAnXc9lOzoGqI/5tk4aC3d5Oy76LTMUPB1WtzODOzdBmTq7k4oTouX/oPjsco8H3cunSDi/EcZ69s4gDGkG5uza3/Z55yuYnMk3/R2Rk4bUQQoQAGwsXZ03v4PVfha3PO/Nj/AOqhJM4=","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:53 GMT', 'Content-Length': '109'} \n body={\"id\":\"960c36f1-d725-46db-ab35-ba6f42d0510d\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*${response_2} = &lt;Response [202]&gt;","*${response_1.json()}, id","*${job_id_1}","*Arguments: [ {'id': '75680f69-9668-4326-97a4-4799d1322135',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '75680f69-9668-4326-97a4-4799d1322135'","*${job_id_1} = 75680f69-9668-4326-97a4-4799d1322135","*${response_2.json()}, id","*${job_id_2}","*Arguments: [ {'id': '960c36f1-d725-46db-ab35-ba6f42d0510d',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '960c36f1-d725-46db-ab35-ba6f42d0510d'","*${job_id_2} = 960c36f1-d725-46db-ab35-ba6f42d0510d","*2s, Wait for jobs to be processed","*Arguments: [ '2s' | 'Wait for jobs to be processed' ]","*Wait for jobs to be processed","*List Builds","*<p>List all builds\x3c/p>","*${list_response}","*api, /builds, headers=${headers}, expected_status=any","*Arguments: [ 'api' | '/builds' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds \n path_url=/builds \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:55 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*${list_response} = &lt;Response [401]&gt;","*${list_response}, ${HTTP_OK}","*${list_response.json()}","*${builds}","*type($builds).__name__","*${builds_type}","*${builds_type}, list","*Create List","*<p>Returns a list containing given items.\x3c/p>","*${build_ids}","*${build} IN [ @{builds} ]","*${build} = ","*${build}, id","*${build_id}","*Append To List","*<p>Adds <code>values\x3c/code> to the end of <code>list\x3c/code>.\x3c/p>","*${build_ids}, ${build_id}","*Should Contain","*<p>Fails if <code>container\x3c/code> does not contain <code>item\x3c/code> one or more times.\x3c/p>","*${build_ids}, ${job_id_1}","*${build_ids}, ${job_id_2}","*Health Check Endpoint","*<p>Test health check endpoint Validates: Requirements 8.1\x3c/p>","*health","*Check Health","*<p>Check API health endpoint\x3c/p>","*api, /health, expected_status=any","*Arguments: [ 'api' | '/health' | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /health HTTP/1.1\" 200 123","*GET Request : url=http://localhost:8080/health \n path_url=/health \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} \n body=None \n ","*GET Response : url=http://localhost:8080/health \n status=200, reason=OK \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:55 GMT', 'Content-Length': '123'} \n body={\"status\":\"healthy\",\"timestamp\":\"2026-02-19T01:23:55.287596188Z\",\"uptime\":\"20m33.990594442s\",\"checks\":{\"nats\":\"connected\"}} \n ","*Return: &lt;Response [200]&gt;","*${response} = &lt;Response [200]&gt;","*${response}, ${HTTP_OK}","*Arguments: [ ${response}=&lt;Response [200]&gt; | ${expected_status}='200' ]","*Arguments: [ 200 | '200' ]","*Arguments: [ ${response}=&lt;Response [200]&gt; ]","*${response.headers}, Content-Type","*${content_type}","*Arguments: [ {'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:55 GMT', 'Content-Length': '123'} | 'Content-Type' ]","*Return: 'application/json; charset=utf-8'","*${content_type} = application/json; charset=utf-8","*${content_type}, application/json","*Arguments: [ 'application/json; charset=utf-8' | 'application/json' ]","*${response.json()}","*${json}","*Arguments: [ {'checks': {'nats': 'connected'},\n 'status': 'healthy',\n 'timestamp': '2026-02-19T01:23:55.287596188Z',\n 'uptime': '20m33.990594442s'} ]","*Return: {'checks': {'nats': 'connected'},\n 'status': 'healthy',\n 'timestamp': '2026-02-19T01:23:55.287596188Z',\n 'uptime': '20m33.990594442s'}","*${json} = {'status': 'healthy', 'timestamp': '2026-02-19T01:23:55.287596188Z', 'uptime': '20m33.990594442s', 'checks': {'nats': 'connected'}}","*Should Not Be Empty","*<p>Verifies that the given item is not empty.\x3c/p>","*Length is 4","*${health_data}","*${health_data} = {'status': 'healthy', 'timestamp': '2026-02-19T01:23:55.287596188Z', 'uptime': '20m33.990594442s', 'checks': {'nats': 'connected'}}","*${health_data}, status","*Arguments: [ {'checks': {'nats': 'connected'},\n 'status': 'healthy',\n 'timestamp': '2026-02-19T01:23:55.287596188Z',\n 'uptime': '20m33.990594442s'} | 'status' ]","*${status}","*Return: 'healthy'","*${status} = healthy","*${status}, healthy","*Arguments: [ 'healthy' | 'healthy' ]","*Argument types are:\n&lt;class 'str'&gt;\n&lt;class 'str'&gt;","*Authentication With Valid Token","*<p>Test API authentication with valid token Validates: Requirements 8.4\x3c/p>","*auth","*security","*Return: 'ed6bd740ea538c8e59ccc6f3f1743e150155a7b5'","*${hash} = ed6bd740ea538c8e59ccc6f3f1743e150155a7b5","*${commit_hash} = ed6bd740ea538c8e59ccc6f3f1743e150155a7b5","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='ed6bd740ea538c8e59ccc6f3f1743e150155a7b5' | ${branch}='main' ]","eNqdkU1PwzAMhv9KlEsv67Kq6zqqbaIHzqCxG0JTmrofKGmqJOVDsP9O0jZIHECCiyPFj+3Xr3NVDwI6ozP0gIL7m7v8mJ9uj/sAfaDgfYxYQYUz5B5NGqClJoK2HV5MWVoZUC4P5aYo0/UKaBJv2RaSK8bYpoqrKF3HECWrKEloWiS+UEEvdWukerPV86iOCnC9NBU9h/CJPtPQcb6mGjg/e8iANqF86UCRn3jGZQfnQXHH7yhq7BJ73BjT64yQujXNUCyZFOSXXkuL4cPfa3aEHryOkXJrYi5r69039fgyQpeZdRafbX9hx34Z05b/sViA1rQezTrZcWju6i83mEZOqrylI5VP/ws7zx6ae7HX8Dpu6Xb3kn18/ATE67aW","eNqVkctOwzAQRX8l8oJukrpR6qaEUsEvIPaR40weyI6DHzxU5d8Zu3RRCSF1NZLnzPWdOy/gvJmqZHUiBjpSJaFYOgBvLVV8nEhKeOfAhBa0u6YttxvgrNiLPbB7IcSuK7q83BaQs03OGC8bhjMGZm1Hp803Dp7IxBUEBcvVLCF74x88CwiSnZeyvvQdWJfpzwkM/QMVUk9QeyMDeuDJgF4fyeDcbCtK+9ENvlkLreg/MmvE7t69dg/puUSMHG9XQUOxeaD8GJeUuse8rrYgy5KSEGaNggpnAje2N4apwFrex4BeUTr51cLLeDdoc5VwBJ7P7yn+gjeUF09P8BX3CNuhs2X1A1IhqI8=","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"ed6bd740ea538c8e59ccc6f3f1743e150155a7b5\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","eNqVUl1PAjEQ/CtNY+TljkLgABGI/AffjCFLb+9D2+vZ9lSC99/dFnkgISY8bdqdnc5Md2vLTmPj3ZK9sLtjCwdlIO/XgyO3WPAlC8WJCiF3QkPd8IRD4dGGFuazfT6fjhCyyUIuMHuQUs6KSTGeTyc4zkbjLIP5PqMZi61xtTf2QINH3oDGwOBAtwrTN/iENEAIWXRK7c59j86n5qtBK65ApTIN7jqrAnQFrCKta15537qlEGXtq24/lEaLf2iGBLv/6Ix/TE4lwvjmdhYSFJsrAZtoUpmS8rpwwfs+4SHMHRFqmgm4Or8xTI3OQRkDeiZq9sdFP9P5ytiLhCNge7pP6BX6Q3XW9ITf0UdwR8r6AfuhHXAoLXpagSj7dErf8TBgr7/raLnS","*Return: '448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8'","*${signature} = 448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8","*Return: 'sha256=448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8'","*${signature} = sha256=448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8","eNqVUtFuwjAM/JUqmsYL0JY2bWCAxj/sbZqQmzhtp7ZhSboNMf59bjcekKZJPFmKz5e7s3e27FvsvFsFz8Hd6QDHxoA6byYnZlGzVTAUF1YIyoUt1B2bMtAe7dBClRUqTyMEnggpkC+llJlOdJynCcY8ijmHvOA0Y/FgXO2NPdLgiXXQ4sDgoD00OHuFd5gNEELqvmn2l75H52fmo0Mb/gGVjelw39tmgK4hqEjrhlXeH9wqDMvaV30xl6YN/6GZE+z+rTf+YfpTRhjb3s5CgsbmOoTtaLIxJeV15YKdz1M2hLknwpZmBlytbgyzReegHAN6Iurgl4s20/vK2KuER8Du531Kv9AOm4umR/wcfQzuSNl5EnzRDbi67MD3FukKXAULnm3SVEDOBcYLoQqpE6UT0CoTUSQikUghsrgguTzCQqhcqyRBkDLVWSGLaKnFJHj5BnZKyc8=","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=448a758e128dbcf3df3afd68008083c8861b9cc50eb8d7fd33eacc4f6bcb09f8', 'Authorization': 'Bearer test-auth-token'}","eNqVkk9vnDAQxe/9FBaH+gIBwj9nG6KmvfTeHCpV1Wpsj4EEMLVNk+12v3tstjlEqirlZGB+8+bNM7emWyecnd2R74TCMlDyh9D0EXmv9UN4keCgpcfIoIp2JBw27RGkTScY5iiOQDk0oYSy5rIpM4SqYIJhdSWEqFWh8qYsMK+yvKqg4ZXvMbhoOzhtDr7xGM0wYVCwMC0jJvfwC5KAeFKt47h/qTu0LtGPM5r0H6gY9Yz71YwBvQbSe69t1Du32F2adoPrV34h9JT+R+bCY+9/rtp9iM/HhkU3b1fxhrbidQo325Kj7nxer7aITqc4CmHuveDkewI3yDeGOaG10G0B3Xlp8lfL38zqem1eJbwBt+fvsZ/i73B88fQRn7Y9wnbe2SncfjCHxrZHem4afoMb9Ex3hH5CMGjItk2YlDj9gDON3xH6Wc/O/1TJ3WHBgMKyjIPYOtN7q8/Qt+TLypOvQzeDWw0ml1UdWNuDf2rLkkFTMcwvmeRCFVIVoGTNsoxlrBCM1Tn3kVQZciYbJYsCQYhS1Vzw7EoxevLu8WlB4VDurfMzbEthPlDy4xmPPvgc","eNqVk11r2zAUhu/3K4wvZih2bNdfataUdWOwi8HGmsHuwrF0/NHIkivJbdOQ/z7JaVgLY9ArGb3POXrPh398v1l7P/FuQm28pTcpvuqMGZdxzCUF3kltliQhSfyAdSfl1nvnjWC6jQNf3HUIDJVe7YNfGlV03aIwwdILxp3ppIjU8QEdny+ydJEEoRdcU4qjib4IKlkvWge3T/0YegwbDgb/Mk46i8/cxWcpBFLTS+Eut4hjBLy/x2fN2Fej9W5Ep8I48p6Cg+NbbSMs8zv6OtXRTd8KMJPC6LwoHao7sF+rPCdQFQTTc8Jq2mSsyaBhJUls/SSjhJRpfUFpkWBNWNWwLEOgNG/KmtbJRUNmy5MtWPVPcDL5CUGh8owtPwIrRkZuUbw0/A1FazrH5mkVHGw3a8l2q72vsPGXnjt07Bqs4wF64Yc+NAaVk5CVNavyBKHICCVYWHu0bLImrfIM0yJJiwKqurAxCkepeyPVzgbufQEDugwahpFjdAv3EDnEks3E+eakz77lg0AV/wOlXAp0u+DQS/A663XluwXSdoPa3nRTvaByiP+TZmGx93eTNB/C4zFj/tXbs1hDs3gZw9VcJJet7derKvzDIfRdMzc24WBjHNezNzZzQK2hnRu0dj/Ocy47mXn8rzo8A8e18EP7ip0hP3n6iI9zHa4668zN/g+3Jyg5","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:55 GMT', 'Content-Length': '109'} \n body={\"id\":\"d3ac124b-31fc-4671-8143-4ccf99fcf931\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*Arguments: [ {'id': 'd3ac124b-31fc-4671-8143-4ccf99fcf931',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: 'd3ac124b-31fc-4671-8143-4ccf99fcf931'","*${job_id} = d3ac124b-31fc-4671-8143-4ccf99fcf931","*2s","*Arguments: [ '2s' ]","*Arguments: [ ${build_id}='d3ac124b-31fc-4671-8143-4ccf99fcf931' ]","*Arguments: [ 'api' | '/builds/d3ac124b-31fc-4671-8143-4ccf99fcf931' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/d3ac124b-31fc-4671-8143-4ccf99fcf931 HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/d3ac124b-31fc-4671-8143-4ccf99fcf931 \n path_url=/builds/d3ac124b-31fc-4671-8143-4ccf99fcf931 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/d3ac124b-31fc-4671-8143-4ccf99fcf931 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:57 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*Authentication With Invalid Token","*<p>Test API authentication with invalid token Validates: Requirements 8.4\x3c/p>","*Return: '402b50d9d9801df7533fb998e402115289da527c'","*${hash} = 402b50d9d9801df7533fb998e402115289da527c","*${commit_hash} = 402b50d9d9801df7533fb998e402115289da527c","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='402b50d9d9801df7533fb998e402115289da527c' | ${branch}='main' ]","eNqdkU1vgzAMhv9KlAuX0gAdKqC2GoedN3W9TVMVwHxMCUFJ2Ie2/vclQCbtsEnbxZHix/br17lsRg69Vhl6QN79zV1+zE+3x72HPpD3PkUsocYZso8iLdBKEU67Hq/mLK01SJu/CqIiDqq0SpMgrOptvNnURZomYBJhGEdJWtE42pauUMIgVKeFfDPVy6iecrC9FOUDA/+JPlPfcq6mHhk7O0iD0r546UGSn/iSiR7Oo2SW31HUmiX2uNV6UBkhTafbsViXgpNfeq0Nhg9/r9kRenA6JsquiZlojHff1OPLBF0W1lp8Nv25GftlTFf9x2IOStFmMutkxqGlq7vcqFsxq3KWTlQ+/68QBnNo5sRew+u0pd3dSXbx8RNtVrS8","eNqVkctugzAQRX8FedFsIAZSFKBp1P5C1T0yeHhUNqZ+9KGIf+/YaRaRqkpZWfKcubr3zgtYp+c62pyIhp7UkX8MHYFxQyWbZhIT1lvQfnSf5m2R8opXZZrxfl/sdn1bVSXgIMuKvKw4K/J9hzsaFmUmq/Q3Lp7IzCR4BcPkIiB5Yx8s8QiSvROiucwtGJuozxk0/QPthJqhcVp49MCiEb0+ktHaxdSUDpMdXbvtlKT/yGwRu3t3yj7E5ydg5Hi7ChoKwwNlxxBSqAH7ukpB1jUmvswGBSXueG7iN5YpwRg2hIJeUTr61cLLODsqfdVwAJ7P/3FEAG8oLp6e4Cvk8OnQ2br5ATemprU=","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"402b50d9d9801df7533fb998e402115289da527c\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","eNqVUl1PAjEQ/CtNY+TljgJ6gUMg8h98M4Ys170Pba9n21MJ3n93W+SBxJjwtGl3djIzu1tb9Rpb75bsmd0cOzgoA3JYj47cYsmXLBQnagTphIam5QmH0qMNrfvJbJ9NZC7zxWQqy3l2d1fu83yB1JhOs9kil5DN5gXNWOyMa7yxBxo88hY0BgYHulOYvsIHpAFCyLJXanfue3Q+NZ8tWvEHtFCmxV1vVYCugNWkdc1r7zu3FKJqfN3vx4XR4h+aMcFu33vjH5JTiTC+uZ6FBMXmSsAmmlSmorwuXPBhSHgIc0eEmmYCrpFXhqnROahiQE9EzX65aDO9r429SDgCtqf/hHGkHaqzpkf8ij6CO1I2jNg33YDDwqKnE4iyT6/0DQ8j9vIDla23+A==","*Return: '275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da'","*${signature} = 275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da","*Return: 'sha256=275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da'","*${signature} = sha256=275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da","eNqVUstuwjAQ/JXIqsoFSGJsklBA5R96qyq0jjePKomp7bRFlH/vJi0HpKoSJ0ue2dHM7O5s2bfYebcKnoO70wGOjQF93kxOzGLBVsHwuLBC0C5soe7YlEHh0Q6QiLiSkc50lkaxLhK5WBQqy1IkII4lTzMNkic5zVg8GFd7Y480eGIdtDgoOGgPDc5e4R1mA4WYRd80+wvu0fmZ+ejQhn9Q88Z0uO9tM1DXEFTkdcMq7w9uFYZl7atezXPThv/IzIl2/9Yb/zD9eUYa296uQoZGcB3CdgzZmJL6ukrBzucpG8rck2BLMwOv1jeW2aJzUI4FPZF08KtFm+l9ZexVwyNh9/M/DRjSDpuLp0f8HHMM6cjZeRJ80Q24uuzA9xbpClwFXC43PJEokmWKUIhlvMBcpEA2FY+liJaYKaF4JuIIZV4sRKQTlIniqlAaNRcaJsHLN44UxyM=","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=275e4768eaf4613ec48a980b215406e9b4b29410e5cf340d7e57b2bfbded24da', 'Authorization': 'Bearer test-auth-token'}","eNqVkk1vnDAQhu/9FZYP9QXCx8IC2xA1zSX35hApqlZjPHwkYFPbNNlu97/HZptDpKpSTgbmmdfvvMO17pYJpTU78kAYzAMjfwiLnpH3Sj35FwEWanakGlu6I/4wUY8gTDTBIGlAobWofSmLU57HohJVGSeiLfLNpuVVVaIrJEmelpWAPC0a16NxVmawSh9c45FKmNArGJjmEcNH+AWhRxzZLuO4f6tbNDZUzxJ19A+0GZXE/aJHj14C6Z3XmvbWzmYXRd1g+4VfNGqK/iNz4bDPPxdlvwTnY8Xo1cdVnKG1eBnB1TrkqDqX17sp6OkUUB/m3glOrsdzg/hgmBMaA90a0J2TJn+13GYW2yv9LuEVuD5/DwhFt8PxzdNXfFnn8NM5Zye/fW8OtamP7Nw0/AY7KMl2hH1D0KjJOo2/KbTqCSULPhF2o6R1P1V4d5jRozDP49CsndGjUWfoPrxdePh96CTYRWOY5lvPmh7cU50WOWbFtkRos22ywSYrwUXB0yTP4i1WPONplSUx5k27yWJRYF7wlLdcoEgzAezk3OPLjI1FsTfW3WFqBvLAyI9XqwX1cA==","eNqVk11r2zAUhu/3K4wvZihR/BE7trOmrBuDXQw21gx2F46s449GllxJbpuG/PdJTsNaGINeyeh9ztF7Pvzj+83G+4l3I2rjrbxR8XVrzLAKQy4r4K3UZlVERRQ+IG2l3HnvvAFMu3Xgi7sWgaHS60PwS6Mi1w0KE6y8YNibVgqiTg/oMJkv4nkUzLzguqpwMOSLqCTrROPg5qkbZh7DmoPBv4yTLsILd/FZCoGV6aRwlzvEgQDv7vFZM/ZVstkP6FQYBt5V4ODwVtsIy/wmX0dKbrpGgBkVkiRbOlS3YL/WSZ5hmi8LhDpdxgus0gLKIqJJnKXREkua0qRM4wizql6kEcsxy2lCa8qQJSmDyfJoC1bdE5xNfkJQqDxjyydgRWLkDsVLw99QNKZ1bBrnwdF2k0q2Xx98hbW/8tyhQ9dgHfbQCX/mQ21QOSmNEppFrGTWZszqPFssalqWBVohjrOkKBlkSV7ZGIWD1J2Ram8DD76AHl0GDf3AkdzCPRCHWLIeOd+e9cm3fBCown+gFZcC3S449BK81npd+26BtN2gpjPtSOeV7MP/pJlb7P3dKM2H2emYMP/q7VmsoUm8DOFqKpLLxvbrVRX+8TjzXTO3NmFvYxzXsTc2s0etoZkatHE/znMuO5lp/K86PAGntfBnno92hvzs6SM+TnW46qwzN/s/mYgljQ==","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:57 GMT', 'Content-Length': '109'} \n body={\"id\":\"dfc73668-4462-4abc-a63c-3e7e088bf710\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*Arguments: [ {'id': 'dfc73668-4462-4abc-a63c-3e7e088bf710',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: 'dfc73668-4462-4abc-a63c-3e7e088bf710'","*${job_id} = dfc73668-4462-4abc-a63c-3e7e088bf710","*Get Build Status Without Auth","*<p>Query build status without authentication\x3c/p>","*Arguments: [ ${build_id}='dfc73668-4462-4abc-a63c-3e7e088bf710' ]","*api, /builds/${build_id}, expected_status=any","*Arguments: [ 'api' | '/builds/dfc73668-4462-4abc-a63c-3e7e088bf710' | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/dfc73668-4462-4abc-a63c-3e7e088bf710 HTTP/1.1\" 401 44","*GET Request : url=http://localhost:8080/builds/dfc73668-4462-4abc-a63c-3e7e088bf710 \n path_url=/builds/dfc73668-4462-4abc-a63c-3e7e088bf710 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/dfc73668-4462-4abc-a63c-3e7e088bf710 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:59 GMT', 'Content-Length': '44'} \n body={\"error\":\"authorization header is required\"} \n ","*${status_response}, ${HTTP_UNAUTHORIZED}","*Arguments: [ ${response}=&lt;Response [401]&gt; | ${expected_status}='401' ]","*Arguments: [ 401 | '401' ]","*Authentication Required For List Endpoint","*<p>Test that list endpoint requires authentication Validates: Requirements 8.4\x3c/p>","*Content-Type=application/json","*Arguments: [ 'Content-Type=application/json' ]","*Return: {'Content-Type': 'application/json'}","*${headers} = {'Content-Type': 'application/json'}","*Arguments: [ 'api' | '/builds' | headers={'Content-Type': 'application/json'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds HTTP/1.1\" 401 44","*GET Request : url=http://localhost:8080/builds \n path_url=/builds \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:59 GMT', 'Content-Length': '44'} \n body={\"error\":\"authorization header is required\"} \n ","*${response}, ${HTTP_UNAUTHORIZED}","*Verify JSON Content Type In Responses","*<p>Test that API responses have correct Content-Type Validates: Requirements 8.3\x3c/p>","*content-type","*Return: 'f0720a8f7114cc3b44a356b12e89a9bce05ea9a7'","*${hash} = f0720a8f7114cc3b44a356b12e89a9bce05ea9a7","*${commit_hash} = f0720a8f7114cc3b44a356b12e89a9bce05ea9a7","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='f0720a8f7114cc3b44a356b12e89a9bce05ea9a7' | ${branch}='main' ]","eNqdkU1PwzAMhv9KlEsv67KPjq7TNtEDZ9DYDaHK7dwPlDRVkvIh2H8naRckDiDBxZHix/br16mqeoGt0RvyQIL7m7v0kB5vD7uAfJDgfYhUYUk3xD2a1QgnzQQ0LZ2MWSgNKpcvZ/FiBusyns+joljmUQTL1VU+X+A6gSQvcLZCSCD2hQo7qRsj1ZutvoxqQaDrpUF0HMMneIbQcb6m7DnPPGRQm1C+tKjYT3zBZYtZr7jjt0Bqu8SO1sZ0esNY1Zi6z6eFFOyXXlOL0f3fa7YM9l7HQLk1KZeV9e6benoeoPOFdRZntr+wY7+MaU7/sVig1lANZh3tOHLp6i/Xm1qOqrylA5WO/xNC0R6ae7HX+Dps6Xb3kn18/AR/Z7Z6","eNqVkctOwzAQRX8l8oJukjrpgzShVPALiH00SScPZMfBDx6q8u+MXbqohJC6suQ5c3XvnRe0To9ltDgxjS0rI/8Y3iMcDZcwjCxm0FrUftSm+SqFXZtn2aZp1vVmA+vtfZ2tcFdAUTeYbhEKyGlH46TMYJX+psUTG0GiVzAgJ4HJG3xA4hEiWydEdZlbNDZRnyNq/gfaCDVi5bTw6B6inrw+st7ayZScd4PtXb1slOT/yCwJu3t3yj7E5ydg7HC7ChkKwz2HQwgpVEd9XaVg8xwzX2ZFgpJ2PDccbyxTojHQhYJeSTr61aLLONsrfdVwAJ7P/3HEkG4oLp6e8Cvk8OnI2bz4ARA5qHM=","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"f0720a8f7114cc3b44a356b12e89a9bce05ea9a7\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","eNqVUstuwjAQ/BXLqsolweFVIAVU/qG3qkKbsHm0dpzaTltE8+9dGzggVZU4reydHc3M7taUncLG2ZS9sLtjCwepYd+vB0dusOAp88WKCmFvhYK64RGHwqHxrSKZjxNYFPPRaJrnk2w6hcnsIRuNcbGEZZZjMkNYwpxmDLba1k6bAw0eeQMKPYMF1UqM3+ATYg8hZNFJubv0HVoX668GjfgDmkvd4K4z0kNXwCrSuuaVc61NhShrV3XZMNdK/EMzJNj9R6fdY3QqAcY3t7OQoNBcCdgEk1KXlNeVC973Efdh7ohQ0YzH1fsbw1RoLZQhoGeiZmcu2kznKm2uEg6A7ek/Yhxph/Ki6Qm/gw/vjpT1A/ZDN2AxN+joBILs0yt+x8OAvf4CpgC5tg==","*Return: '16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40'","*${signature} = 16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40","*Return: 'sha256=16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40'","*${signature} = sha256=16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40","eNqVUstOwzAQ/JXIQvSSNo/GeZS2ov/ADaFqnayTICcOtgNUJf+OHeihEkKqLyt5Z0czs3tQ9dhhb/TGe/buzgOchIRq2i3ORCEnG88VHTQIlQ46aHviE+AGlWvxMItDyHkWRUlZrlmSwJqmLIoxL6BgJYYUoYDMzigcpG6NVCc7eCY9dOgYNHSDwOUrvMPSQSySj0IcL32D2izlR48q+ANaCtnjcVTCQbfgNVbrjjTGDHoTBHVrmpGtStkF/9CsLOz+bZTmwf8pM4zsb2exgubmNoD9bFLI2uZ15YJMk09cmEdL2NkZh2urG8PsUGuo54CeLLX3y2U3M5pGqquEZ8Dh59/3CNodioumR/ycfTh3Vtm08L7sDei27sGMCu0V6AZimu6itErzkOY0KnnKK2Qhy3jMgBWcpnGRZGkRxVHCckgopeBs5LF9SMOSQhIuvJdvDwHIHQ==","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=16d6805851cf6fdeb0b7f2bab9f562947691214b8a4555a0a8f82222e50c5a40', 'Authorization': 'Bearer test-auth-token'}","eNqVkktvnDAUhff9FZYX9QbCI5jHNERNu+m+WVSqqtE1XB4J2NQ2TabT+e+xmWYRKYoUNsbc7x6fe8yN7tcZpTU78pMwWEZG/hEWPaAYlLr3mxYs1OxINXZ0R/xiogGhNdEMo6QBhc6i9qUuLtIYyq5IkqxpLkWWwSXPRZJiWUElGow5QgWF69G4KDNapQ+u8UglzOgVDMzLhOEd/IHQI47s1mnaP9ctGhuqB4k6egVtJiVxv+rJo1dABue1poO1i9lFUT/aYRUXjZqjN2QuHPbx96rsp+C8bBi9fr+KM7QVryK43oacVO/yejEFPZ0C6sPcO8HZ9XhubN8Z5ozGQL8FdOukyX8tdzOrHZR+kfAG3Jy/B4Siu8Pp2dNnfNzm8NM5Zyd/+94calMf2blp/At2VJLtCPuCoFGTbRp/UmjVPUoWfCDsq5LW/VTh7WFBj8KyTGOzdUZ3Rp2hH+G3VYTfx16CXTWGKc89awZwb3WSt3kZ85InTZd3LYpYFF0qQFQdz9MqK/IqSZNMlJBxzsFHVabuQR43HLKYnZx7fFywsdjujXVnmJqBPDDy6wnylPZq","eNqVk9tq3DAQhu/7FMIXNQR7fVgft9nQtBR6UWhpttC7ZSyPD1lZciQ5yWbZd6/kzdIESiG+sdF8M/rnn/GP7zcb8hPvJlSarMgk2brTelwFARMUWCeUXhVhEQYPWHVC7Mg7MoLuthZ8cdYh1CjV+uD+Uij96xa5dlfEHfe6E9yXpwtUEC+W0SJ0PeJeU4qj9r9wKuqetxZun/rRIzU2DDT+ZWzoIriwB58F50h1L7g93CGOPrD+Hp9j2tzqb/Yj2iiMI+spWDi4VSbDML/9r1Pl3/QtBz1J9OM0s6jqwHyto6zOijAt0og2WVNjFVZ5E1dQlU2axWWSZ2UUR0lVQJKmKYRQNEVsHkxDmkJyamsyDcv+Cc4iPyFIlESb9n0wQV+LHfKXgr8hb3Vn2STK3aNxsxL1fn1wJDbOitiXCqzBKhig547nQKNR2lAT5rGVkUdRQumyShJYplkVxViUUFYUwxShhNzkSByF6rWQe5N4cDgMaCsoGEaG/i3cg28RQzYTY9tzfNYtHjjK4B8oZYKj3QWLXgLpjNa1YxdImQ1qe91N1YKKIfhPmYXB3t9NQn/wTq8Zc67eXsUImoOXAVzNTTLRGr9edeEcj55jzdyagoPJsVxfv9HMAZWCdjZoY3+c51pmMvP4Xzk8A6e1cDzioJkhO2v6iI9zH7Y7o8zO/g/EsiaH","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:23:59 GMT', 'Content-Length': '109'} \n body={\"id\":\"66f89bc7-9080-474b-940a-556d048b791b\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*Arguments: [ {'id': '66f89bc7-9080-474b-940a-556d048b791b',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '66f89bc7-9080-474b-940a-556d048b791b'","*${job_id} = 66f89bc7-9080-474b-940a-556d048b791b","*Arguments: [ ${build_id}='66f89bc7-9080-474b-940a-556d048b791b' ]","*Arguments: [ 'api' | '/builds/66f89bc7-9080-474b-940a-556d048b791b' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/66f89bc7-9080-474b-940a-556d048b791b HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/66f89bc7-9080-474b-940a-556d048b791b \n path_url=/builds/66f89bc7-9080-474b-940a-556d048b791b \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/66f89bc7-9080-474b-940a-556d048b791b \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:01 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*${status_response.headers}, Content-Type","*Arguments: [ {'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:01 GMT', 'Content-Length': '40'} | 'Content-Type' ]","*Verify HTTP Status Codes","*<p>Test that API returns appropriate HTTP status codes Validates: Requirements 8.5\x3c/p>","*status-codes","*Return: 'da334a2e5e0406b932e428446824c2092b374a93'","*${hash} = da334a2e5e0406b932e428446824c2092b374a93","*${commit_hash} = da334a2e5e0406b932e428446824c2092b374a93","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='da334a2e5e0406b932e428446824c2092b374a93' | ${branch}='main' ]","eNqdkU1PwzAMhv9KlMsu6zK1YazVNtEDZ9DYDaHJ29wPlDRVkvIh2H8naZtJHECCiyPFj+3Xr3NddhIbazLySCYPt/f5Nt/dbdcT8kkmH32kGguaEf8YViGcDJNQN3Q6ZKGwqH3+BEnCIcYrnPP54pAmMfJ4yfliGfNjPE/jQ3LNIU1CocZWmdoq/e6qx1ENSPS9DMhWYPQMLxB5LtQUnRD7AFk0NlKvDWr2E38UqsF9p4XnV0Aqt8SaVta2JmOsrG3VHWZHJdkvvWYOo5u/16wYbIKOnvJrUqFK59039fTcQ+eR9RbvXX/pxl6MqU//sViiMVD2Zu3cODJ2DZfrbKUGVcHSnsqH/ymh6A4tgtgbfOu39LsHySE+fQHb47Q4","eNqVkctqwzAQRX/FaNFs7MjYahq7aWh/oXRvxs74EWTL1aMPgv+9I6VZBEohK4HmzOXeO69onZ7KaHViGltWRv4xvEc4GD7CMLGYQWtR+9EB8lxAhveYinRTF3mGItsKsdlmosnSIqvzBwFFTjsaZ2UGq/Q3LZ7YBCN6BQPjLDE5wgckHiGydVJWl7lFYxP1OaHmf6CNVBNWTkuP7iDqyesT662dTcl5N9je1etGjfwfmTVhd+9O2cf4/ASM7W9XIUNhuOOwDyGl6qivqxRsWWLmy6xIcKQdzw2HG8sc0RjoQkFvJB39atFlnO2Vvmo4AC/n/zhiSDeUF0/P+BVy+HTkbFn9ALc3pjE=","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"da334a2e5e0406b932e428446824c2092b374a93\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","eNqVUtFuwjAM/JUomsZLS1CbMWCAxj/sbZqQaU3bLWm6JN2GWP99ThgPSNMknqzE59Pd2Rtb9Rpb7xbsmd0cOzgoA+WwGh25xT1fsFCcqBFKJzQ0LU847D3a0CohzyVkeIcTOZnu5nmGMptJOZ1lssgm82yX30uY5zRjsTOu8cYeaPDIW9AYGBzoTmH6Ch+QBggh971S23Pfo/Op+WzRij+ghTItbnurAnQJrCatK15737mFEFXj6343LowW/9CMCXb73hv/kJxKhPH19SwkKDaXAtbRpDIV5XXhgg9DwkOYWyLUNBNwTXllmBqdgyoG9ETU7JeLNtP72tiLhCNgc/pPGEfaoTpresSv6CO4I2XDiH3TDTgsLHo6gSj79Erf8DBiLz8Ezbd0","*Return: '0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412'","*${signature} = 0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412","*Return: 'sha256=0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412'","*${signature} = sha256=0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412","*${webhook_response}","eNqVkkFugzAQRa+CrKrZkAC2IXaaRM0duquqaAwToAJMbdM2SnP3GtosIlWVsrLkefP158/sTDm02Dm7Cp6Du1MPx0ZDcd7MTsTggayC8bFRhVDYqIW6IyGBg0MzlgpgjAPFFGMeZ0oyipwKzjNBeU5jSRVbcpDM9xjsta2dNkffeCIdtDgqWGj7Buev8A7zEfHkYWia/aXu0Lq5/ujQRH+geaM73A+mGdE1BJX3uiGVc71dRVFZu2pQi1y30T8yC4/dvw3aPYQ/z4SR7e0q3tBUXEewnYZsdOnzupqCnM8hGcPce8HW94xcXdwYZovWQjkF9OSlg18tv5nBVdpcJTwBu5//MCDod9hcPD3i5zTHOJ13dp4FX/4GbF124AaD/gpsBTTNNjEuVaJSJvLU28glqIyC4MAEkxlliVTiIHJZiEzFSiQYp2zJMhYrKZcJT+gsePkG31PFVA==","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=0e7b1b538c52b3c9ab62a84a383962319b8f8c9d86b0b81e05373630b9971412', 'Authorization': 'Bearer test-auth-token'}","eNqVkkFvnDAQhe/9FZYP9QUC2CwL2xA17aX35lCpqlZjmAUSsKltmmy3+99js80hUlUpJwPzzfN7M9yabplQObsj3wmDeWDkD2HJI8pe64fw0oKDmp2owQPdkXDYpEdobTLBoGhE4eDQhFILQuTAcYNpnhayEhxzXuZ5UfK84WnFpdjmUAnfY3DWdnDaHH3jiSqYMChYmOYR43v4BXFAPHlYxnH/UndoXawfFZrkH2gzaoX7xYwBvQbSe6817Z2b7S5JusH1i7xq9JT8R+bKY+9/Ltp9iC7HitGbt6t4Q2vxOoGbNeSoOz+vVyno+RzRMMy9F5x8T+CG9o3DnNBa6NYB3Xlp8lfLb2ZxvTavJrwCt5fvEaHodzi+ePqIT2uOkM47O4ftB3NobH1il6bhN7hBK7Yj7BOCQUPWNOGm2OkHVCx6R9hnrZz/qeK744wBhXkeh2btTO6tvkDf4i+LjL8OnQK3GIz5pgis7cE/1SluZSY3omw2PmpTgSw4lDmIUlQFF1kly0PZVG1ZyFSWGaYbsRWFSGVVbbM84+zs3ePTjI3Ddm+dv8PWDNSRkR/Pm33zoQ==","eNqVk11r2zAUhu/3K4wvZih2/CHHsbOmrBuDXQw21gx2F47kE9uNLLmS3DYN+e+TnIa1MAa9ktH7nKP3fPjH95u19xPvRtTGW3qj4qvWmGEZx1wy4K3UZlkmZRI/IG2l3HnvvAFMu3Hgi7sWoUalV4fgl0YVXTcoTLD0gmFvWikidXpAx9mMpLMkCL3gmjEcTPRFMFl3onFw89QNoVfjloPBv4yTLuILd/FZCoHMdFK4yx3iEAHv7vFZM/bVaL0f0KkwDLxj4OD4VtsIy/yOvo40uukaAWZUGGXzwqG6Bfu1SnBBUzonJZtnlLAKaJFBmQMpSVVkJK1ouS1ZVZcFTWiZYjInC1KQhFbVIs3TbLI82oJV9wRnk58QFCrP2PIjsGJk5A7FS8PfUDSmdWyeLoKj7SaV9X518BVu/aXnDh27Buu4h074oQ9bg8pJNRCSQ4ZzTPKkoBXJMM/KPC/KLGdZUtkyFjlUxMYoHKTujFR7G3jwBfToMmjoB47RLdxD5BBLbkfON2d98i0fBKr4HyjjUqDbBYdegtdaryvfLZC2G9R0ph3pjMk+/k+amcXe343SfAhPx4T5V2/PYg1N4mUMV1ORXDa2X6+q8I/H0HfN3NiEvY1xXFe/sZk9ag3N1KC1+3Gec9nJTON/1eEJOK2FH3o+2hnys6eP+DjV4aqzztzs/wAtNyO+","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:01 GMT', 'Content-Length': '109'} \n body={\"id\":\"486d302d-7fa6-41bc-ad45-c071a42f6691\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*${webhook_response} = &lt;Response [202]&gt;","*${webhook_response}, ${HTTP_ACCEPTED}","*${webhook_response.json()}, id","*Arguments: [ {'id': '486d302d-7fa6-41bc-ad45-c071a42f6691',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '486d302d-7fa6-41bc-ad45-c071a42f6691'","*${job_id} = 486d302d-7fa6-41bc-ad45-c071a42f6691","*Arguments: [ ${build_id}='486d302d-7fa6-41bc-ad45-c071a42f6691' ]","*Arguments: [ 'api' | '/builds/486d302d-7fa6-41bc-ad45-c071a42f6691' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/486d302d-7fa6-41bc-ad45-c071a42f6691 HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/486d302d-7fa6-41bc-ad45-c071a42f6691 \n path_url=/builds/486d302d-7fa6-41bc-ad45-c071a42f6691 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/486d302d-7fa6-41bc-ad45-c071a42f6691 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:03 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*fake-id-12345","*${not_found_response}","*${not_found_response}, ${HTTP_NOT_FOUND}","*${unauth_response}","*${unauth_response}, ${HTTP_UNAUTHORIZED}","*Query Build With Complete Information","*<p>Test that build status includes all required information Validates: Requirements 8.2, 8.3\x3c/p>","*detailed","*Dictionary does not contain key 'id'.","*Return: '50f4d620e14ca2bdb4e536585a580766a5dddeb7'","*${hash} = 50f4d620e14ca2bdb4e536585a580766a5dddeb7","*${commit_hash} = 50f4d620e14ca2bdb4e536585a580766a5dddeb7","*Arguments: [ ${repo_name}='sample-java-repo' | ${commit_hash}='50f4d620e14ca2bdb4e536585a580766a5dddeb7' | ${branch}='main' ]","eNqdkU1PwzAMhv9KlEsv21JG203TNtEDZ9DYDaHJbdwPlDRTkvIh2H8naZdJHECCiyPFj+3Xr3Nd9xI7a1bkkUQPt/f5Lt/f7TYR+STRxxCpxoquiH8MaxC4YRLajk7GLFQWtc+ncZXwbB7jVVLCvOBFgul1li5TSJfxIssg5ZxjsQiFGo/KtFbpd1d9HtWBRN/LgDwKnD7DC0w9F2qqXohDgCwaO1WvHWr2E18K1eGh18LzayCNW2JDG2uPZsVY3dqmL2alkuyXXjOH0e3fa9YMtkHHQPk1qVC18+6benoaoNOZ9RYfXH/pxl6Mafl/LJZoDNSDWXs3jpy7hsv1tlGjqmDpQOXj/4RQdIcWQewNvg1b+t2D5BCfvgCOvraE","eNqVkc1qwzAQhF/F6NBc7MhNbSe4aWhfofRu1tb6J0iWK8n9Ifjdu1KaQ6AUchJovx1mZl/RzWYso9WJGWxZGfnH8h5BWK5gGFnMoHVo/ChP20wUmxTvswY2tagzzB+KfJdDvku3RQG5EALrLe0YnLQdnDbftHhiIyj0ChbUJDE5wgckHiGynaWsLnOH1iX6c0TD/0AbqUesZiM9uoeoJ69PrHdusiXn3eD6uV43WvF/ZNaE3b3P2j3G5ydg7HC7ChkKwz2HQwgpdUd9XaVgyxIzX2ZFgop2PDeIG8tUaC10oaA3ko5+tegys+u1uWo4AC/n/zhiSDeUF0/P+BVy+HTkbFn9AB5GqH0=","*${payload} = {\"ref\": \"refs/heads/main\",\"after\": \"50f4d620e14ca2bdb4e536585a580766a5dddeb7\",\"repository\": {\"name\": \"sample-java-repo\",\"full_name\": \"test-owner/sample-java-repo\",\"clone_url\": \"<a href=\"https://github.com/test\">https://github.com/test\x3c/a>...","eNqVUstOwzAQ/BXLQvSSNKU0aRXaiv4DN4SqTbx5gB0H2wGqkn9n7dJDJYTU08re2dHM7O5MPSjsnM3ZM7s59nCQGsS4mRy5wYrnzBebNAjCJgrajkccKofGt9JZtRDZfIZ3ixLmhSgWmN5n6SqFdDVbZhmkQggsljRjsNe2ddocaPDIO1DoGSyoXmL8Ch8Qewghq0HK/bnv0LpYf3Zokj+gpdQd7gcjPXQNrCGtG94419s8SerWNUMxLbVK/qGZEuz2fdDuITqVAOPb61lIUGiuE9gGk1LXlNeFCz6OEfdh7olQ0YzHteLKMBVaC3UI6Imo2S8XbWZwjTYXCQfA7vQfMY60Q3nW9IhfwYd3R8rGCfumG7BYGnR0AkH26RW/4WHCXn4AtU25wA==","*Return: '0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7'","*${signature} = 0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7","*Return: 'sha256=0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7'","*${signature} = sha256=0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7","eNqVkt1OwzAMhV8lihC76dauTdpubBN7B+4QmtzG/UFtU5IUmMbeHbewi0kIaVeR4s9Hx8fem3JosXN2zZ7Z3amHY6NBnbezEzdY8DUbH+tXCMr6LdQd9zgUDs1YkkEhVBwGuBQ5hJnKBMoolqkEmQZJHINUSmGWUI/BXtvaaXOkxhPvoMVRwULbNzh/hXeYjwiRxdA0h0vdoXVz/dGh8f9A80Z3eBhMM6IbYBV53fLKud6ufb+sXTVki1y3/j8yC8Lu3wbtHryfZ8L47nYVMjQVNz7spiEbXVJeV1Pw89njY5gHEmypZ+RqdWOYLVoL5RTQE0mzXy3azOAqba4SnoD9z7/HONIOm4unR/yc5hinI2fnGfuiG7B12YEbDNIV2ApCGW+DJImFDFQRrLIgWoY5pFKS17wQS4WrVEUQ50rGRaIAgyKVEWAeylDgSogQkhl7+QYWG8iK","*Return: {'Authorization': 'Bearer test-auth-token',\n 'Content-Type': 'application/json',\n 'X-Hub-Signature-256': 'sha256=0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7'}","*${headers} = {'Content-Type': 'application/json', 'X-Hub-Signature-256': 'sha256=0776450df09b0312ca855620cf41de98d3a6cd56f7dae0f853aec2524e9442a7', 'Authorization': 'Bearer test-auth-token'}","eNqVkk9vnDAQxe/9FJYP9QUCy2JgtyFq2kvvzaFSVa0Ge/iTgE1t02S73e8em20OkapKORmY3zy/ecOt6ZYJlbN78p0wmAdG/hCWPGLTa/0QXiQ4qNmJGmzpnoTDJj2CtMkEg6IRhdahCSWetrksshQ3uYCskU2OfFvwigOv0rIogEspsSl9j8FZ28Fpc/SNJ6pgwqBgYZpHjO/hF8QB8WS7jOPhpe7Qulg/KjTJP1AxaoWHxYwBvQbSe6817Z2b7T5JusH1S3Ml9JT8R+bKY+9/Ltp9iC7HitGbt6t4Q2vxOoGbdchRdz6vV1PQ8zmiIcyDF5x8T+AG+cYwJ7QWujWgOy9N/mr5zSyu1+ZVwitwe/keEYp+h+OLp4/4tM4RpvPOzmH7wRwaW5/YpWn4DW7Qiu0J+4Rg0JB1mnBT7PQDKha9I+yzVs7/VPHdccaAwjyPg1g7k3urL9C3+MvSxF+HToFbDMYZLwJre/BPdVqWRc5T2aa7Jt1uMgEV5z4P0eYbibtKbqEQkhdtKQHTtuJbQJHxLMddnmdQsrN3j08zCofyYJ2/w9YM1JGRH88ISvbX","eNqVk11r2zAUhu/3K4QvZih27DiW7WRNWTcGuxhsrBnsLhxLxx+NLbmS3DYN+e+TnIa1MAa9ktH7nKP3fPjH95sN+Yl3I2pDVmRU3boxZlhFUScZdI3UZlXERRw9YNlIuSPvyACm2TrwxV2DwFHp9cH/pVGF1zUK46+IP+xNI0WoTg/oKJkt5rPYD4h/zRgOJvwimOStqB1cP7VDQDhWHRj8yzjpIrpwF5+lEMhMK4W73CEOIXTtPT5rxr4abvYDOhWGoWsZODi61TbCMr/Dr2MZ3rS1ADMqDBOaOVQ3YL/WcZ5nKY15FS/LeDFPGBSUZknMqnTOcVnwBWSM06zKOWBcFXQByBKapLhM0wTyyfJoC1btE5xNfkJQqIix5YdgxdDIHYqXhr+hqE3j2HSe+0fbzVLy/frgKay8FXGHjlyDddRDK7zAg8qgchKNq5RbhzhPGSQlL1Oki4wWFGgR51kGlHOOZW5jFA5St0aqvQ08eAJ6dBk09EOH4S3cQ+gQS1Zj123P+uRbPghU0T9Q1kmBbhccegmksV7XnlsgbTeobk0zljMm++g/aWYWe383SvMhOB0T5l29PYs1NImXEVxNRXaytv16VYV3PAaea+bWJuxtjONa/sZm9qg11FODNu7Hec5lJzON/1WHJ+C0Fl5APLQz7M6ePuLjVIerzjpzs/8Dp+cm9A==","*POST Response : url=http://localhost:8080/webhook \n status=202, reason=Accepted \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:04 GMT', 'Content-Length': '109'} \n body={\"id\":\"060e24ff-a17e-43d0-b7d3-f74283896370\",\"status\":\"accepted\",\"message\":\"build job enqueued successfully\"} \n ","*Arguments: [ {'id': '060e24ff-a17e-43d0-b7d3-f74283896370',\n 'message': 'build job enqueued successfully',\n 'status': 'accepted'} | 'id' ]","*Return: '060e24ff-a17e-43d0-b7d3-f74283896370'","*${job_id} = 060e24ff-a17e-43d0-b7d3-f74283896370","*5s","*Arguments: [ '5s' ]","*Slept 5 seconds","*Arguments: [ ${build_id}='060e24ff-a17e-43d0-b7d3-f74283896370' ]","*Arguments: [ 'api' | '/builds/060e24ff-a17e-43d0-b7d3-f74283896370' | headers={'Authorization': 'Bearer test-auth-token'} | expected_status='any' ]","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /builds/060e24ff-a17e-43d0-b7d3-f74283896370 HTTP/1.1\" 401 40","*GET Request : url=http://localhost:8080/builds/060e24ff-a17e-43d0-b7d3-f74283896370 \n path_url=/builds/060e24ff-a17e-43d0-b7d3-f74283896370 \n headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer test-auth-token'} \n body=None \n ","*GET Response : url=http://localhost:8080/builds/060e24ff-a17e-43d0-b7d3-f74283896370 \n status=401, reason=Unauthorized \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:09 GMT', 'Content-Length': '40'} \n body={\"error\":\"invalid authentication token\"} \n ","*Arguments: [ {'error': 'invalid authentication token'} ]","*Return: {'error': 'invalid authentication token'}","*${job_data} = {'error': 'invalid authentication token'}","*Arguments: [ {'error': 'invalid authentication token'} | 'id' ]","*Traceback (most recent call last):\n  None\nAssertionError: Dictionary does not contain key 'id'.","*${repo_info}","*${repo_info}, name","*${repo_info}, owner","*${repo_info}, url","*${job_data}, branch","*Run Keyword If","*<p>Runs the given keyword with the given arguments, if <code>condition\x3c/code> is true.\x3c/p>","*'${status}' in ['running', 'completed', 'failed'], Dictionary Should Contain Key, ${job_data}, started_at","*'${status}' in ['completed', 'failed'], Dictionary Should Contain Key, ${job_data}, completed_at","*'${status}' in ['completed', 'failed'], Dictionary Should Contain Key, ${job_data}, duration","*Verify API Response Time","*<p>Test that API responds within acceptable time Validates: Requirements 8.1\x3c/p>","*performance","*Get Time","*<p>Returns the given time in the requested format.\x3c/p>","*epoch","*${start_time}","*Arguments: [ 'epoch' ]","*Return: 1771464249","*${start_time} = 1771464249","*<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a> \"GET /health HTTP/1.1\" 200 122","*GET Response : url=http://localhost:8080/health \n status=200, reason=OK \n headers={'Content-Type': 'application/json; charset=utf-8', 'Date': 'Thu, 19 Feb 2026 01:24:09 GMT', 'Content-Length': '122'} \n body={\"status\":\"healthy\",\"timestamp\":\"2026-02-19T01:24:09.305821596Z\",\"uptime\":\"20m48.00881985s\",\"checks\":{\"nats\":\"connected\"}} \n ","*${end_time}","*${end_time} = 1771464249","*${end_time} - ${start_time}","*${response_time}","*Arguments: [ '1771464249 - 1771464249' ]","*Return: 0","*${response_time} = 0","*Should Be True","*<p>Fails if the given condition is not true.\x3c/p>","*${response_time} &lt; 5","*Arguments: [ '0 &lt; 5' ]","*Setup Test Environment","*<p>Initialize test environment and create HTTP session\x3c/p>","*Create Session","*<p>Create Session: create a HTTP session to a server\x3c/p>","*api, ${API_BASE_URL}, verify=False","*Arguments: [ 'api' | '<a href=\"http://localhost:8080\">http://localhost:8080\x3c/a>' | verify=False ]","*Creating Session using : alias=api, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 ","*Creating session: api","*Return: &lt;requests.sessions.Session object at 0x000001CF6718E660&gt;","*Teardown Test Environment","*<p>Clean up test environment\x3c/p>","*Delete All Sessions","*<p>Removes all the session objects\x3c/p>","*Deleting All Sessions"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:00","fail":8,"label":"All Tests","pass":3,"skip":0}],[{"elapsed":"00:00:00","fail":8,"label":"api","pass":3,"skip":0},{"elapsed":"00:00:00","fail":2,"label":"auth","pass":1,"skip":0},{"elapsed":"00:00:00","fail":1,"label":"content-type","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"label":"detailed","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"label":"happy-path","pass":0,"skip":0},{"elapsed":"00:00:00","fail":0,"label":"health","pass":1,"skip":0},{"elapsed":"00:00:00","fail":1,"label":"list","pass":0,"skip":0},{"elapsed":"00:00:00","fail":2,"label":"negative","pass":1,"skip":0},{"elapsed":"00:00:00","fail":0,"label":"performance","pass":1,"skip":0},{"elapsed":"00:00:00","fail":2,"label":"security","pass":1,"skip":0},{"elapsed":"00:00:00","fail":3,"label":"status","pass":0,"skip":0},{"elapsed":"00:00:00","fail":1,"label":"status-codes","pass":0,"skip":0}],[{"elapsed":"00:00:01","fail":8,"id":"s1","label":"Api","name":"Api","pass":3,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:17","fail":6,"label":"All Tests","pass":5,"skip":0}],[{"elapsed":"00:00:17","fail":6,"label":"api","pass":5,"skip":0},{"elapsed":"00:00:04","fail":1,"label":"auth","pass":2,"skip":0},{"elapsed":"00:00:02","fail":0,"label":"content-type","pass":1,"skip":0},{"elapsed":"00:00:05","fail":1,"label":"detailed","pass":0,"skip":0},{"elapsed":"00:00:02","fail":1,"label":"happy-path","pass":0,"skip":0},{"elapsed":"00:00:00","fail":0,"label":"health","pass":1,"skip":0},{"elapsed":"00:00:02","fail":1,"label":"list","pass":0,"skip":0},{"elapsed":"00:00:02","fail":1,"label":"negative","pass":2,"skip":0},{"elapsed":"00:00:00","fail":0,"label":"performance","pass":1,"skip":0},{"elapsed":"00:00:04","fail":1,"label":"security","pass":2,"skip":0},{"elapsed":"00:00:07","fail":3,"label":"status","pass":0,"skip":0},{"elapsed":"00:00:02","fail":1,"label":"status-codes","pass":0,"skip":0}],[{"elapsed":"00:00:17","fail":6,"id":"s1","label":"Api","name":"Api","pass":5,"skip":0}]];
 </script>
 <script type="text/javascript">
-window.output["errors"] = [[20,3,306],[20,3,307],[20,3,308],[20,3,309],[20,3,310],[20,3,311],[20,3,312],[20,3,313],[20,3,314]];
+window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1771358925847;
+window.output["baseMillis"] = 1771464231521;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 675;
+window.output["generated"] = 17497;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
 </script>
 <script type="text/javascript">
-window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
+window.settings = {"defaultLevel":"TRACE","minLevel":"TRACE","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
 </script>
 <title></title>
 </head>
-<body data-theme="dark">
+<body>
 <div id="javascript-disabled">
   <h1>Opening Robot Framework log failed</h1>
   <ul>
@@ -2111,13 +1844,12 @@ window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.h
   </ul>
 </div>
 <script type="text/javascript">removeJavaScriptDisabledWarning();</script>
+
 <div id="header"></div>
 <div id="statistics-container"></div>
 
 <script type="text/javascript">
 $(document).ready(function() {
-    storage.init();
-    theme.init(storage);
     try {
         var topsuite = window.testdata.suite();
     } catch (error) {
@@ -2125,7 +1857,6 @@ $(document).ready(function() {
         return;
     }
     initLayout(topsuite.name, 'Log');
-    theme.reflectPreference();
     addStatistics();
     addErrors();
     addExecutionLog(topsuite);
@@ -2153,9 +1884,8 @@ function addErrors() {
     var errors = window.testdata.errorIterator();
     if (errors.hasNext()) {
         $.tmpl('errorHeaderTemplate').appendTo($('body'));
-        drawErrorsRecursively(errors, $('#errors .messages'));
+        drawErrorsRecursively(errors, $('#errors'));
     }
-    toggleElement('errors');
 }
 
 function drawErrorsRecursively(errors, target) {
@@ -2167,6 +1897,25 @@ function drawErrorsRecursively(errors, target) {
         // Errors may have moved scroll position. Resetting location re-scrolls.
         if (window.location.hash)
             window.location.replace(window.location.hash);
+        highlightLinkTarget();
+    }
+}
+
+function highlightLinkTarget() {
+    if (window.location.hash) {
+        var target = $(window.location.hash);
+        highlight(target);
+    }
+}
+
+function highlight(element, color) {
+    if (color === undefined)
+        color = 242;
+    if (color < 255) {
+        element.css({'background-color': 'rgb('+color+','+color+','+color+')'});
+        setTimeout(function () { highlight(element, color+1); }, 300);
+    } else {
+        element.css({'background-color': ''});
     }
 }
 
@@ -2184,12 +1933,13 @@ function makeElementVisible(id) {
             expandFailed(window.testdata.findLoaded(util.last(ids)));
             window.location.hash = id;
             document.getElementById(id).scrollIntoView();
+            highlightLinkTarget();
         }
     });
 }
 
 function addExecutionLog(main) {
-    $('body').append('<h2>Execution Log</h2>',
+    $('body').append($(testOrTask('<h2>{Test} Execution Log</h2>')),
                      $.tmpl('suiteTemplate', main));
 }
 </script>
@@ -2207,7 +1957,7 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="tagStatisticsRowTemplate">
   <tr class="row-${$item.index}">
-    <td class="stats-col-name" title="${doc}">
+    <td class="stats-col-name" title="{{html doc}}">
       <div class="stat-name">
         <span>{{html label}}</span>
         {{if info}}(${info}){{/if}}
@@ -2234,31 +1984,20 @@ function addExecutionLog(main) {
 </script>
 
 <script type="text/x-jquery-tmpl" id="errorHeaderTemplate">
-  <h2>Execution Errors</h2>
-  <div id="errors">
-    <div class="element-header closed" onclick="toggleElement('errors')">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label error">ERRORS</div>
-      <div class="name">Errors and warnings during execution</div>
-    </div>
-    <div class="children">
-      <table class="messages"></table>
-    </div>
-  </div>
+  <h2>{{= testOrTask('{Test}')}} Execution Errors</h2>
+  <table id="errors"></table>
 </script>
 
 <script type="text/x-jquery-tmpl" id="errorTemplate">
   <tr id="${id}" class="message-row">
-    <td class="time">
+    <td class="error-time">
       {{if link}}
       <a onclick="makeElementVisible('${link}')" href="#${link}" title="Link to details">${date} ${time}</a>
       {{else}}
       ${date} ${time}
       {{/if}}
     </td>
-    <td class="${level.toLowerCase()} level">
-      <span class="label ${level.toLowerCase()}">${level}</span>
-    </td>
+    <td class="${level.toLowerCase()} level"><span class="label ${level.toLowerCase()}">${level}</span></td>
     <td class="message">{{html text}}</td>
     <td class="select-message" onclick="javascript:selectMessage('${id}')" title="Select message text">
       <div></div>
@@ -2268,18 +2007,18 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="suiteTemplate">
   <div id="${id}" class="suite">
-    <div class="element-header closed" onclick="toggleSuite('${id}')"
-         title="SUITE  {{html name}}  [${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">SUITE</div>
-      <div class="name">{{html name}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)" title="">
+    <div class="element-header closed" onclick="toggleSuite('${id}')">
+      <div class="element-header-left" title="SUITE  {{html name}}  [${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">SUITE</span>
+        <span class="name">{{html name}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)" title="">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" onclick="makeElementVisible('${id}')"
-           title="Link to this suite" href="#${id}"></a>
+        <a class="link" title="Link to this suite" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata">
@@ -2330,18 +2069,18 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="testTemplate">
   <div id="${id}" class="test">
-    <div class="element-header closed" onclick="toggleTest('${id}')"
-         title="{{= testOrTask('{TEST}')}}  {{html name}}  [${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">{{= testOrTask('{TEST}')}}</div>
-      <div class="name">{{html name}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)" title="">
+    <div class="element-header closed" onclick="toggleTest('${id}')">
+      <div class="element-header-left" title="{{= testOrTask('{TEST}')}}  {{html name}}  [${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">{{= testOrTask('{TEST}')}}</span>
+        <span class="name">{{html name}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)" title="">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" href="#${id}" onclick="makeElementVisible('${id}')"
-           title="Link to this {{= testOrTask('{test}')}}"></a>
+        <a class="link" title="Link to this {{= testOrTask('{test}')}}" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata">
@@ -2388,20 +2127,20 @@ function addExecutionLog(main) {
 
 <script type="text/x-jquery-tmpl" id="keywordTemplate">
   <div id="${id}" class="keyword">
-    <div class="element-header closed" onclick="toggleKeyword('${id}')"
-         title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
-      <div class="element-header-toggle" title="Toggle visibility"></div>
-      <div class="label ${status.toLowerCase()}">${type}</div>
-      {{if assign}}<div class="assign">{{html assign}}&nbsp;=</div>{{/if}}
-      <div class="name">{{if libname}}<span class="parent-name">{{html libname}} . </span>{{/if}}{{html name}}</div>
-      <div class="arg">{{html arguments}}</div>
-      <div class="elapsed" title="Elapsed time">${times.elapsedTime}</div>
-      <div class="element-header-menu" onclick="stopPropagation(event)">
+    <div class="element-header closed" onclick="toggleKeyword('${id}')">
+      <div class="element-header-left" title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
+        <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
+        <span class="label ${status.toLowerCase()}">${type}</span>
+        <span>{{html assign}}</span>
+        <span class="name"><span class="parent-name">{{html libname}}{{if libname}} . {{/if}}</span>{{html name}}</span>
+        <span class="arg">{{html arguments}}</span>
+      </div>
+      <div class="element-header-right" onclick="stopPropagation(event)">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" onclick="makeElementVisible('${id}')"
-           title="Link to this item" href="#${id}"></a>
+        <a class="link" title="Link to this item" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
+      <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
     <div class="children">
       <table class="metadata keyword-metadata">
@@ -2427,12 +2166,6 @@ function addExecutionLog(main) {
           <th>Start / End / Elapsed:</th>
           <td>${times.startTime} / ${times.endTime} / ${times.elapsedTime}</td>
         </tr>
-        {{if message()}}
-        <tr>
-          <th>Message:</th>
-          <td class="message">{{html message()}}</td>
-        </tr>
-        {{/if}}
       </table>
     </div>
   </div>
@@ -2455,7 +2188,6 @@ function addExecutionLog(main) {
   <div id="log-level-selector">
   Log level:
     <select onchange="logLevelSelected(this.options[selectedIndex].value)">
-      <option value="3">WARN</option>
       <option value="2">INFO</option>
       <option value="1">DEBUG</option>
       {{if showTrace()}}<option value="0">TRACE</option>{{/if}}

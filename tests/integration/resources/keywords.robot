@@ -19,10 +19,14 @@ Teardown Test Environment
     [Documentation]    Clean up test environment
     Delete All Sessions
 
+Generate Auth Token
+    [Documentation]    Generate a valid authentication token (placeholder)
+    [Return]    Bearer ${AUTH_TOKEN}
+
 Generate HMAC Signature
     [Arguments]    ${payload}    ${secret}
     [Documentation]    Generate HMAC-SHA256 signature for webhook payload
-    ${signature}=    Evaluate    __import__('hmac').new(b'${secret}', b'${payload}', __import__('hashlib').sha256).hexdigest()
+    ${signature}=    Evaluate    __import__('hmac').new($secret.encode(), $payload.encode(), __import__('hashlib').sha256).hexdigest()
     [Return]    sha256=${signature}
 
 Create Webhook Payload
@@ -52,6 +56,7 @@ Send Webhook
     ${headers}=    Create Dictionary    
     ...    Content-Type=application/json
     ...    X-Hub-Signature-256=${signature}
+    ...    Authorization=Bearer ${AUTH_TOKEN}
     ${response}=    POST On Session    api    /webhook    data=${payload}    headers=${headers}    expected_status=any
     [Return]    ${response}
 

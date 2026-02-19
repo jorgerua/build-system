@@ -44,13 +44,14 @@ GitHub Webhook → API Service → NATS → Worker Service → Build Pipeline
 1. Clone o repositório:
 ```bash
 git clone <repository-url>
-cd oci-build-system
+cd build-system
 ```
 
-2. Configure as variáveis de ambiente:
+2. Copie o arquivo env de exemplo e check as variáveis de ambiente:
 ```bash
 cp .env.example .env
-# Edite .env e configure GITHUB_WEBHOOK_SECRET
+cat .env
+# Edite .env se necessário
 ```
 
 3. Inicie os serviços com Docker Compose:

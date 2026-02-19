@@ -12,6 +12,8 @@ YELLOW := \033[0;33m
 RED := \033[0;31m
 NC := \033[0m # No Color
 
+# Env Vars
+
 help: ## Mostra esta mensagem de ajuda
 	@echo "$(GREEN)OCI Build System - Comandos disponíveis:$(NC)"
 	@echo ""
