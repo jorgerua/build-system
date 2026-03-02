@@ -2,7 +2,7 @@
 
 Projeto greenfield — não existe serviço de build de containers atualmente. O monorepo alvo usa Nx como build system e hospeda múltiplos projetos em Go, Java e .NET sob a convenção `apps/<project>`. O cluster Kubernetes já existe e roda NATS e TiDB como infraestrutura compartilhada. Datadog já está presente como solução de observabilidade.
 
-O serviço será composto por dois binários Go: um **webhook server** (HTTP) e um **worker** (consumer NATS), ambos usando a stack fx/zap/viper.
+O serviço será composto por dois binários Go: um **webhook server** (HTTP) e um **worker** (consumer NATS), ambos usando a stack fx/zap/viper. A versão mínima de Go é **1.26**.
 
 ## Goals / Non-Goals
 
@@ -224,3 +224,49 @@ CREATE TABLE build_records (
 - **NATS JetStream message replay em caso de crash** → At-least-once delivery pode causar builds duplicados. Mitigação: idempotência baseada em SHA+project no TiDB (verificar se versão já foi buildada).
 - **Conventional Commits dependem de disciplina dos devs** → Default patch garante que builds nunca fiquem bloqueados, mesmo com mensagens fora do padrão.
 - **TiDB como ponto de falha** → Se TiDB estiver indisponível, workers não conseguem resolver versões. Mitigação: health checks + retry com backoff na conexão.
+
+## Desenvolvimento Local
+
+O ambiente local é provisionado com Docker Compose (`docker-compose.yaml` na raiz do repositório). Os serviços são iniciados com:
+
+```bash
+cp .env.example .env          # preencher CBS_GITHUB_WEBHOOK_SECRET e CBS_GITHUB_APP_ID
+# copiar chave privada do GitHub App para local/github-private-key.pem
+docker compose up --build
+```
+
+### Serviços do Compose
+
+| Serviço | Imagem | Porta | Descrição |
+|---|---|---|---|
+| `nats` | `nats:2-alpine` | 4222, 8222 | JetStream broker |
+| `tidb` | `pingcap/tidb:latest` | 4000, 10080 | Banco de dados |
+| `tidb-init` | `mysql:8` | — | Inicialização do schema (one-shot) |
+| `registry` | `registry:2` | 5000 | Registry local sem autenticação |
+| `webhook-server` | build local | 8080 | Receptor de webhooks |
+| `worker` | build local | — | Consumer NATS + builds |
+
+### Arquivos de suporte (diretório `local/`)
+
+| Arquivo | Descrição |
+|---|---|
+| `tidb-init.sql` | DDL do schema (`CREATE DATABASE IF NOT EXISTS buildservice` + 3 tabelas) |
+| `registries.conf` | Buildah: marca `registry:5000` como insecure (HTTP, sem TLS) |
+| `registry-auth.json` | Auth vazia para o registry local (sem credenciais) |
+| `github-private-key.pem` | **Não versionado** — chave privada do GitHub App (copiar manualmente) |
+
+### Variáveis de ambiente (`.env`)
+
+| Variável | Descrição |
+|---|---|
+| `CBS_GITHUB_WEBHOOK_SECRET` | Segredo para validação de assinatura HMAC-SHA256 |
+| `CBS_GITHUB_APP_ID` | App ID do GitHub App |
+
+Demais variáveis (`CBS_NATS_URL`, `CBS_TIDB_DSN`, `CBS_REGISTRY_URL`, etc.) são definidas diretamente no `docker-compose.yaml` para apontar para os serviços locais.
+
+### Notas de execução
+
+- O `tidb-init` aguarda TiDB aceitar conexões antes de executar o SQL, usando retry loop com `mysql --connect-timeout 2`.
+- O worker monta volumes nomeados para `buildah-storage` (`/var/lib/buildah`) e `nx-cache` (`/nx-cache`), preservando cache entre reinicializações.
+- `CAP_SETUID` e `CAP_SETFCAP` são adicionados ao worker para suporte ao overlay driver do buildah. Em hosts onde overlay não está disponível (macOS/Windows com Docker Desktop), o buildah detecta automaticamente e usa VFS como fallback.
+- Para testar webhooks do GitHub localmente, expor o serviço via ngrok ou similar: `ngrok http 8080`.

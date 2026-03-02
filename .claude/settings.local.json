@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /c/sources/build-system && openspec status --change \"container-build-service\" --json 2>&1)",
+      "Bash(cd /c/sources/build-system && openspec instructions apply --change \"container-build-service\" --json 2>&1)",
+      "Bash(cd /c/sources/build-system && go mod init github.com/jorgerua/build-system/container-build-service 2>&1)",
+      "Bash(cd /c/sources/build-system && go get go.uber.org/fx go.uber.org/zap github.com/spf13/viper github.com/nats-io/nats.go go-sql-driver/mysql github.com/DataDog/datadog-go/v5 2>&1)",
+      "Bash(cd /c/sources/build-system && go get go.uber.org/fx go.uber.org/zap github.com/spf13/viper github.com/nats-io/nats.go github.com/go-sql-driver/mysql github.com/DataDog/datadog-go/v5 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/config/... ./internal/logging/... ./internal/metrics/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go get github.com/DataDog/datadog-go/v5/statsd@v5.8.3 2>&1 && go build ./internal/config/... ./internal/logging/... ./internal/metrics/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/nats/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/tidb/... 2>&1)",
+      "Bash(mkdir -p /c/sources/build-system/internal/github && cd /c/sources/build-system && go get github.com/golang-jwt/jwt/v5 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/github/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/webhook/... ./cmd/webhook-server/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/detection/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/templates/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/semver/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/buildah/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./internal/orchestrator/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./cmd/worker/... 2>&1)",
+      "Bash(cd /c/sources/build-system && go build ./... 2>&1)",
+      "Bash(cd /c/sources/build-system && go test ./internal/semver/... ./internal/detection/... ./internal/templates/... ./internal/github/... -v 2>&1)",
+      "Bash(echo BUILD OK:*)",
+      "Bash(go version && go env GOVERSION 2>&1)",
+      "Bash(cd /c/sources/build-system && go mod tidy 2>&1)"
+    ]
+  }
+}

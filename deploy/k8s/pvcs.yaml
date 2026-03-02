@@ -1,0 +1,24 @@
+# nx-cache PVC — shared across all worker pods (ReadWriteMany).
+# Requires a StorageClass with RWX support (e.g., NFS, CephFS, AWS EFS).
+#
+# FALLBACK (no RWX available):
+#   If your cluster only has ReadWriteOnce storage, pin all worker pods to
+#   the same node using nodeAffinity and change accessModes to [ReadWriteOnce].
+#   Example nodeAffinity:
+#     spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#           - key: kubernetes.io/hostname
+#             operator: In
+#             values: ["<target-node>"]
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nx-cache
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  # storageClassName: <your-rwx-storage-class>

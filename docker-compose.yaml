@@ -1,0 +1,127 @@
+# Local development environment for container-build-service.
+# Builds webhook-server and worker images from source.
+#
+# Prerequisites:
+#   1. Copy .env.example to .env and fill in the values.
+#   2. Place GitHub App private key PEM at local/github-private-key.pem.
+#
+# Usage:
+#   docker compose up --build
+#
+# On Linux hosts, the worker requires overlay filesystem support.
+# On macOS/Windows (Docker Desktop), buildah falls back to VFS automatically.
+
+services:
+
+  # --------------------------------------------------------------------------
+  # NATS JetStream — message broker
+  # --------------------------------------------------------------------------
+  nats:
+    image: nats:2-alpine
+    command: ["--jetstream", "--http_port", "8222"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8222/healthz >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+  # --------------------------------------------------------------------------
+  # TiDB — MySQL-compatible distributed SQL
+  # --------------------------------------------------------------------------
+  tidb:
+    image: pingcap/tidb:latest
+    ports:
+      - "4000:4000"
+      - "10080:10080"
+
+  # --------------------------------------------------------------------------
+  # tidb-init — one-shot schema initialiser (runs once; exits 0 on success)
+  # --------------------------------------------------------------------------
+  tidb-init:
+    image: mysql:8
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - >
+        until mysql -h tidb -P 4000 -u root --connect-timeout 2
+          -e 'SELECT 1' >/dev/null 2>&1;
+        do echo 'Waiting for TiDB...'; sleep 3; done &&
+        mysql -h tidb -P 4000 -u root < /init/tidb-init.sql &&
+        echo 'Schema initialised.'
+    volumes:
+      - ./local:/init:ro
+    depends_on:
+      - tidb
+    restart: "no"
+
+  # --------------------------------------------------------------------------
+  # registry — local OCI image registry (no auth)
+  # --------------------------------------------------------------------------
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+
+  # --------------------------------------------------------------------------
+  # webhook-server — receives GitHub push webhooks, publishes to NATS
+  # --------------------------------------------------------------------------
+  webhook-server:
+    build:
+      context: .
+      dockerfile: deploy/webhook-server.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      CBS_NATS_URL: "nats://nats:4222"
+      CBS_TIDB_DSN: "root:@tcp(tidb:4000)/buildservice?parseTime=true"
+      CBS_GITHUB_WEBHOOK_SECRET: "${CBS_GITHUB_WEBHOOK_SECRET}"
+      CBS_METRICS_DOGSTATSD_ADDR: "localhost:8125"
+    depends_on:
+      nats:
+        condition: service_healthy
+      tidb-init:
+        condition: service_completed_successfully
+
+  # --------------------------------------------------------------------------
+  # worker — NATS consumer; runs nx affected + buildah builds
+  # --------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: deploy/worker.Dockerfile
+    # CAP_SETUID / CAP_SETFCAP required for buildah with overlay driver.
+    # On hosts where overlay is unavailable, buildah auto-falls back to VFS.
+    cap_add:
+      - SETUID
+      - SETFCAP
+    environment:
+      CBS_NATS_URL: "nats://nats:4222"
+      CBS_TIDB_DSN: "root:@tcp(tidb:4000)/buildservice?parseTime=true"
+      CBS_GITHUB_APP_ID: "${CBS_GITHUB_APP_ID}"
+      CBS_GITHUB_PRIVATE_KEY_PATH: "/secrets/github.pem"
+      CBS_REGISTRY_URL: "registry:5000"
+      CBS_REGISTRY_AUTH_FILE: "/secrets/registry-auth.json"
+      CBS_BUILDAH_STORAGE_ROOT: "/var/lib/buildah"
+      CBS_METRICS_DOGSTATSD_ADDR: "localhost:8125"
+      NX_CACHE_DIRECTORY: "/nx-cache"
+    volumes:
+      - buildah-storage:/var/lib/buildah
+      - nx-cache:/nx-cache
+      - ./local/github-private-key.pem:/secrets/github.pem:ro
+      - ./local/registries.conf:/etc/containers/registries.conf:ro
+      - ./local/registry-auth.json:/secrets/registry-auth.json:ro
+    depends_on:
+      nats:
+        condition: service_healthy
+      tidb-init:
+        condition: service_completed_successfully
+      registry:
+        condition: service_started
+
+volumes:
+  buildah-storage:
+  nx-cache:

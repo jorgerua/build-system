@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: worker
+  labels:
+    app: worker
+spec:
+  serviceName: worker
+  replicas: 3
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      serviceAccountName: container-build-service
+      containers:
+        - name: worker
+          image: <your-registry>/worker:latest
+          envFrom:
+            - configMapRef:
+                name: container-build-service-config
+          env:
+            - name: CBS_GITHUB_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-app-credentials
+                  key: app-id
+            - name: CBS_GITHUB_PRIVATE_KEY_PATH
+              value: /etc/github/private-key.pem
+          securityContext:
+            capabilities:
+              add:
+                - SETUID    # required for buildah overlay filesystem
+                - SETFCAP   # required for buildah overlay filesystem
+          volumeMounts:
+            - name: nx-cache
+              mountPath: /var/cache/nx
+            - name: buildah-storage
+              mountPath: /var/lib/buildah
+            - name: github-credentials
+              mountPath: /etc/github
+              readOnly: true
+            - name: registry-credentials
+              mountPath: /etc/registry
+              readOnly: true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 4
+              memory: 8Gi
+      volumes:
+        - name: nx-cache
+          persistentVolumeClaim:
+            claimName: nx-cache
+        - name: github-credentials
+          secret:
+            secretName: github-app-credentials
+        - name: registry-credentials
+          secret:
+            secretName: registry-credentials
+  # buildah-storage: one RWO PVC per worker pod, automatically provisioned.
+  volumeClaimTemplates:
+    - metadata:
+        name: buildah-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 50Gi
+        # storageClassName: <your-rwo-storage-class>

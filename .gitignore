@@ -1,0 +1,11 @@
+# Environment
+.env
+
+# GitHub App private key — never commit credentials
+local/github-private-key.pem
+
+# Go build artifacts
+*.exe
+*.test
+/bin/
+/out/

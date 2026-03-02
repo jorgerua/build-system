@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-server
+  labels:
+    app: webhook-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webhook-server
+  template:
+    metadata:
+      labels:
+        app: webhook-server
+    spec:
+      serviceAccountName: container-build-service
+      containers:
+        - name: webhook-server
+          image: <your-registry>/webhook-server:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: container-build-service-config
+          env:
+            - name: CBS_GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-app-credentials
+                  key: webhook-secret
+            - name: CBS_NATS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: container-build-service-config
+                  key: nats.url
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-server
+spec:
+  selector:
+    app: webhook-server
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP
